@@ -20,6 +20,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(SRC)
 		@$(CC) $(OBJ) -o $(NAME)
+#		@bash art.sh
 
 clean:
 	@$(RM) $(OBJ)
@@ -27,3 +28,5 @@ clean:
 
 fclean: clean
 	@$(RM) $(NAME)
+
+re : fclean all
