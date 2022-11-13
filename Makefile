@@ -1,6 +1,6 @@
 NAME = minishell
 
-SRC =	minishell.c halp.c
+SRC =	minishell.c
 OBJ =	$(SRC:.c=.o)
 
 CC = gcc
