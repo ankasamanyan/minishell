@@ -1,11 +1,14 @@
 NAME = minishell
 
-SRC = minishell.c
-OBJ = $(SRC:.c=.o)
+SRC =	minishell.c halp.c
+OBJ =	$(SRC:.c=.o)
 
 CC = gcc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -rf
+
+OBJ_F = Objects
+LIBFT =	./Libft/libft.a
 
 PINK	:= \033[0;35m
 PURPLE	:= \033[0;34m
@@ -16,17 +19,23 @@ all: $(NAME)
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 	@echo "$(PINK)•$(RESET)\c"
-	@echo "\n$(PINK)✨Minishell successfully compiled!✨$(RESET)"
+# @MV $(OBJ) $(OBJ_F)/
 
 $(NAME): $(OBJ) $(SRC)
-		@$(CC) $(OBJ) -o $(NAME)
-#		@bash art.sh
+	@mkdir $(OBJ_F)
+	@$(MAKE) -C Libft
+	@$(CC) $(LIBFT) $(OBJ) -o $(NAME) 
+	@mv $(OBJ) $(OBJ_F)
+	@echo "\n$(PINK)✨Minishell successfully compiled!✨$(RESET)"
+#	@bash art.sh
 
 clean:
-	@$(RM) $(OBJ)
-	@echo "$(PINK)✨Minishell successfully cleaned!✨$(RESET)"
+	@$(MAKE) fclean -C Libft
+	@$(RM) $(OBJ) $(OBJ_F)
+	@echo "$(PURPLE)✨Minishell successfully cleaned!✨$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME)
 
 re : fclean all
+ 

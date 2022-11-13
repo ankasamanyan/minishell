@@ -38,15 +38,32 @@ typedef struct s_cmd
 	t_list				*output;
 }	t_cmd;
 
-typedef struct s_redir_pair
+typedef struct s_twople
 {
-	bool		key;		// (< || <<) && (>> || >)
-	char		*value;		// file || here_doc
-}	t_redir_pair;
+	bool		second_sign;		// (< || <<) && (>> || >)
+	char		*filename;			// file || here_doc
+}	t_twople;
 
 typedef struct s_data
 {
 	t_list		cmd_list;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }		t_data;
 
 

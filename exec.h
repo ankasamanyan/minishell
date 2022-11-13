@@ -3,4 +3,6 @@
 
 # include "minishell.h"
 
+int	ft_atoi(char *stringy);
+
 #endif
