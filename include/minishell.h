@@ -24,14 +24,6 @@
 # define READ_PIPE	0
 # define WRITE_PIPE	1
 
-typedef struct s_cmd	t_cmd;
-
-// typedef struct s_list
-// {
-// 	void				*content;
-// 	struct s_list		*next;
-// }	t_list;
-
 typedef struct s_cmd
 {
 	char				**cmd_arr;

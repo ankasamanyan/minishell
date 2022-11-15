@@ -40,12 +40,6 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 
-# FILE = test.txt
-
-
-# HALP = @read
-# 	stdin=$(cat)
-
 git:
 	git add *
 	@read -p "Enter the commit message: " halp; \

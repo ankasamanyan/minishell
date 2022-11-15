@@ -17,5 +17,4 @@ typedef struct s_exec
 
 }	t_exec;
 
-
 #endif
