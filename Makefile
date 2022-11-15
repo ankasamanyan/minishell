@@ -5,7 +5,9 @@ SRC =	src/minishell.c src/ft_free_array.c src/ft_triple_strjoin.c
 OBJ =	$(SRC:.c=.o)
 
 CC =	gcc
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror 
+OTHER_FLAGS = -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+
 RM =	rm -rf
 
 OBJ_F = obj
@@ -22,15 +24,12 @@ all: $(NAME)
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 	@echo "$(PINK)•$(RESET)\c"
-#	@mv $(OBJ) $(OBJ_F)/
 
 $(NAME): $(OBJ) $(SRC)
 	@$(MAKE) -C Libft
-	@$(CC) $(LIBFT) $(OBJ) -o $(NAME) 
+	@$(CC) $(LIBFT) $(OBJ) $(OTHER_FLAGS) -o $(NAME) 
 	@mv $(OBJ) $(OBJ_F)/
 	@echo "\n$(PINK)✨Minishell successfully compiled!✨$(RESET)"
-#	@mkdir $(OBJ_F)
-#	@bash art.sh
 
 clean:
 	@$(MAKE) fclean -C Libft

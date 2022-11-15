@@ -6,7 +6,7 @@
 #    By: ankasamanyan <ankasamanyan@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 01:24:17 by ankasamanya       #+#    #+#              #
-#    Updated: 2022/11/15 00:54:05 by ankasamanya      ###   ########.fr        #
+#    Updated: 2022/11/15 19:52:08 by ankasamanya      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,6 @@ SRC =	ft_strnstr.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		ft_free_array.c \
-		ft_triple_strjoin.c \
 		ft_printf/ft_counthex.c \
 		ft_printf/ft_intlen.c \
 		ft_printf/ft_printu.c \
@@ -70,7 +68,6 @@ SRC =	ft_strnstr.c \
 		ft_printf/ft_putnbr.c \
 		get_next_line/get_next_line.c \
 		get_next_line/get_next_line_utils.c \
-
 
 OBJ = $(SRC:.c=.o)
 
