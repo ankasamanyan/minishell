@@ -41,7 +41,8 @@ fclean: clean
 
 git:
 	git add .
-	git commit -m read -p "Enter integer: " integer;
+	read $(halp);
+	git commit -m echo $(halp)
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
