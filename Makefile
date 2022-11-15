@@ -47,7 +47,6 @@ VAR= `< $(FILE) cat`
 
 git:
 	git add .
-	stdin=$(cat)
 	git commit -m $(VAR)
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
