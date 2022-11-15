@@ -46,10 +46,10 @@ fclean: clean
 # 	stdin=$(cat)
 
 git:
-	git add .
-	@read -p "enter the comit message: " halp; \
-	git commit -m $$halp
-#	git push
-	@echo "$(BLUE)git auto add & push performed.$(RESET)"
+	git add *
+	@read -p "Enter the commit message: " halp; \
+	git commit -m "$$halp"
+	git push
+	@echo "$(PURPLE)✨All added and commited and pushed!✨$(RESET)"
 
 re : fclean all
