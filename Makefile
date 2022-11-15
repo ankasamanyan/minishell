@@ -1,6 +1,7 @@
 NAME =	minishell
 
 SRC =	src/minishell.c 
+
 OBJ =	$(SRC:.c=.o)
 
 CC =	gcc
