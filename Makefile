@@ -45,7 +45,7 @@ $(READ):
 
 git:
 	git add .
-	git commit -m "echo$(READ)"
+	git commit -m "echo $(READ)"
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
