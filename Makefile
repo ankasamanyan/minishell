@@ -51,7 +51,6 @@ git:
 	@read -p "Enter the commit message: " halp; \
 	git commit -m "$$halp"
 	git push
-	@echo "$(PURPLE)✨All added and commited and pushed!✨$(RESET)"
-	
+	@echo "$(PURPLE)✨All added, commited and pushed!✨$(RESET)"
 
 re : fclean all
