@@ -5,7 +5,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include "exec.h"
+# include "../include/exec.h"
+# include "../Libft/libft.h"
 
 # define RESET		"\033[0m"
 # define BLACK		"\033[0;30m"
@@ -25,11 +26,11 @@
 
 typedef struct s_cmd	t_cmd;
 
-typedef struct s_list
-{
-	void				*content;
-	struct s_list		*next;
-}	t_list;
+// typedef struct s_list
+// {
+// 	void				*content;
+// 	struct s_list		*next;
+// }	t_list;
 
 typedef struct s_cmd
 {
@@ -46,24 +47,10 @@ typedef struct s_twople
 
 typedef struct s_data
 {
-	t_list		cmd_list;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	t_list		*cmd_list;
+	t_exec		*exec;
+	
+	// char		*big_path;
 }		t_data;
 
 

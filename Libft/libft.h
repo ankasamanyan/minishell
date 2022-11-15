@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akasaman <akasaman@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ankasamanyan <ankasamanyan@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 01:23:23 by ankasamanya       #+#    #+#             */
-/*   Updated: 2022/07/20 19:42:43 by akasaman         ###   ########.fr       */
+/*   Updated: 2022/11/15 00:52:28 by ankasamanya      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strtrim(const char *str, const char *set);
 char	**ft_split(char const *s, char c);
+void	ft_free_array(char **array);
+char	*ft_triple_strjoin(char *first, char *second, char *third);
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);

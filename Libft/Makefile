@@ -6,7 +6,7 @@
 #    By: ankasamanyan <ankasamanyan@student.42.f    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/05 01:24:17 by ankasamanya       #+#    #+#              #
-#    Updated: 2022/11/12 23:53:21 by ankasamanya      ###   ########.fr        #
+#    Updated: 2022/11/15 00:54:05 by ankasamanya      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,8 @@ SRC =	ft_strnstr.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
+		ft_free_array.c \
+		ft_triple_strjoin.c \
 		ft_printf/ft_counthex.c \
 		ft_printf/ft_intlen.c \
 		ft_printf/ft_printu.c \
@@ -88,12 +90,12 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rsc $(NAME) $(OBJ)
-	@mv $(OBJ) ../Objects/
-#	@echo "\n$(PURPLE)Libft successfully compiled!\033[0m"
+	@mv $(OBJ) ../obj/
+	@echo "\n✨$(PURPLE)Libft successfully compiled!\033[0m✨"
 
 clean:
 	@$(RM) $(OBJ)
-#	@echo "$(PURPLE)Libft successfully cleaned!\033[0m"
+	@echo "✨$(PURPLE)Libft successfully cleaned!\033[0m✨"
 
 fclean: clean
 	@$(RM) $(NAME)

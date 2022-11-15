@@ -1,13 +1,14 @@
-NAME = minishell
+NAME =	minishell
 
-SRC =	minishell.c halp.c
+SRC =	src/minishell.c 
 OBJ =	$(SRC:.c=.o)
 
-CC = gcc
+CC =	gcc
 FLAGS = -Wall -Wextra -Werror
-RM = rm -rf
+RM =	rm -rf
 
-OBJ_F = Objects
+OBJ_F = obj
+READ =	read -r
 LIBFT =	./Libft/libft.a
 
 PINK	:= \033[0;35m
@@ -19,23 +20,28 @@ all: $(NAME)
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 	@echo "$(PINK)•$(RESET)\c"
-# @MV $(OBJ) $(OBJ_F)/
+#	@mv $(OBJ) $(OBJ_F)/
 
 $(NAME): $(OBJ) $(SRC)
-	@mkdir $(OBJ_F)
 	@$(MAKE) -C Libft
 	@$(CC) $(LIBFT) $(OBJ) -o $(NAME) 
-	@mv $(OBJ) $(OBJ_F)
+	@mv $(OBJ) $(OBJ_F)/
 	@echo "\n$(PINK)✨Minishell successfully compiled!✨$(RESET)"
+#	@mkdir $(OBJ_F)
 #	@bash art.sh
 
 clean:
 	@$(MAKE) fclean -C Libft
-	@$(RM) $(OBJ) $(OBJ_F)
+	@$(RM) $(OBJ_F)/*
 	@echo "$(PURPLE)✨Minishell successfully cleaned!✨$(RESET)"
 
 fclean: clean
 	@$(RM) $(NAME)
 
+git:
+	git add .
+	git commit -m "$(READ)"
+#	git push
+	@echo "$(BLUE)git auto add & push performed.$(RESET)"
+
 re : fclean all
- 
