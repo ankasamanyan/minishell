@@ -1,6 +1,6 @@
 NAME =	minishell
 
-SRC =	src/minishell.c 
+SRC =	src/minishell.c src/ft_free_array.c src/ft_triple_strjoin.c
 
 OBJ =	$(SRC:.c=.o)
 
@@ -46,5 +46,4 @@ git:
 	git commit -m "$$halp"
 	git push
 	@echo "$(PURPLE)✨All added, commited and pushed!✨$(RESET)"
-
 re : fclean all

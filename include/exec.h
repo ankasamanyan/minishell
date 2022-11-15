@@ -17,4 +17,8 @@ typedef struct s_exec
 
 }	t_exec;
 
+/* my additional Libft functions, because Wolf decided to use his Libft as submodule */
+void	ft_free_array(char **array);
+char	*ft_triple_strjoin(char *first, char *second, char *third);
+
 #endif
