@@ -8,7 +8,7 @@ FLAGS = -Wall -Wextra -Werror
 RM =	rm -rf
 
 OBJ_F = obj
-READ =	read -r
+READ =	read -r 
 
 LIBFT =	./Libft/libft.a
 
@@ -39,13 +39,9 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 
-$(READ):
-	$(LINE) = (READ)
-	
-
 git:
 	git add .
-	git commit -m "echo $(READ)"
+	git commit -m read -p "Enter integer: " integer;
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
