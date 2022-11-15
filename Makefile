@@ -42,7 +42,7 @@ fclean: clean
 # FILE = test.txt
 
 
-HALP = echo $$REPLY
+HALP = @echo $(REPLY)
 # 	stdin=$(cat)
 
 git:
