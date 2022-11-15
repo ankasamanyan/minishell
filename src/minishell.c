@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **env)
 	int		pid;
 	t_data	data;
 	t_exec	*exec;
-// alloc for env && put in struct??
+
 	exec = data.exec; //?
 	while (*env)
 		if (ft_strncmp(*env++, "PATH=", 5) == 0)
