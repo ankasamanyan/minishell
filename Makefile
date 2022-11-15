@@ -42,13 +42,13 @@ fclean: clean
 # FILE = test.txt
 
 
-HALP = @echo $(REPLY)
+# HALP = @read
 # 	stdin=$(cat)
 
 git:
 	git add .
-	@read -r 
-	git commit -m $(HALP)
+	@read -p "enter the comit message: " halp; \
+	git commit -m $$halp
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
