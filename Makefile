@@ -40,7 +40,7 @@ fclean: clean
 	@$(RM) $(NAME)
 
 # FILE = test.txt
-# VAR= `echo $$REPLY`
+VAR= echo $$REPLY
 
 # target:
 #     echo $(VARIABLE)
@@ -49,7 +49,7 @@ fclean: clean
 git:
 	git add .
 	read
-	git commit -m   $REPLY
+	git commit -m $(VAR)
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
