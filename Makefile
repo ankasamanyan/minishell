@@ -9,6 +9,7 @@ RM =	rm -rf
 
 OBJ_F = obj
 READ =	read -r
+
 LIBFT =	./Libft/libft.a
 
 PINK	:= \033[0;35m
@@ -38,9 +39,13 @@ clean:
 fclean: clean
 	@$(RM) $(NAME)
 
+$(READ):
+	$(LINE) = (READ)
+	
+
 git:
 	git add .
-	git commit -m "$(READ)"
+	git commit -m "echo$(READ)"
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
