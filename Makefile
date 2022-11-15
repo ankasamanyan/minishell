@@ -40,15 +40,16 @@ fclean: clean
 	@$(RM) $(NAME)
 
 # FILE = test.txt
-# VAR= `< $(FILE) cat`
+# VAR= `echo $$REPLY`
 
-target:
-	stdin=$(cat)
-    # echo $(VARIABLE)
+# target:
+#     echo $(VARIABLE)
+# 	stdin=$(cat)
 
 git:
 	git add .
-	git commit -m target
+	read
+	git commit -m   $REPLY
 #	git push
 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
