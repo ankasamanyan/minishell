@@ -52,5 +52,6 @@ git:
 	git commit -m "$$halp"
 	git push
 	@echo "$(PURPLE)✨All added and commited and pushed!✨$(RESET)"
+	
 
 re : fclean all
