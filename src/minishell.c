@@ -30,6 +30,11 @@ void	find_lil_path(char *big_path, t_data *data)
 	ft_free_array(smoll_pathsies);
 }
 
+void	kiddi_process(t_data *data)
+{
+	(void)data;
+}
+
 int main(int argc, char **argv, char **env)
 {
 	(void)argc;
@@ -42,7 +47,7 @@ int main(int argc, char **argv, char **env)
 	while (*env)
 		if (ft_strncmp(*env++, "PATH=", 5) == 0)
 			exec->big_path = (*(env - 1) + 5);
-	while (ft_lstsize(data.cmd_list)) //?
+	while (ft_lstsize(data.cmd_list)) //put this function in ft_listiter
 	{
 		pipe(exec->pipe);
 		find_lil_path(exec->big_path, &data);
@@ -56,7 +61,14 @@ int main(int argc, char **argv, char **env)
 		pid = fork();
 		if (pid == 0)
 		{
-			//kiddi_process();
+			kiddi_process(&data);
+		}
+		else
+		{
+			waitpid(-1, NULL, WNOHANG);
+
+			//free 
+			free(exec->full_path);
 		}
 	}
 	//fork

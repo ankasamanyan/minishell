@@ -26,10 +26,10 @@
 
 typedef struct s_cmd
 {
+	int					temp_pipe; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 	char				**cmd_arr;
 	t_list				*input;
 	t_list				*output;
-	int					pipe_in; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 }	t_cmd;
 
 typedef struct s_twople

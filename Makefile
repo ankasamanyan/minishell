@@ -1,7 +1,6 @@
 NAME =	minishell
 
-SRC =	src/minishell.c src/ft_free_array.c src/ft_triple_strjoin.c
-
+SRC =	src/minishell.c src/better_libft.c
 OBJ =	$(SRC:.c=.o)
 
 CC =	gcc
@@ -22,7 +21,7 @@ RESET	:= \033[0m
 all: $(NAME)
 
 %.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS)-c $< -o $@
 	@echo "$(PINK)•$(RESET)\c"
 
 $(NAME): $(OBJ) $(SRC)
@@ -40,7 +39,7 @@ fclean: clean
 	@$(RM) $(NAME)
 
 git:
-	git add *
+	git add .
 	@read -p "Enter the commit message: " halp; \
 	git commit -m "$$halp"
 	git push
