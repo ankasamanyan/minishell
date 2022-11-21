@@ -4,6 +4,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include <stdbool.h>
 # include "../include/exec.h"
 # include "../Libft/libft.h"
@@ -24,25 +25,29 @@
 # define READ_PIPE	0
 # define WRITE_PIPE	1
 
+typedef struct s_data	t_data;
+
 typedef struct s_cmd
 {
-	int					temp_pipe; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 	char				**cmd_arr;
 	t_list				*input;
 	t_list				*output;
+	// int					pipe_in; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 }	t_cmd;
 
 typedef struct s_twople
 {
-	bool		second_sign;		// (< || <<) && (>> || >)
-	char		*filename;			// file || here_doc
+	bool				second_sign;		// (< || <<) && (>> || >)
+	char				*filename;			// file || here_doc
+	t_data				*data;
 }	t_twople;
 
 typedef struct s_data
 {
-	t_list		*cmd_list;
-	t_exec		*exec;
-	
+	t_exec				*exec;
+	t_list				*cmd_list; //t_cmd as content
+	char				**env;
+	int					temp_pipe
 	// char		*big_path;
 }		t_data;
 

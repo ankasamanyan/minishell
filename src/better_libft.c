@@ -23,14 +23,3 @@ void	ft_free_array(char **array)
 		free(array);
 	}
 }
-
-// void	ft_better_lstiter(t_list *lst, void (*f)(void *))
-// {
-// 	if (!lst || !f)
-// 		return ;
-// 	while (lst != NULL)
-// 	{
-// 		f(lst->content);
-// 		lst = lst->next;
-// 	}
-// }

@@ -9,11 +9,10 @@
 typedef struct s_exec
 {
 	struct t_data		*data;
-	char				**env;
 	char				*big_path;
 	char				*full_path;
 	int					pipe[2];
-	int					temp_pipe;
+	// int					temp_pipe;
 
 }	t_exec;
 
