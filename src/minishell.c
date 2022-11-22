@@ -110,33 +110,8 @@ int main(int argc, char **argv, char **env)
 	t_data	data;
 	t_exec	*exec;
 
-	exec = data.exec; //?
-	while (ft_lstsize(data.cmd_list)) //put this function in ft_listiter
-	{
-		while (*env)
-			if (ft_strncmp(*env++, "PATH=", 5) == 0)
-				exec->big_path = (*(env - 1) + 5);
-		pipe(exec->pipe);
-		find_lil_path(exec->big_path, &data);
-		if (exec->full_path == NULL)
-		{
-			perror(((t_cmd *)data.cmd_list->content)->cmd_arr[0]);
-			// close(exec->pipe[WRITE_PIPE]);
-			continue ;
-		}
-		pid = fork();
-		if (pid == 0)
-		{
-			kiddi_process(&data);
-		}
-		else
-		{
-			waitpid(-1, NULL, WNOHANG);
-
-			//free 
-			free(exec->full_path);
-		}
-	}
+	
+	
 	//fork
 	// find the path to the conmmand 
 	// execute the command 
