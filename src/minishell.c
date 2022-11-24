@@ -127,7 +127,7 @@ int main(int argc, char **argv, char **env)
 	t_exec	*exec;
 
 	
-	ft_lstiter(t_list *cmd, &exec);
+	ft_lstiter(data.cmd_list, &exec);
 
 
 	//fork
