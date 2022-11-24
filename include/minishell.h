@@ -29,11 +29,11 @@ typedef struct s_data	t_data;
 
 typedef struct s_cmd
 {
+	int					in_fd; //innit to 0
+	int					out_fd; //innit to 1 plz
 	char				**cmd_arr;
 	t_list				*input;
 	t_list				*output;
-	int					in_fd; //innit to 0
-	int					out_fd; //innit to 1 plz
 	t_data				*data
 	// int					pipe_in; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 }	t_cmd;
@@ -47,11 +47,14 @@ typedef struct s_pair
 
 typedef struct s_data
 {
-	t_exec				*exec;
 	t_list				*cmd_list; //t_cmd as content
 	char				**env;
 	int					pipe[2];
 	int					first_cmd; // init it to 0
+	char				*big_path;
+	char				*full_path;
+	int					pid;
+	// t_exec				*exec;
 	// int					temp_pipe
 	// char		*big_path;
 }		t_data;

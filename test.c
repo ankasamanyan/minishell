@@ -21,13 +21,13 @@
 // 	// close pipe[write]												execve
 // }
 
-#include "includes/libft.h"
+// #include "includes/libft.h"
 
-int main(int argc, char const *argv[])
-{
-	ft_lstnew()
-	return 0;
-}
+// int main(int argc, char const *argv[])
+// {
+// 	ft_lstnew()
+// 	return 0;
+// }
 
 
 

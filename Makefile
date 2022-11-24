@@ -1,6 +1,6 @@
 NAME =	minishell
 
-SRC =	src/minishell.c src/better_libft.c src/checks.c
+SRC =	src/minishell.c src/better_libft.c src/file_config.c
 OBJ =	$(SRC:.c=.o)
 
 CC =	gcc

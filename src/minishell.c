@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	find_lil_path(char *big_path, t_data *data)
+void	find_cmd_path(char *big_path, t_data *data)
 {
 	char	**smoll_pathsies;
 	char	*lil_path;
@@ -10,13 +10,13 @@ void	find_lil_path(char *big_path, t_data *data)
 	i = 0;
 	cmd_w_flags = (t_cmd *)data->cmd_list->content;
 	smoll_pathsies = ft_split(big_path, ':');
-	data->exec->full_path = NULL;
+	data->full_path = NULL;
 	while (smoll_pathsies[i])
 	{
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd_w_flags->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
-			data->exec->full_path = lil_path;
+			data->full_path = lil_path;
 		else
 		{
 			access(lil_path, F_OK);
@@ -24,93 +24,51 @@ void	find_lil_path(char *big_path, t_data *data)
 		}
 	}
 	if (access(cmd_w_flags->cmd_arr[0], X_OK) == 0)
-		data->exec->full_path = ft_strdup(cmd_w_flags->cmd_arr[0]);
+		data->full_path = ft_strdup(cmd_w_flags->cmd_arr[0]);
 	else
 		access(cmd_w_flags->cmd_arr[0], F_OK);
 	ft_free_array(smoll_pathsies);
 }
 
-void	*input_files(void *infile)
+void	kiddi_process(t_cmd *cmd)
 {
-	t_pair		*input;
-	char		*stringy;
-	int			pipy[2];
-
-	input = (t_pair *)infile;
-	if (input->second_sign == false)
-	{
-		if (access(input->filename, F_OK) != 0)
-			perror("Minishell😿:");
-		else if (access(input->filename, R_OK) != 0)
-			perror("Minishell😿:");
-		else
-		{
-			close(input->cmd->in_fd);
-			input->cmd->in_fd = open(input->filename, O_RDONLY);
-		}
-	}
-	if (input->second_sign == true)
-	{
-		while (42)
-		{
-			stringy = readline("> ");
-			if ((ft_strncmp(stringy, input->filename, ft_strlen(input->filename)) == 0))
-				break ;
-			else
-				write(pipy[WRITE_PIPE], stringy, ft_strlen(stringy)); // ???
-			free(stringy);
-		}
-		free(stringy);
-		close(pipy[WRITE_PIPE]);
-		close(input->cmd->in_fd);
-		input->cmd->in_fd = pipy[READ_PIPE];
-	}
-	if (input->cmd->out_fd < 0)
-		perror("Minishell😿: Input file error");
+	dup2(cmd->in_fd, STDIN_FILENO);
+	dup2(cmd->out_fd, STDOUT_FILENO);
+	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
+	perror("Minishell$\nExecve error");
+	exit(-1);
 }
 
-void	*output_files(void *outfile)
+void	search_path_env(t_cmd *cmd)
 {
-	t_pair	*output;
+	int		i;
 
-	output = (t_pair *)outfile;
-	if (access(output->filename, W_OK) != 0)
-		perror("Minishell😿:");
-	else if (output->second_sign == false)
+	i = 0;
+	while (cmd->data->env[i])
 	{
-		close(output->cmd->out_fd);
-		output->cmd->out_fd = open(output->filename, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
+			cmd->data->big_path = (cmd->data->env[i] + 5);
+		i++;
 	}
-	else if (output->second_sign == true)
-	{
-		close(output->cmd->out_fd);
-		output->cmd->out_fd = open(output->filename, O_WRONLY | O_APPEND | O_CREAT, 0777);
-	}
-	if (output->cmd->output->next == NULL)
-		output->cmd->out_fd = output->cmd->data->pipe[WRITE_PIPE];
-	if (output->cmd->out_fd < 0)
-		perror("Minishell😿: Output file error");
 }
 
 void	*exec(void *cmd_list)
 {
-	int		pid;
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)cmd_list;
 	pipe(cmd->data->pipe);
 	ft_lstiter(cmd->input, &input_files); //input checks
 	ft_lstiter(cmd->output, &output_files); //output checks
-
-
-	pid = fork();
-	if (pid == 0)
-		//kiddi_process();
+	search_path_in_env(cmd); //find PATH in env
+	find_cmd_path(cmd->data->big_path, cmd->data); //find executable of cmd
+	cmd->data->pid = fork();
+	if (cmd->data->pid == 0)
+		kiddi_process(cmd);
 	else
 	{
-		// wait for kiddi
-		// set temp_pipe													close pipe[read]
-		// close pipe[write]	
+		waitpid(-1, NULL, WNOHANG); // wait for kiddi
+		close(cmd->data->pipe[WRITE_PIPE]); // close pipe[write]	
 	}
 
 
@@ -121,14 +79,11 @@ int main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	(void)env;
-
-	int		pid;
 	t_data	data;
-	t_exec	*exec;
 
-	
 	ft_lstiter(data.cmd_list, &exec);
-
+	return 0;
+}
 
 	//fork
 	// find the path to the conmmand 
@@ -136,8 +91,6 @@ int main(int argc, char **argv, char **env)
 	// dup to pipe 
 	// find next command 
 	// execute the next command 
-	return 0;
-}
 
 // void	execute_comand_for_real()
 // {
