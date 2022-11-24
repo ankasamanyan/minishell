@@ -10,14 +10,14 @@
 
 // exec_cmd(t_cmd *curr_cmd)
 // {
-// 	ft_lstiter(cmd->input, &input_files); //input checks
-// 	ft_lstiter(cmd->output, &output_files); //output checks
+// 	// pipe (read end into curr_cmd->next->input_fd // write end into curr->cmd->output_fd) //if there is a next (you'll figure that out later)
 
-// 	// pipe
+// 	ft_lstiter(cmd->input, &input_files); //input checks (override curr_cmd->input_fd)
+// 	ft_lstiter(cmd->output, &output_files); //output checks (override curr_cmd->output_fd)
+
 // 	// fork
 
-// 	// wait for child													dup(input and output fds)
-// 	// set temp_pipe													close pipe[read]
+// 	// wait for child													dup(input and output fds)												close pipe[read]
 // 	// close pipe[write]												execve
 // }
 

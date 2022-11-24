@@ -30,74 +30,90 @@ void	find_lil_path(char *big_path, t_data *data)
 	ft_free_array(smoll_pathsies);
 }
 
-void	input_files(void *input)
+void	*input_files(void *infile)
 {
-	t_twople	*twople;
-	char		**stringy;
+	t_pair		*input;
+	char		*stringy;
+	int			pipy[2];
 
-	twople = (t_twople *)input;
-	if (twople->second_sign == false)
+	input = (t_pair *)infile;
+	if (input->second_sign == false)
 	{
-		if (access(twople->filename, F_OK) != 0)
+		if (access(input->filename, F_OK) != 0)
 			perror("Minishell😿:");
-		else if (access(twople->filename, R_OK) != 0)
+		else if (access(input->filename, R_OK) != 0)
 			perror("Minishell😿:");
-		if (twople == NULL)
-			twople->data->temp_pipe = open(twople->filename, O_RDONLY);
+		else
+		{
+			close(input->cmd->in_fd);
+			input->cmd->in_fd = open(input->filename, O_RDONLY);
+		}
 	}
-	if (twople->second_sign == true)
+	if (input->second_sign == true)
 	{
 		while (42)
 		{
 			stringy = readline("> ");
-			if ((ft_strncmp(stringy, twople->filename, ft_strlen(twople->filename)) == 0)
-				&& (stringy[ft_strlen(twople->filename)] == '\n'))
+			if ((ft_strncmp(stringy, input->filename, ft_strlen(input->filename)) == 0))
 				break ;
 			else
-				write(twople->data->temp_pipe, stringy, ft_strlen(stringy)); // ???
+				write(pipy[WRITE_PIPE], stringy, ft_strlen(stringy)); // ???
 			free(stringy);
 		}
 		free(stringy);
+		close(pipy[WRITE_PIPE]);
+		close(input->cmd->in_fd);
+		input->cmd->in_fd = pipy[READ_PIPE];
 	}
+	if (input->cmd->out_fd < 0)
+		perror("Minishell😿: Input file error");
 }
 
-// void	execute_comand_for_real()
-// {
-// 	// dup
-// 	// close (temp_pipe[read])
-// 	// execve
-// }
-
-void	exec_cmd(void *cmd_list)
+void	*output_files(void *outfile)
 {
+	t_pair	*output;
+
+	output = (t_pair *)outfile;
+	if (access(output->filename, W_OK) != 0)
+		perror("Minishell😿:");
+	else if (output->second_sign == false)
+	{
+		close(output->cmd->out_fd);
+		output->cmd->out_fd = open(output->filename, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+	}
+	else if (output->second_sign == true)
+	{
+		close(output->cmd->out_fd);
+		output->cmd->out_fd = open(output->filename, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	}
+	if (output->cmd->output->next == NULL)
+		output->cmd->out_fd = output->cmd->data->pipe[WRITE_PIPE];
+	if (output->cmd->out_fd < 0)
+		perror("Minishell😿: Output file error");
+}
+
+void	*exec(void *cmd_list)
+{
+	int		pid;
 	t_cmd	*cmd;
 
-	// cmd = NULL;
 	cmd = (t_cmd *)cmd_list;
-	//this lstiter is going through cmds (t_cmd)
-	//check the inputs
-	ft_lstiter(cmd->input, &input_files);
-	// ft_lstiter(cmd->output, &output_files);
-	// execute_comand_for_real(cmd->cmd_arr, &cmd_and_flags);
-
-}
-
-// void	*exec_pipe_group(void *pipe_group)
-// {
-// 	t_data	*data;
-
-// 	data = (t_data *)pipe_group;
-// 	//this lstiter is going through cmds (t_cmd)
-// 	ft_lstiter((t_cmd *)(data->cmd_list->content), &exec_cmd);
-// }
+	pipe(cmd->data->pipe);
+	ft_lstiter(cmd->input, &input_files); //input checks
+	ft_lstiter(cmd->output, &output_files); //output checks
 
 
-void	kiddi_process(t_data *data)
-{
-	// (void)data;
+	pid = fork();
+	if (pid == 0)
+		//kiddi_process();
+	else
+	{
+		// wait for kiddi
+		// set temp_pipe													close pipe[read]
+		// close pipe[write]	
+	}
 
-	//this lstiter is going through pipe groups 
-	ft_lstiter(data->cmd_list, &exec_cmd);
+
 }
 
 int main(int argc, char **argv, char **env)
@@ -111,7 +127,9 @@ int main(int argc, char **argv, char **env)
 	t_exec	*exec;
 
 	
-	
+	ft_lstiter(t_list *cmd, &exec);
+
+
 	//fork
 	// find the path to the conmmand 
 	// execute the command 
@@ -120,3 +138,42 @@ int main(int argc, char **argv, char **env)
 	// execute the next command 
 	return 0;
 }
+
+// void	execute_comand_for_real()
+// {
+// 	// dup
+// 	// close (temp_pipe[read])
+// 	// execve
+// }
+
+// void	exec_cmd(void *cmd_list)
+// {
+// 	t_cmd	*cmd;
+
+// 	// cmd = NULL;
+// 	cmd = (t_cmd *)cmd_list;
+// 	//this lstiter is going through cmds (t_cmd)
+// 	//check the inputs
+// 	ft_lstiter(cmd->input, &input_files);
+// 	// ft_lstiter(cmd->output, &output_files);
+// 	// execute_comand_for_real(cmd->cmd_arr, &cmd_and_flags);
+
+// }
+
+// void	*exec_pipe_group(void *pipe_group)
+// {
+// 	t_data	*data;
+
+// 	data = (t_data *)pipe_group;
+// 	//this lstiter is going through cmds (t_cmd)
+// 	ft_lstiter((t_cmd *)(data->cmd_list->content), &exec_cmd);
+// }
+
+
+// void	kiddi_process(t_data *data)
+// {
+// 	// (void)data;
+
+// 	//this lstiter is going through pipe groups 
+// 	ft_lstiter(data->cmd_list, &exec_cmd);
+// }
