@@ -1,6 +1,6 @@
 #include "../include/minishell.h"
 
-void	*input_files(void *infile)
+void	input_files(void *infile)
 {
 	t_pair		*input;
 	char		*stringy;
@@ -31,17 +31,17 @@ void	*input_files(void *infile)
 			if ((ft_strncmp(stringy, input->filename, ft_strlen(input->filename)) == 0))
 				break ;
 			else
-				write(pipy[WRITE_PIPE], stringy, ft_strlen(stringy)); // ???
+				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
 			free(stringy);
 		}
 		free(stringy);
-		close(pipy[WRITE_PIPE]);
+		close(pipy[WRITE_END]);
 		close(input->cmd->in_fd);
-		input->cmd->in_fd = pipy[READ_PIPE];
+		input->cmd->in_fd = pipy[READ_END];
 	}
 }
 
-void	*output_files(void *outfile)
+void	output_files(void *outfile)
 {
 	t_pair	*output;
 
@@ -65,7 +65,7 @@ void	*output_files(void *outfile)
 		output->cmd->out_fd = open(output->filename, O_WRONLY | O_APPEND | O_CREAT, 0777);
 	}
 	// if (output->cmd->output->next == NULL)
-	// 	output->cmd->out_fd = output->cmd->data->pipe[WRITE_PIPE];
+	// 	output->cmd->out_fd = output->cmd->data->pipe[WRITE_END];
 	if (output->cmd->out_fd < 0)
 		perror("Minishell: Output file error");
 }

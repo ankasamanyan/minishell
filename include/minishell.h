@@ -7,7 +7,9 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "../include/exec.h"
-# include "../Libft/libft.h"
+# include "../src/Libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
 
 # define RESET		"\033[0m"
 # define BLACK		"\033[0;30m"
@@ -22,8 +24,8 @@
 # define ON_PURPLE	"\033[44m"
 # define ON_PINK	"\033[45m"
 
-# define READ_PIPE	0
-# define WRITE_PIPE	1
+# define READ_END	0
+# define WRITE_END	1
 
 typedef struct s_data	t_data;
 
@@ -34,7 +36,7 @@ typedef struct s_cmd
 	char				**cmd_arr;
 	t_list				*input;
 	t_list				*output;
-	t_data				*data
+	t_data				*data;
 	// int					pipe_in; // in end of while loop you set cmd.next.pipe_in to pipe[read] // in listiter for input you pit address of this and close it then open fd and store it in address
 }	t_cmd;
 

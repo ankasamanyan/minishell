@@ -52,7 +52,7 @@ void	search_path_env(t_cmd *cmd)
 	}
 }
 
-void	*exec(void *cmd_list)
+void	exec(void *cmd_list)
 {
 	t_cmd	*cmd;
 
@@ -60,7 +60,7 @@ void	*exec(void *cmd_list)
 	pipe(cmd->data->pipe);
 	ft_lstiter(cmd->input, &input_files); //input checks
 	ft_lstiter(cmd->output, &output_files); //output checks
-	search_path_in_env(cmd); //find PATH in env
+	search_path_env(cmd); //find PATH in env
 	find_cmd_path(cmd->data->big_path, cmd->data); //find executable of cmd
 	cmd->data->pid = fork();
 	if (cmd->data->pid == 0)
@@ -68,7 +68,7 @@ void	*exec(void *cmd_list)
 	else
 	{
 		waitpid(-1, NULL, WNOHANG); // wait for kiddi
-		close(cmd->data->pipe[WRITE_PIPE]); // close pipe[write]	
+		close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
 	}
 
 
