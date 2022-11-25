@@ -7,7 +7,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include "../include/exec.h"
-# include "../src/Libft/libft.h"
+# include "../src/libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 

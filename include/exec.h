@@ -4,8 +4,8 @@
 # include "../include/minishell.h"
 // # include " src/../include/../include/minishell.h"
 
-// typedef struct s_data	t_data;
-// typedef struct s_cmd	t_cmd;
+typedef struct s_data	t_data;
+typedef struct s_cmd	t_cmd;
 
 // typedef struct s_exec
 // {
