@@ -1,4 +1,12 @@
-
+#!/bin/sh
+ RESET ="\033[0m"
+ PURPLE ="\033[0;34m"
+#  BLACK ="\033[0;30m"
+#  RED ="\033[0;31m"
+#  GREEN ="\033[0;32m"
+#  YELLOW ="\033[0;33m"
+#  PINK ="\033[0;35m"
+#  SKY ="\033[0;36m"
 
 echo "                                                                                                         "
 echo "                                                                                                X        "
@@ -10,7 +18,7 @@ echo "                                                                          
 echo "                                                                                          ()         x   "
 echo "                                                                                          X          X   "
 echo "                                                                                                     X   "
-echo "   X       X    XXX   XXX     XXX   XXX   XXX S X X   XXX     XXX   XXX X X   XXX       XXX          X   "
+echo "${PURPLE}   X       X    XXX   XXX     XXX   XXX   XXX S X X   XXX     XXX   XXX X X   XXX       XXX${RESET}          X   "
 echo "  XXX     XXX   I I   X X X   X X   I I   S S         X X     X X   X E       X L       X L          X   "
 echo "  X X M M X X   I I   X X  X  X X   I I   XXX S XXX   X X H H X X   X E E X   X L       X L          x   "
 echo "  X X     X X   I I   X X   X X X   I I         S S   X X     X X   X E       X L       X L         X    "
