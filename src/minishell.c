@@ -57,9 +57,11 @@ void	exec(void *cmd_list)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)cmd_list;
-	pipe(cmd->data->pipe);
+	cmd->data->cmd_count++;
+	if_no_input(cmd);
 	ft_lstiter(cmd->input, &input_files); //input checks
 	ft_lstiter(cmd->output, &output_files); //output checks
+	if_no_output(cmd);
 	search_path_env(cmd); //find PATH in env
 	find_cmd_path(cmd->data->big_path, cmd->data); //find executable of cmd
 	cmd->data->pid = fork();
@@ -68,9 +70,8 @@ void	exec(void *cmd_list)
 	else
 	{
 		waitpid(-1, NULL, WNOHANG); // wait for kiddi
-		close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
+		// close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
 	}
-
 
 }
 
@@ -80,7 +81,7 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)env;
 	t_data	data;
-
+	pipe(data.pipe);
 	ft_lstiter(data.cmd_list, &exec);
 	return 0;
 }

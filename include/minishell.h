@@ -9,7 +9,7 @@
 # include "../include/exec.h"
 # include "../src/libft/libft.h"
 # include <readline/readline.h>
-# include <readline/history.h>
+// # include <readline/history.h>
 
 # define RESET		"\033[0m"
 # define BLACK		"\033[0;30m"
@@ -56,6 +56,8 @@ typedef struct s_data
 	char				*big_path;
 	char				*full_path;
 	int					pid;
+	bool				first;	//init to true; or 1;
+	int					cmd_count;	//init it to 0 
 	// t_exec				*exec;
 	// int					temp_pipe
 	// char		*big_path;

@@ -1,5 +1,23 @@
 #include "../include/minishell.h"
 
+void	if_no_input(t_cmd *cmd)
+{
+	if (cmd->input->content == NULL)
+	{
+		if (cmd->data->first)
+		{
+			close(cmd->in_fd);
+			cmd->in_fd = STDIN_FILENO;
+			cmd->data->first = false;
+		}
+		else 
+		{
+			close(cmd->in_fd);
+			cmd->in_fd = cmd->data->pipe[READ_END];
+		}
+	}
+}
+
 void	input_files(void *infile)
 {
 	t_pair		*input;
@@ -38,6 +56,23 @@ void	input_files(void *infile)
 		close(pipy[WRITE_END]);
 		close(input->cmd->in_fd);
 		input->cmd->in_fd = pipy[READ_END];
+	}
+}
+
+void	if_no_output(t_cmd *cmd)
+{
+	if (cmd->output->content == NULL)
+	{
+		if (ft_lstsize(cmd->data->cmd_list) == cmd->data->cmd_count)
+		{
+			close(cmd->out_fd);
+			cmd->out_fd = STDOUT_FILENO;
+		}
+		else
+		{
+			close(cmd->out_fd);
+			cmd->out_fd = cmd->data->pipe[WRITE_END];
+		}
 	}
 }
 
