@@ -34,6 +34,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME) $(LIBFT)
+	@bash pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
 #	@bash src/art.sh
 
@@ -54,13 +55,13 @@ fclean: clean
 
 re: fclean all
 
-git:
-	git add .
-	git commit -m "auto add & push"
-	git push
-	@echo "$(BLUE)git auto add & push performed.$(RESET)"
+# git:
+# 	git add .
+# 	git commit -m "auto add & push"
+# 	git push
+# 	@echo "$(BLUE)git auto add & push performed.$(RESET)"
 
-mgit:
+git:
 	git add .
 	@read -p "Enter the commit message: " halp; \
 	git commit -m "$$halp"
