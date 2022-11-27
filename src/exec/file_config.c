@@ -2,7 +2,8 @@
 
 void	if_no_input(t_cmd *cmd)
 {
-	if (cmd->inputlist->content == NULL)
+	// printf(" . = . %p\n", cmd->data);
+	if (cmd->inputlist == NULL)
 	{
 		if (cmd->data->first)
 		{
@@ -61,7 +62,7 @@ void	input_files(void *infile)
 
 void	if_no_output(t_cmd *cmd)
 {
-	if (cmd->outputlist->content == NULL)
+	if (cmd->outputlist == NULL)
 	{
 		if (ft_lstsize(cmd->data->cmd_list) == cmd->data->cmd_count)
 		{

@@ -103,6 +103,7 @@ t_cmd	*add_commandnode(t_par *p)
 	cmdnode->fd_in = 0;
 	cmdnode->fd_out = 1;
 	ft_lstadd_back(&p->cmdlist, ft_lstnew(cmdnode));
+	// cmdnode->data
 	return (cmdnode);
 }
 
