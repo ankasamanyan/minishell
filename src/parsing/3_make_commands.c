@@ -102,8 +102,8 @@ t_cmd	*add_commandnode(t_par *p)
 	cmdnode->outputlist = NULL;
 	cmdnode->fd_in = 0;
 	cmdnode->fd_out = 1;
+	cmdnode->data = p->data;
 	ft_lstadd_back(&p->cmdlist, ft_lstnew(cmdnode));
-	// cmdnode->data
 	return (cmdnode);
 }
 

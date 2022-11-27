@@ -50,6 +50,7 @@ void	set_struct(t_par *p, t_data *data, char *input, char **env)
 {
 	p->input = input;
 	p->env = env;
+	p->data = data;
 	p->prev_chartype = init_lex;
 	p->prev_token = init_tok;
 	p->tokenlist = NULL;

@@ -36,6 +36,7 @@ typedef struct parsing
 {
 	char			*input;
 	char			**env;
+	t_data			*data;
 	t_chartype		prev_chartype;
 	t_toktype		prev_token;
 	bool			single_quoted;
