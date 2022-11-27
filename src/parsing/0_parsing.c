@@ -59,4 +59,5 @@ void	set_struct(t_par *p, t_data *data, char *input, char **env)
 	p->double_quoted = false;
 	data->first = true;
 	data->cmd_count = 0;
+	data->env = env;
 }

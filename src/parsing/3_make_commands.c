@@ -6,9 +6,6 @@ Checks what type of token it is. This is a mix of content evaluation and
 machine state.
 If cmdlist has no node, puts one. This is only the case in the first call.
 Might move this out, into init.
-<< heredoc_password_1 < file_1 < file_2 << herdeocpassowrd_2 cat
-<< heredoc_password_1 < file_1 < file_2 << herdeocpassowrd_2 cat | wc > outfile
-<< heredoc_password_1 < file_1 < file_2 << herdeocpassowrd_2 cat > outfile_1 >> outfile2 | wc
 */
 t_list	*make_commands(t_list *tokenlist, t_par *p)
 {
