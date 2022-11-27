@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *env[])
 		errorexit_onlymsg("env (PATH)");
 	while (1)
 	{
-		input = readline("Minishell $ ");
+		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
 		if (!input)
 			commandexit();
 		parsing(input, env, &data);

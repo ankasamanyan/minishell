@@ -22,7 +22,7 @@ int	parsing(char *input, char **env, t_data *data)
 	t_par		p;
 	t_list		*temp;
 
-	set_struct(&p, input, env);
+	set_struct(&p, data, input, env);
 	if (preproc_syntaxerror(&p))
 		return (EXIT_FAILURE);
 	//lexer makes tokens: separates words / operators, removes whitespace but not quotation
@@ -46,7 +46,7 @@ int	parsing(char *input, char **env, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	set_struct(t_par *p, char *input, char **env)
+void	set_struct(t_par *p, t_data *data, char *input, char **env)
 {
 	p->input = input;
 	p->env = env;
@@ -56,4 +56,6 @@ void	set_struct(t_par *p, char *input, char **env)
 	p->cmdlist = NULL;
 	p->single_quoted = false;
 	p->double_quoted = false;
+	data->first = true;
+	data->cmd_count = 0;
 }

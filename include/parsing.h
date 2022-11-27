@@ -54,7 +54,7 @@ typedef struct token
 
 //0_parsing.c
 int		parsing(char *input, char **env, t_data *data);
-void	set_struct(t_par *p, char *input, char **env);
+void	set_struct(t_par *p, t_data *data, char *input, char **env);
 void	printtieredlist(t_list *list);
 void	print_cmdlist(t_list *list);
 
