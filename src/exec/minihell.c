@@ -34,8 +34,9 @@ void	kiddi_process(t_cmd *cmd)
 {
 	dup2(cmd->fd_in, STDIN_FILENO);
 	dup2(cmd->fd_out, STDOUT_FILENO);
+	// printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
-	perror("Minishell$\nExecve error");
+	perror("Minishell: Execve error");
 	exit(-1);
 }
 
@@ -57,7 +58,8 @@ void	exec(void *cmd_list)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)cmd_list;
-	// cmd->data->cmd_count++;
+	printf("called exec, %s\n", cmd->cmd_arr[0]);
+	cmd->data->cmd_count++;
 	if_no_input(cmd);
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
@@ -69,7 +71,15 @@ void	exec(void *cmd_list)
 		kiddi_process(cmd);
 	else
 	{
-		waitpid(-1, NULL, WNOHANG); // wait for kiddi
+		waitpid(-1, NULL, WNOHANG);
+
+
+
+		// waitpid(-1, &(cmd->data->exitcode), WNOHANG); // innit thisssssssssssssssss
+
+
+
+
 		// close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
 	}
 

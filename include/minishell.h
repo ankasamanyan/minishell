@@ -58,6 +58,7 @@ typedef struct s_data
 	char				*big_path;
 	char				*full_path;
 	int					pid;
+	int					exitcode;
 	bool				first;	//init to true; or 1;
 	int					cmd_count;	//init it to 0
 }		t_data;

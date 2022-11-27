@@ -29,9 +29,9 @@ void	input_files(void *infile)
 	if (input->doublebracket == false)
 	{
 		if (access(input->string, F_OK) != 0)
-			perror("Minishell\nInput error");			// if file not existent cmd is not executed but next one is
+			perror("Minishell: Input error");			// if file not existent cmd is not executed but next one is
 		else if (access(input->string, R_OK) != 0)
-			perror("Minishell\nInput error");			// if no permission cmd is not executed but next one is
+			perror("Minishell: Input error");			// if no permission cmd is not executed but next one is
 		else
 		{
 			close(input->cmd->fd_in);
