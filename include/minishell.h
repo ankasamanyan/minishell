@@ -8,6 +8,7 @@
 # include <stdbool.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 
 # include "exec.h"
 # include "../src/libft/include/libft.h"
@@ -58,7 +59,7 @@ typedef struct s_data
 	char				*full_path;
 	int					pid;
 	bool				first;	//init to true; or 1;
-	int					cmd_count;	//init it to 0 
+	int					cmd_count;	//init it to 0
 }		t_data;
 
 #endif
