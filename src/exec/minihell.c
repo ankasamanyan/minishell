@@ -32,9 +32,12 @@ void	find_cmd_path(char *big_path, t_data *data)
 
 void	kiddi_process(t_cmd *cmd)
 {
-	dup2(cmd->fd_in, STDIN_FILENO);
-	dup2(cmd->fd_out, STDOUT_FILENO);
-	// printf("full path before execve: %s\n",cmd->data->full_path);
+	printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
+	if (cmd->fd_in > 2)
+		dup2(cmd->fd_in, STDIN_FILENO);
+	if (cmd->fd_in > 2)
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -61,7 +64,7 @@ void	exec(void *cmd_list)
 			printf("\n\n\n");
 			printf("exec function start, cmd: %s\n", cmd->cmd_arr[0]);
 			printf("\n\n\n");
-		pipe(cmd->data->pipe);
+	pipe(cmd->data->pipe);
 
 	cmd->data->cmd_count++;
 			printf("before no input func\n");
@@ -73,8 +76,9 @@ void	exec(void *cmd_list)
 			printf("after no ft_lstiter on outputs\n start no output func\n");
 	if_no_output(cmd);
 			printf("after no output func\n");
-			printf("find PATH in env\n");
+			printf("find PATH in env");
 	search_path_env(cmd); //find PATH in env
+			printf(" results into: %s\n", cmd->data->big_path);
 			printf("find executable of cmd\n");
 	find_cmd_path(cmd->data->big_path, cmd->data); //find executable of cmd
 			printf("fork\n");
@@ -88,7 +92,7 @@ void	exec(void *cmd_list)
 	else
 	{
 		printf("Hi, from parent\n");
-		waitpid(-1, NULL, WNOHANG);
+		waitpid(cmd->data->pid, &(cmd->data->exitcode), 0);
 		printf("Hi, after parent\n");
 
 

@@ -31,12 +31,14 @@ int	main(int argc, char *argv[], char *env[])
 		errorexit_onlymsg("env (PATH)");
 	while (1)
 	{
-		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
+		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
 		if (!input)
 			commandexit();
 		parsing(input, env, &data);
 		free(input);
 	// printf("%p", &data);
+
 		ft_lstiter(data.cmd_list, &exec);
+		// usleep(10000);
 	}
 }

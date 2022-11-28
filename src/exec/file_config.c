@@ -27,6 +27,7 @@ void	input_files(void *infile)
 	char		*stringy;
 	int			pipy[2];
 
+	printf("Start of a Input_files() call\n");
 	input = (t_pair *)infile;
 	if (input->doublebracket == false)
 	{
@@ -92,6 +93,7 @@ void	output_files(void *outfile)
 	// pipe(defaultname)
 	// cmd->next->in_fd = defaultname[read];
 	// close(defaultname[write]);
+	printf("Start of a output_files() call\n");
 	output = (t_pair *)outfile;
 	if (access(output->string, W_OK) != 0)			// // if file doesnt have write rights cmd is not executed but next one is
 		perror("Minishell: Output error");
