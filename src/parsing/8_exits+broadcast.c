@@ -20,7 +20,7 @@ check for bash exit codes depending on exit case
 */
 void	commandexit(void)
 {
-	write(1, "exit\n", 5);
+	write(1, "exitgggg\n", 10);
 	exit(2);
 }
 /*

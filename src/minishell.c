@@ -37,7 +37,6 @@ int	main(int argc, char *argv[], char *env[])
 		parsing(input, env, &data);
 		free(input);
 	// printf("%p", &data);
-		pipe(data.pipe);
 		ft_lstiter(data.cmd_list, &exec);
 	}
 }
