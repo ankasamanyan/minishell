@@ -77,6 +77,7 @@ bool	has_invalidoperator(t_list *tokenlist)
 	temp = tokenlist;
 	while (temp)
 	{
+		//printf("hello\n");
 		token = temp->content;
 		if (token->operator)
 		{

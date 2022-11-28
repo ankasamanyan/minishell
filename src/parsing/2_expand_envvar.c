@@ -44,7 +44,7 @@ int	get_dollarposition(t_par *p, char *input)
 	i = -1;
 	while (input[++i])
 	{
-		check_quotation(input[i], p);
+		check_quotation(p, input[i]);
 		if (p->single_quoted)
 			continue ;
 		if (input[i] == '$'

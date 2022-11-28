@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 CFLAGS = -g
-EFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+EFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
 LIBFLAGS = -lreadline
 RM = rm -rf
 
@@ -18,6 +18,7 @@ SRC = 	src/minishell.c\
 		$(addprefix src/parsing/,\
 		0_parsing.c\
 		1_syntax.c\
+		2_lexer.c\
 		2_expand_envvar.c\
 		2_make_tokens.c\
 		3_make_commands.c\

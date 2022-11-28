@@ -25,16 +25,16 @@ int	parsing(char *input, char **env, t_data *data)
 	set_struct(&p, data, input, env);
 	if (preproc_syntaxerror(&p))
 		return (EXIT_FAILURE);
-	//lexer makes tokens: separates words / operators, removes whitespace but not quotation
+	printf("Lexer...\n");
+	lexer(&p);
+	print_tokenlist(p.tokenlist);
 	//variable expansion
 	//quote removal
 	//parsing into commands
-	printf("Start: make tokens\n");
-	while (p.input)
-		p.input = make_tokens(p.input, &p);
+	/* while (p.input)
+		p.input = make_tokens(p.input, &p); */
 	if (postproc_syntaxerror(&p))
 		return (EXIT_FAILURE);
-	print_tokenlist(p.tokenlist);
 	//printf("Start: expand_envvar\n");
 	//expand_envvar(&p);
 	printf("Start: make cmds\n");

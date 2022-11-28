@@ -66,6 +66,12 @@ bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
 bool	has_consecoperatortokens(t_par *p);
 
+//2_lexer.c
+void	lexer(t_par *p);
+char	*append_char(char *string, char c);
+void	add_tokennode(t_par *p, char *lexeme);
+void	check_quotation(t_par *p, char c);
+
 //2_expand_envvar.c
 void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
@@ -73,10 +79,6 @@ void	replace_dollar(t_par *p);
 
 //2_make_tokens.c
 char	*make_tokens(char *input, t_par *p);
-void	check_quotation(char c, t_par *p);
-char	*append_char(char *string, char c);
-char	*add_tokennode(t_par *p, char *token);
-char	*change_tokennode(t_par *p, char *token, char c);
 
 //3_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);

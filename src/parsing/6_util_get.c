@@ -1,13 +1,15 @@
 #include "../../include/minishell.h"
 
 /*
-This function helps to determine what to do with a char.
-The decision is based on what type of char the current
-char is vs. what type the previous char was.
-There are 4 different char categories (dollar, whitespace,
-operator, and word).
-If quotation is active, all chars are handled as wordchars, except
-for $ that can be used for expansion.
+Used by lexer for token delimiting.
+Quotation removal and var expansion are done later.
+Delimitation occurs when adjacent chars are not part of the same
+group. There are 3 char groups:
+-	word
+-	whitespace
+-	operator
+
+USE FOR VAR EXPANSION RMOVE FROM HERE
 $ cases:
 -	a $ at the end of a token is treated by bash as a normal char
 -	a $ followed by a quotation marker is erased and only the quoted chars
@@ -15,8 +17,6 @@ $ cases:
 */
 int	get_chartype(t_par *p, char c)
 {
-	if (c == '$' && !p->single_quoted)
-		return (dollar);
 	if (p->double_quoted || p->single_quoted)
 		return (word);
 	if (is_whitespace(c))
