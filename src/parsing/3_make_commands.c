@@ -32,8 +32,8 @@ t_list	*make_commands(t_list *tokenlist, t_par *p)
 	}
 	if (type_currenttoken & (input_redir_oper | output_redir_oper))
 	{
-
 		redir_pair = malloc (1 * sizeof(t_pair));
+		redir_pair->cmd = cmdnode;
 		redir_pair->doublebracket = ft_strlen(token->lexeme) == 2;
 		if (type_currenttoken == input_redir_oper)
 			ft_lstadd_back(&cmdnode->inputlist, ft_lstnew(redir_pair));
