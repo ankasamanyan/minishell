@@ -19,9 +19,8 @@ SRC = 	src/minishell.c\
 		0_parsing.c\
 		1_syntax.c\
 		2_lexer.c\
-		2_expand_envvar.c\
-		2_make_tokens.c\
-		3_make_commands.c\
+		3_expand_envvar.c\
+		4_make_commands.c\
 		6_util_get.c\
 		6_util_is.c\
 		7_helper_print.c\

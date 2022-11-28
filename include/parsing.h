@@ -43,15 +43,16 @@ typedef struct parsing
 	bool			double_quoted;
 	t_list			*tokenlist;
 	t_list			*cmdlist;
+	char			*string_a;
+	char			*string_b;
+	char			*string_c;
 }	t_par;
 
 typedef struct token
 {
 	char	*lexeme;
 	bool	operator;
-	bool	expansion;
 }	t_tok;
-
 
 //0_parsing.c
 int		parsing(char *input, char **env, t_data *data);
@@ -72,15 +73,13 @@ char	*append_char(char *string, char c);
 void	add_tokennode(t_par *p, char *lexeme);
 void	check_quotation(t_par *p, char c);
 
-//2_expand_envvar.c
+//3_expand_envvar.c
 void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
-void	replace_dollar(t_par *p);
+char	*replace_dollar(t_par *p, char *string);
+char	*del_singlechar(char *string, int deletechar);
 
-//2_make_tokens.c
-char	*make_tokens(char *input, t_par *p);
-
-//3_make_commands.c
+//4_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);
@@ -94,9 +93,7 @@ int		get_tokentype(t_par *p, t_tok *token);
 bool	is_whitespace(char c);
 bool	is_operatorchar(char c);
 bool	is_metachar(char c);
-//bool	is_quotationmark(char c);
-bool	is_tokenpart(t_par *p, char c);
-bool	is_sametoken(t_par *p, t_chartype chartype);
+bool	is_quotationmark(char c);
 
 //7_helper_print.c
 void	print_tokenlist(t_list *list);

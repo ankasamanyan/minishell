@@ -12,6 +12,7 @@ bool	broadcast_senut(char c)
 		printf("%s `newline'\n", E_SENUT);
 	else
 		printf("%s `%c'\n", E_SENUT, c);
+	exit(EXIT_FAILURE);
 	return (true);
 }
 
