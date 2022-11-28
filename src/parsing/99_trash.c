@@ -222,3 +222,20 @@ output - unless quoted etc.
 		lexeme = append_char(lexeme, c);
 	return (lexeme);
 } */
+
+int	get_quoteposition(t_par *p, char *lexeme)
+{
+	int		i;
+
+	i = 0;
+	while (lexeme[i])
+	{
+		check_quotation(p, lexeme[i]);
+		if (lexeme[i] == '\"' && !p->single_quoted)
+			return (i);
+		if (lexeme[i] == '\'' && !p->double_quoted)
+			return (i);
+		i++;
+	}
+	return (-1);
+}

@@ -20,7 +20,8 @@ SRC = 	src/minishell.c\
 		1_syntax.c\
 		2_lexer.c\
 		3_expand_envvar.c\
-		4_make_commands.c\
+		4_remove_quotes.c\
+		5_make_commands.c\
 		6_util_get.c\
 		6_util_is.c\
 		7_helper_print.c\

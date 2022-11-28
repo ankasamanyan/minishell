@@ -43,9 +43,9 @@ typedef struct parsing
 	bool			double_quoted;
 	t_list			*tokenlist;
 	t_list			*cmdlist;
-	char			*string_a;
-	char			*string_b;
-	char			*string_c;
+	char			*str_a;
+	char			*str_b;
+	char			*str_c;
 }	t_par;
 
 typedef struct token
@@ -77,9 +77,13 @@ void	check_quotation(t_par *p, char c);
 void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
+void	findandexpand(t_par *p);
 char	*del_singlechar(char *string, int deletechar);
 
-//4_make_commands.c
+//4_remove_quotes.c
+void	remove_quotes(t_par *p);
+
+//5_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);

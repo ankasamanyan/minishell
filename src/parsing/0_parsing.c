@@ -30,7 +30,8 @@ int	parsing(char *input, char **env, t_data *data)
 	print_tokenlist(p.tokenlist);
 	printf("expand_envvar...\n");
 	expand_envvar(&p);
-	//quote removal
+	printf("remove quotes...\n");
+	remove_quotes(&p);
 	//parsing into commands
 	/* while (p.input)
 		p.input = make_tokens(p.input, &p); */
@@ -56,6 +57,9 @@ void	set_struct(t_par *p, t_data *data, char *input, char **env)
 	p->cmdlist = NULL;
 	p->single_quoted = false;
 	p->double_quoted = false;
+	p->str_a = NULL;
+	p->str_b = NULL;
+	p->str_c = NULL;
 	data->first = true;
 	data->cmd_count = 0;
 	data->env = env;
