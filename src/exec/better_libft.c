@@ -23,3 +23,4 @@ void	ft_free_array(char **array)
 		free(array);
 	}
 }
+

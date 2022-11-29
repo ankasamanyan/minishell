@@ -66,9 +66,9 @@ void	input_files(void *infile)
 
 void	if_no_output(t_cmd *cmd)
 {
-	printf("%sHi from the if_no_output!%s\n", GREEN, RESET);
 	if (cmd->outputlist == NULL)
 	{
+		printf("%sHi from the if_no_output!%s\n", GREEN, RESET);
 		printf("%sif close when cmd->outputlist == NULL %p %s\n", GREEN, cmd->outputlist, RESET);
 		if (ft_lstsize(cmd->data->cmd_list) == cmd->data->cmd_count)
 		{
@@ -89,19 +89,15 @@ void	output_files(void *outfile)
 {
 	t_pair	*output;
 
-	// write cmd->next->in_fd = empty pipe
-	// pipe(defaultname)
-	// cmd->next->in_fd = defaultname[read];
-	// close(defaultname[write]);
 	printf("Start of a output_files() call\n");
 	output = (t_pair *)outfile;
-	if (access(output->string, W_OK) != 0)			// // if file doesnt have write rights cmd is not executed but next one is
-		perror("Minishell: Output error");
-	else if (output->doublebracket == false)
+	// if (access(output->string, W_OK) != 0)			// if file doesnt have write rights cmd is not executed but next one is
+	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out);
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		perror("Minishell: Output error");
 		printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
 	else if (output->doublebracket == true)
@@ -111,8 +107,4 @@ void	output_files(void *outfile)
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_APPEND | O_CREAT, 0777);
 		printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
-	// if (output->cmd->outputlist->next == NULL)
-	// 	output->cmd->fd_out = output->cmd->data->pipe[WRITE_END];
-	// if (output->cmd->fd_out < 0)
-	// 	perror("Minishell: Output file error");
 }
