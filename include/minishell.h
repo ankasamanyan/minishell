@@ -63,6 +63,6 @@ typedef struct s_data
 	int					cmd_count;	//init it to 0
 }		t_data;
 
-int	builtins(char *input);
+bool	specialcase(char *input);
 
 #endif

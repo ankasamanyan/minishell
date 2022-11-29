@@ -31,7 +31,7 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
-		if (builtins(input))
+		if (specialcase(input))
 			continue ;
 		parsing(input, env, &data);
 		pipe(data.pipe);
@@ -40,7 +40,10 @@ int	main(int argc, char *argv[], char *env[])
 	}
 }
 
-int	builtins(char *input)
+/*
+Function to catch edge cases such as empty input or NULL input.
+*/
+bool	specialcase(char *input)
 {
 	if (!input)
 		commandexit();
