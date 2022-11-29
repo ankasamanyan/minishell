@@ -91,12 +91,12 @@ void	output_files(void *outfile)
 
 	printf("Start of a output_files() call\n");
 	output = (t_pair *)outfile;
-	// if (access(output->string, W_OK) != 0)			// if file doesnt have write rights cmd is not executed but next one is
 	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out);
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		// if (access(output->string, W_OK) != 0)		// if file doesnt have write rights cmd is not executed but next one is
 		perror("Minishell: Output error");
 		printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
