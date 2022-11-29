@@ -1,8 +1,8 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g
-EFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -g -fsanitize=address
+EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RM = rm -rf
 
@@ -18,16 +18,16 @@ SRC = 	src/minishell.c\
 		$(addprefix src/parsing/,\
 		0_parsing.c\
 		1_syntax.c\
-		2_expand_envvar.c\
-		2_make_tokens.c\
-		3_make_commands.c\
-		6_util_get.c\
+		2_lexer.c\
+		3_expand_envvar.c\
+		4_remove_quotes.c\
+		5_make_commands.c\
 		6_util_is.c\
 		7_helper_print.c\
-		8_exits+broadcast.c)
+		8_exits+broadcast.c\
+		9_shutdown.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
-#$(addprefix obj/,$(notdir $(SRC:src/%.c=%.o)))
 
 all: $(NAME)
 
@@ -35,7 +35,6 @@ $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME) $(LIBFT)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
-#	@bash src/art.sh
 
 $(LIBFT):
 	@make --no-print-directory -C src/libft
@@ -65,6 +64,6 @@ mgit:
 	@read -p "Enter the commit message: " halp; \
 	git commit -m "$$halp"
 	git push
-	@echo "$(PURPLE)✨Everything added, commited and pushed✨$(RESET)"
+	@echo "$(BLUE)git auto add & push with message performed.$(RESET)"
 
 .SILENT: $(OBJ)

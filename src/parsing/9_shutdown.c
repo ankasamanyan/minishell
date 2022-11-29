@@ -1,12 +1,66 @@
 #include "../../include/minishell.h"
 
-void	del_tokenlistnode(t_list *listnode)
+void	shutdown(t_data *data)
 {
-	t_tok		*tokennode;
+	t_par	*p;
 
-	//set next of beforelast to null
-	tokennode = listnode->content;
-	free(tokennode->lexeme);
-	free(listnode->content);
-	free(listnode);
+	p = &data->parsing_struct;
+	del_tokenlist(p->tokenlist);
+	del_cmdlist(p->cmdlist);
+	free(p->input);
+}
+
+void	del_tokenlist(t_list *list)
+{
+	t_list		*temp1;
+	t_list		*temp2;
+	t_tok		*token;
+
+	temp1 = list;
+	while (temp1)
+	{
+		if (temp1->content)
+		{
+			token = temp1->content;
+			if (token->lexeme)
+				free(token->lexeme);
+			free(token);
+		}
+		temp2 = temp1;
+		temp1 = temp1->next;
+		free(temp2);
+	}
+}
+
+void	del_cmdlist(t_list *list)
+{
+	t_list		*temp;
+	t_cmd		*cmd;
+
+	while (list)
+	{
+		cmd = list->content;
+		free(cmd->cmd_arr);
+		del_pairlist(cmd->inputlist);
+		del_pairlist(cmd->outputlist);
+		free(cmd);
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
+}
+
+void	del_pairlist(t_list *list)
+{
+	t_list		*temp;
+	t_pair		*pair;
+
+	while (list)
+	{
+		pair = list->content;
+		free(pair);
+		temp = list;
+		list = list->next;
+		free(temp);
+	}
 }
