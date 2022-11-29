@@ -32,12 +32,12 @@ void	find_cmd_path(char *big_path, t_data *data)
 
 void	kiddi_process(t_cmd *cmd)
 {
-	printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
+	// printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
 	if (cmd->fd_in > 2)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_in > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-	printf("full path before execve: %s\n",cmd->data->full_path);
+	// printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);

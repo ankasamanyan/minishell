@@ -27,7 +27,7 @@ void	input_files(void *infile)
 	char		*stringy;
 	int			pipy[2];
 
-	printf("Start of a Input_files() call\n");
+	// printf("Start of a Input_files() call\n");
 	input = (t_pair *)infile;
 	if (input->doublebracket == false)
 	{
@@ -42,6 +42,14 @@ void	input_files(void *infile)
 			input->cmd->fd_in = open(input->string, O_RDONLY);
 			if (input->cmd->fd_in < 0)
 				perror("Minishell: Input file error");
+			if (!(input->cmd->cmd_arr))
+			{
+				//you don't have to close alllllll the 
+				//leave ze pipe!!!!!!!!!!!
+				return ;
+			}
+			// helper function that finds out if there is no cmd 
+			// and closeall the pipes		
 		}
 	}
 	if (input->doublebracket == true)
