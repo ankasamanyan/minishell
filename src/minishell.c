@@ -12,6 +12,24 @@
 	- leak with exit
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 */
+void	increase_shell_lvl(char **env)
+{
+	char	*tmp;
+	int i = 0;
+
+	while(env[i])
+	{
+		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
+		{
+			tmp = ft_strjoin("SHLVL=", ft_itoa(ft_atoi(env[i]+6) + 1));
+			// free(env[i]);
+			env[i] = tmp;
+			printf("%s\n", tmp);
+		}
+		i++;
+	}
+}
+
 int	main(int argc, char *argv[], char *env[])
 {
 	int			i;
@@ -19,6 +37,8 @@ int	main(int argc, char *argv[], char *env[])
 	t_data		data;
 
 	(void)argv;
+	increase_shell_lvl(env);
+	// printf("%s\n");
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	if (!env)
@@ -29,14 +49,14 @@ int	main(int argc, char *argv[], char *env[])
 		i++;
 	if (!env[i])
 		errorexit_onlymsg("env (PATH)");
+	
 	while (1)
 	{
-		printf("%s", SKY);
-		input = readline("Minishell-0.2$ ");
-		printf("%s", RESET);
+		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
 		if (!input)
 			commandexit();
 		parsing(input, env, &data);
+		// onexit(&data);
 		free(input);
 		ft_lstiter(data.cmd_list, &exec);
 	}
