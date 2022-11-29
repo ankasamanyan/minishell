@@ -2,7 +2,7 @@ NAME = minishell
 
 CC = gcc
 CFLAGS = -g
-EFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g
+EFLAGS = -Wall -Wextra -Werror  -g #-fsanitize=address
 LIBFLAGS = -lreadline
 RM = rm -rf
 
@@ -22,10 +22,10 @@ SRC = 	src/minishell.c\
 		3_expand_envvar.c\
 		4_remove_quotes.c\
 		5_make_commands.c\
-		6_util_get.c\
 		6_util_is.c\
 		7_helper_print.c\
-		8_exits+broadcast.c)
+		8_exits+broadcast.c\
+		9_shutdown.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
 #$(addprefix obj/,$(notdir $(SRC:src/%.c=%.o)))

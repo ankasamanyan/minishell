@@ -5,15 +5,15 @@ void	print_tokenlist(t_list *list)
 	t_list		*temp;
 	t_tok		*token;
 
-
+	printf("printing tokenlist:\n");
 	temp = list;
 	while (temp)
 	{
 		token = temp->content;
 		if (token->operator)
-			printf("operator:%s\n", token->lexeme);
+			printf("operator:`%s'\n", token->lexeme);
 		else
-			printf("word:%s\n", token->lexeme);
+			printf("word:`%s'\n", token->lexeme);
 		temp = temp->next;
 	}
 }
@@ -36,20 +36,13 @@ void	print_cmdlist(t_list *list)
 	}
 }
 
-/*
-Using some extra variables here to make it nicer.
-Well one, in this function: "array". I do need "cmd" because
-I still don't know how to properly cast the void pointer.
-*/
 void	print_cmd_arr(t_list *node)
 {
 	int		i;
-	t_cmd	*cmd;
 	char	**array;
 
 	i = 0;
-	cmd = node->content;
-	array = cmd->cmd_arr;
+	array = ((t_cmd *)(node->content))->cmd_arr;
 	if (!array)
 	{
 		printf("___no commands___\n");
@@ -58,7 +51,7 @@ void	print_cmd_arr(t_list *node)
 	printf("___cmd_arr___\n");
 	while (array[i])
 	{
-		ft_printf("cmd_arr[%i]:%s\n", i, array[i]);
+		ft_printf("cmd_arr[%i]:%s\n", i, array[i]); //problemread
 		i++;
 	}
 }

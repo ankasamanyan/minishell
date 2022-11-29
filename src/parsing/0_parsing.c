@@ -19,29 +19,29 @@ Old model was like
 */
 int	parsing(char *input, char **env, t_data *data)
 {
-	t_par		p;
 	t_list		*temp;
+	t_par		*p;
 
-	set_struct(&p, data, input, env);
-	if (preproc_syntaxerror(&p))
+	p = &data->parsing_struct;
+	set_struct(p, data, input, env);
+	if (preproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	printf("lexer...\n");
-	lexer(&p);
-	print_tokenlist(p.tokenlist);
-	printf("expand_envvar...\n");
-	expand_envvar(&p);
+	lexer(p);
+	print_tokenlist(p->tokenlist);
+	printf("expandvar...\n");
+	expand_envvar(p);
+	print_tokenlist(p->tokenlist);
 	printf("remove quotes...\n");
-	remove_quotes(&p);
-	//parsing into commands
-	/* while (p.input)
-		p.input = make_tokens(p.input, &p); */
-	if (postproc_syntaxerror(&p))
+	remove_quotes(p);
+	print_tokenlist(p->tokenlist);
+	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	printf("Start: make cmds\n");
-	temp = p.tokenlist;
+	temp = p->tokenlist;
 	while (temp)
-		temp = make_commands(temp, &p);
-	data->cmd_list = p.cmdlist;
+		temp = make_commands(temp, p);
+	data->cmd_list = p->cmdlist;
 	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
@@ -49,14 +49,13 @@ int	parsing(char *input, char **env, t_data *data)
 void	set_struct(t_par *p, t_data *data, char *input, char **env)
 {
 	p->input = input;
-	p->env = env;
 	p->data = data;
 	p->prev_chartype = init_lex;
 	p->prev_token = init_tok;
-	p->tokenlist = NULL;
-	p->cmdlist = NULL;
 	p->single_quoted = false;
 	p->double_quoted = false;
+	p->tokenlist = NULL;
+	p->cmdlist = NULL;
 	p->str_a = NULL;
 	p->str_b = NULL;
 	p->str_c = NULL;

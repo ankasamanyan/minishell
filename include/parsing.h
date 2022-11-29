@@ -35,7 +35,6 @@ typedef enum token_type
 typedef struct parsing
 {
 	char			*input;
-	char			**env;
 	t_data			*data;
 	t_chartype		prev_chartype;
 	t_toktype		prev_token;
@@ -69,6 +68,7 @@ bool	has_consecoperatortokens(t_par *p);
 
 //2_lexer.c
 void	lexer(t_par *p);
+int		get_chartype(t_par *p, char c);
 char	*append_char(char *string, char c);
 void	add_tokennode(t_par *p, char *lexeme);
 void	check_quotation(t_par *p, char c);
@@ -85,13 +85,10 @@ void	remove_quotes(t_par *p);
 
 //5_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);
+int		get_tokentype(t_par *p, t_tok *token);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);
 t_list	*freeandreturnnext(t_par *p, t_tok *token);
-
-//6_util_get.c
-int		get_chartype(t_par *p, char c);
-int		get_tokentype(t_par *p, t_tok *token);
 
 //6_util_is.c
 bool	is_whitespace(char c);
@@ -110,5 +107,12 @@ void	print_outputlist(t_list *node);
 void	errorexit_onlymsg(char *msg);
 void	commandexit(void);
 bool	broadcast_senut(char c);
+
+//9_shutdown.c
+void	shutdown(t_data *data);
+void	del_tokenlist(t_list *list);
+void	del_cmdlist(t_list *list);
+void	del_pairlist(t_list *list);
+void	free2d_char(char **array);
 
 #endif

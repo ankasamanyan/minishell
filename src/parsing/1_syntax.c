@@ -77,7 +77,6 @@ bool	has_invalidoperator(t_list *tokenlist)
 	temp = tokenlist;
 	while (temp)
 	{
-		//printf("hello\n");
 		token = temp->content;
 		if (token->operator)
 		{
@@ -89,7 +88,6 @@ bool	has_invalidoperator(t_list *tokenlist)
 			{
 				broadcast_senut(
 					token->lexeme[ft_strlen(token->lexeme) - 1]);
-				//free list
 				return (true);
 			}
 		}
@@ -98,11 +96,6 @@ bool	has_invalidoperator(t_list *tokenlist)
 	return (false);
 }
 
-/*
-Wanted to use something like "temp->next->content->operator",
-but couldn't figure out how to cast it.
-Had to use another variable.
-*/
 bool	has_consecoperatortokens(t_par *p)
 {
 	t_list		*temp;

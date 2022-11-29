@@ -40,6 +40,27 @@ void	lexer(t_par *p)
 }
 
 /*
+Used by lexer for token delimiting.
+Quotation removal and var expansion are done later.
+Delimitation occurs when adjacent chars are not part of the same
+group. There are 3 char groups:
+-	word
+-	whitespace
+-	operator
+*/
+int	get_chartype(t_par *p, char c)
+{
+	if (p->double_quoted || p->single_quoted)
+		return (word);
+	if (is_whitespace(c))
+		return (whitespace);
+	if (is_operatorchar(c))
+		return (operator);
+	else
+		return (word);
+}
+
+/*
 Appends a char to a string. If the string doesn't exist yet,
 makes a new string with the char as only content.
 Frees the passed string.

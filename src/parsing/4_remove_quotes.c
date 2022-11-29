@@ -8,10 +8,10 @@ void	remove_quotes(t_par *p)
 	char	*result;
 
 	temp = p->tokenlist;
-	result = NULL;
 	while (temp)
 	{
 		token = temp->content;
+		result = NULL;
 		i = 0;
 		while (token->lexeme[i])
 		{
@@ -23,7 +23,6 @@ void	remove_quotes(t_par *p)
 		}
 		free(token->lexeme);
 		token->lexeme = result;
-		result = NULL;
 		temp = temp->next;
 	}
 }

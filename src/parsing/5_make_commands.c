@@ -7,17 +7,17 @@ machine state.
 If cmdlist has no node, puts one. This is only the case in the first call.
 Might move this out, into init.
 */
-t_list	*make_commands(t_list *tokenlist, t_par *p)
+t_list	*make_commands(t_list *list, t_par *p)
 {
 	t_tok			*token;
 	static t_cmd	*cmdnode;
 	t_pair			*redir_pair;
 	t_toktype		type_currenttoken;
 
-	token = tokenlist->content;
+	if (!list->content)
+		return (NULL);
+	token = list->content;
 	type_currenttoken = get_tokentype(p, token);
-	printf("currentokentype in make cmd:%i\n", type_currenttoken);
-	//printf("type_currentoken:%i\n", type_currenttoken);
 	if (p->cmdlist == NULL)
 		cmdnode = add_commandnode(p);
 	if (type_currenttoken == newcmd)
@@ -46,12 +46,49 @@ t_list	*make_commands(t_list *tokenlist, t_par *p)
 			redir_pair = ft_lstlast(cmdnode->inputlist)->content;
 		else if (p->prev_token == output_redir_oper)
 			redir_pair = ft_lstlast(cmdnode->outputlist)->content;
-		else
-			printf("error in input string selection by prevktoken\n");
 		redir_pair->string = token->lexeme;
 	}
 	p->prev_token = type_currenttoken;
-	return (tokenlist->next);
+	return (list->next);
+}
+
+/*
+Groups the token lexemes into the following categories:
+operators
+-	pipe operator
+	-	isn't ever specifically checked for, because in our project, a pipe
+		means that no input or output redirection nodes are created. If both
+		nodes are missing, exec part knows that a pipe connects the commands.
+-	input redirection operator (doesn't matter whether '<' or '<<')
+-	output redirection operator (doesn't matter whether '>' or '>>')
+-	redirection string (doesn't matter whether for input or output)
+commands
+-	continuation of a command string sequence
+	-	following a prior command string or
+	-	following the single string after an input redirection operator
+	-	but not following the single string after an output redir operator
+-	start of a new command string sequence
+	-	not following anything or
+	-	following a pipe
+*/
+int	get_tokentype(t_par *p, t_tok *token)
+{
+	if (token->operator)
+	{
+		if (!ft_strncmp(token->lexeme, "|", 2))
+			return (pipe_oper);
+		if (!ft_strncmp(token->lexeme, "<", 69)
+			|| !ft_strncmp(token->lexeme, "<<", 420))
+			return (input_redir_oper);
+		return (output_redir_oper);
+	}
+	if (p->prev_token == input_redir_oper)
+		return (input_redir_str);
+	if (p->prev_token == output_redir_oper)
+		return (output_redir_str);
+	if (p->prev_token & (newcmd | cmdstring | input_redir_str))
+		return (cmdstring);
+	return (newcmd);
 }
 
 /*
@@ -102,15 +139,4 @@ t_cmd	*add_commandnode(t_par *p)
 	cmdnode->data = p->data;
 	ft_lstadd_back(&p->cmdlist, ft_lstnew(cmdnode));
 	return (cmdnode);
-}
-
-t_list	*freeandreturnnext(t_par *p, t_tok *token)
-{
-	t_list		*next;
-
-	//free(token->lexeme);
-	free(token);
-	next = p->tokenlist->next;
-	free(p->tokenlist);
-	return (next);
 }
