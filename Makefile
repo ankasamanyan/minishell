@@ -1,8 +1,8 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g
-EFLAGS = -Wall -Wextra -Werror  -g #-fsanitize=address
+CFLAGS = -g -fsanitize=address
+EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RM = rm -rf
 
@@ -28,7 +28,6 @@ SRC = 	src/minishell.c\
 		9_shutdown.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
-#$(addprefix obj/,$(notdir $(SRC:src/%.c=%.o)))
 
 all: $(NAME)
 
@@ -36,7 +35,6 @@ $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME) $(LIBFT)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
-#	@bash src/art.sh
 
 $(LIBFT):
 	@make --no-print-directory -C src/libft

@@ -31,7 +31,6 @@ int	parsing(char *input, char **env, t_data *data)
 	remove_quotes(p);
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
-	printf("Start: make cmds\n");
 	temp = p->tokenlist;
 	while (temp)
 		temp = make_commands(temp, p);
