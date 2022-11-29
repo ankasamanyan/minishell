@@ -26,15 +26,9 @@ int	parsing(char *input, char **env, t_data *data)
 	set_struct(p, data, input, env);
 	if (preproc_syntaxerror(p))
 		return (EXIT_FAILURE);
-	printf("lexer...\n");
 	lexer(p);
-	print_tokenlist(p->tokenlist);
-	printf("expandvar...\n");
 	expand_envvar(p);
-	print_tokenlist(p->tokenlist);
-	printf("remove quotes...\n");
 	remove_quotes(p);
-	print_tokenlist(p->tokenlist);
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	printf("Start: make cmds\n");

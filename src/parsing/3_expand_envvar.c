@@ -80,7 +80,7 @@ There are 2 cases For an actionable $:
 	-	do not attempt expansion
 -	$ immediately followed by non metachar and non quotation mark
 	- 	remove $ and all following chars up to next metachar or
-		quotation mark.
+		quotation mark or $
 	-	attempt expansion using the removed chars minus the $
 	-	if expansion fails: write nothing.
 	-	if expansion succeeds: write what was found
@@ -116,7 +116,8 @@ char	*replace_dollar(t_par *p, char *lexeme)
 		return (del_singlechar(lexeme, dollar));
 	i = dollar;
 	p->str_a = ft_substr(lexeme, 0, i);
-	while (lexeme[i] && !is_quotationmark(lexeme[i]))
+	i++;
+	while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
 		i++;
 	p->str_b = ft_substr(lexeme, dollar + 1, i - dollar - 1);
 	p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
