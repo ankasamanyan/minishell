@@ -35,23 +35,23 @@ typedef enum token_type
 typedef struct parsing
 {
 	char			*input;
-	char			**env;
 	t_data			*data;
 	t_chartype		prev_chartype;
-	t_toktype		prev_token;
+	t_toktype		prev_tokentype;
 	bool			single_quoted;
 	bool			double_quoted;
 	t_list			*tokenlist;
 	t_list			*cmdlist;
+	char			*str_a;
+	char			*str_b;
+	char			*str_c;
 }	t_par;
 
 typedef struct token
 {
 	char	*lexeme;
 	bool	operator;
-	bool	expansion;
 }	t_tok;
-
 
 //0_parsing.c
 int		parsing(char *input, char **env, t_data *data);
@@ -66,35 +66,35 @@ bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
 bool	has_consecoperatortokens(t_par *p);
 
-//2_expand_envvar.c
+//2_lexer.c
+void	lexer(t_par *p);
+int		get_chartype(t_par *p, char c);
+char	*append_char(char *string, char c);
+void	add_tokennode(t_par *p, char *lexeme);
+void	check_quotation(t_par *p, char c);
+
+//3_expand_envvar.c
 void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
-void	replace_dollar(t_par *p);
+char	*replace_dollar(t_par *p, char *string);
+void	findandexpand(t_par *p);
+char	*del_singlechar(char *string, int deletechar);
 
-//2_make_tokens.c
-char	*make_tokens(char *input, t_par *p);
-void	check_quotation(char c, t_par *p);
-char	*append_char(char *string, char c);
-char	*add_tokennode(t_par *p, char *token);
-char	*change_tokennode(t_par *p, char *token, char c);
+//4_remove_quotes.c
+void	remove_quotes(t_par *p);
 
-//3_make_commands.c
+//5_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);
+int		get_tokentype(t_par *p, t_tok *token);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);
 t_list	*freeandreturnnext(t_par *p, t_tok *token);
-
-//6_util_get.c
-int		get_chartype(t_par *p, char c);
-int		get_tokentype(t_par *p, t_tok *token);
 
 //6_util_is.c
 bool	is_whitespace(char c);
 bool	is_operatorchar(char c);
 bool	is_metachar(char c);
-//bool	is_quotationmark(char c);
-bool	is_tokenpart(t_par *p, char c);
-bool	is_sametoken(t_par *p, t_chartype chartype);
+bool	is_quotationmark(char c);
 
 //7_helper_print.c
 void	print_tokenlist(t_list *list);
@@ -107,5 +107,12 @@ void	print_outputlist(t_list *node);
 void	errorexit_onlymsg(char *msg);
 void	commandexit(void);
 bool	broadcast_senut(char c);
+
+//9_shutdown.c
+void	shutdown(t_data *data);
+void	del_tokenlist(t_list *list);
+void	del_cmdlist(t_list *list);
+void	del_pairlist(t_list *list);
+void	free2d_char(char **array);
 
 #endif

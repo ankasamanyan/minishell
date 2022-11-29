@@ -52,15 +52,17 @@ typedef struct s_pair
 typedef struct s_data
 {
 	t_list				*cmd_list; //t_cmd as content
+	t_par				parsing_struct;
 	char				**env;
 	int					pipe[2];
 	int					first_cmd; // init it to 0
 	char				*big_path;
 	char				*full_path;
 	int					pid;
-	int					exitcode;
 	bool				first;	//init to true; or 1;
 	int					cmd_count;	//init it to 0
 }		t_data;
+
+bool	specialcase(char *input);
 
 #endif

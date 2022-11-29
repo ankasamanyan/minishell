@@ -23,11 +23,3 @@ void	commandexit(void)
 	write(1, "exit\n", 5);
 	exit(2);
 }
-/*
-void	error_msg_exit(STRUCT knudel, char *msg)
-{
-	perror(msg);
-	shutdown(knudel);
-	exit(EXIT_FAILURE);
-}
-*/
