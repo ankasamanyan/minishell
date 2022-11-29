@@ -51,7 +51,7 @@ int	main(int argc, char *argv[], char *env[])
 	
 	while (1)
 	{
-		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
+		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
 		if (specialcase(input))
 			continue ;
 		parsing(input, env, &data);

@@ -94,7 +94,7 @@ void	exec(void *cmd_list)
 	else
 	{
 		// printf("Hi, from parent\n");
-		waitpid(cmd->data->pid, &(cmd->data->exitcode), 0);
+		waitpid(cmd->data->pid, NULL, 0);
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
 		if (cmd->fd_out > 2)
