@@ -31,11 +31,23 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
-		if (!input)
-			commandexit();
+		if (builtins(input))
+			continue ;
 		parsing(input, env, &data);
 		pipe(data.pipe);
 		ft_lstiter(data.cmd_list, &exec);
 		shutdown(&data);
 	}
+}
+
+int	builtins(char *input)
+{
+	if (!input)
+		commandexit();
+	if (!input[0])
+	{
+		free(input);
+		return (1);
+	}
+	return (0);
 }

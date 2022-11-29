@@ -44,7 +44,7 @@ void	set_struct(t_par *p, t_data *data, char *input, char **env)
 	p->input = input;
 	p->data = data;
 	p->prev_chartype = init_lex;
-	p->prev_token = init_tok;
+	p->prev_tokentype = init_tok;
 	p->single_quoted = false;
 	p->double_quoted = false;
 	p->tokenlist = NULL;

@@ -37,7 +37,7 @@ typedef struct parsing
 	char			*input;
 	t_data			*data;
 	t_chartype		prev_chartype;
-	t_toktype		prev_token;
+	t_toktype		prev_tokentype;
 	bool			single_quoted;
 	bool			double_quoted;
 	t_list			*tokenlist;

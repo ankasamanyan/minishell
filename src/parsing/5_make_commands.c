@@ -12,43 +12,41 @@ t_list	*make_commands(t_list *list, t_par *p)
 	t_tok			*token;
 	static t_cmd	*cmdnode;
 	t_pair			*redir_pair;
-	t_toktype		type_currenttoken;
+	t_toktype		curr_tokentype;
 
 	if (!list->content)
 		return (NULL);
 	token = list->content;
-	type_currenttoken = get_tokentype(p, token);
+	curr_tokentype = get_tokentype(p, token);
 	if (p->cmdlist == NULL)
 		cmdnode = add_commandnode(p);
-	if (type_currenttoken == newcmd)
+	if (curr_tokentype == newcmd)
 	{
-		if (p->prev_token != init_tok)
+		if (p->prev_tokentype != init_tok)
 			cmdnode = add_commandnode(p);
 		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, token->lexeme);
 	}
-	if (type_currenttoken == cmdstring)
-	{
+	if (curr_tokentype == cmdstring)
 		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, token->lexeme);
-	}
-	if (type_currenttoken & (input_redir_oper | output_redir_oper))
+	if (curr_tokentype & (input_redir_oper | output_redir_oper))
 	{
 		redir_pair = malloc (1 * sizeof(t_pair));
 		redir_pair->doublebracket = ft_strlen(token->lexeme) == 2;
 		redir_pair->cmd = cmdnode;
-		if (type_currenttoken == input_redir_oper)
+		if (curr_tokentype == input_redir_oper)
 			ft_lstadd_back(&cmdnode->inputlist, ft_lstnew(redir_pair));
 		else
 			ft_lstadd_back(&cmdnode->outputlist, ft_lstnew(redir_pair));
 	}
-	if (type_currenttoken & (input_redir_str | output_redir_str))
+	if (curr_tokentype & (input_redir_str | output_redir_str))
 	{
-		if (p->prev_token == input_redir_oper)
+		if (p->prev_tokentype == input_redir_oper)
 			redir_pair = ft_lstlast(cmdnode->inputlist)->content;
-		else if (p->prev_token == output_redir_oper)
+		else if (p->prev_tokentype == output_redir_oper)
 			redir_pair = ft_lstlast(cmdnode->outputlist)->content;
 		redir_pair->string = token->lexeme;
 	}
-	p->prev_token = type_currenttoken;
+	p->prev_tokentype = curr_tokentype;
 	return (list->next);
 }
 
@@ -82,11 +80,11 @@ int	get_tokentype(t_par *p, t_tok *token)
 			return (input_redir_oper);
 		return (output_redir_oper);
 	}
-	if (p->prev_token == input_redir_oper)
+	if (p->prev_tokentype == input_redir_oper)
 		return (input_redir_str);
-	if (p->prev_token == output_redir_oper)
+	if (p->prev_tokentype == output_redir_oper)
 		return (output_redir_str);
-	if (p->prev_token & (newcmd | cmdstring | input_redir_str))
+	if (p->prev_tokentype & (newcmd | cmdstring | input_redir_str))
 		return (cmdstring);
 	return (newcmd);
 }
