@@ -48,10 +48,9 @@ int	main(int argc, char *argv[], char *env[])
 		i++;
 	if (!env[i])
 		errorexit_onlymsg("env (PATH)");
-	
+
 	while (1)
 	{
-<<<<<<< HEAD
 		input = readline("\033[0;36mMinishell-0.1 lvl$\033[0m ");
 		if (specialcase(input))
 			continue ;
@@ -60,12 +59,6 @@ int	main(int argc, char *argv[], char *env[])
 			shutdown(&data);
 			continue ;
 		}
-=======
-		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
-		if (specialcase(input))
-			continue ;
-		parsing(input, env, &data);
->>>>>>> 7037fd1ca83b029499fad6b496dcb713436aaa6c
 		pipe(data.pipe);
 		ft_lstiter(data.cmd_list, &exec);
 		shutdown(&data);
@@ -74,22 +67,15 @@ int	main(int argc, char *argv[], char *env[])
 
 /*
 Function to catch edge cases such as empty input or NULL input.
-<<<<<<< HEAD
 Maybe expand to deal with some builtins?
-=======
->>>>>>> 7037fd1ca83b029499fad6b496dcb713436aaa6c
 */
 bool	specialcase(char *input)
 {
 	if (!input)
-<<<<<<< HEAD
 	{
 		write(1, "exit\n", 5);
 		exit(0);
 	}
-=======
-		commandexit();
->>>>>>> 7037fd1ca83b029499fad6b496dcb713436aaa6c
 	if (!input[0])
 	{
 		free(input);

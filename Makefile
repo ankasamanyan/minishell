@@ -22,7 +22,9 @@ SRC = 	src/minishell.c\
 		3_expand_envvar.c\
 		4_remove_quotes.c\
 		5_make_commands.c\
+		5_make_commands2.c\
 		6_util_is.c\
+		6_util_general.c\
 		7_helper_print.c\
 		8_exits+broadcast.c\
 		9_shutdown.c)

@@ -9,6 +9,7 @@ void	shutdown(t_data *data)
 	del_cmdlist(p->cmdlist);
 	free(p->input);
 }
+
 /*
 Cmdlist, inputlist and outputlist don't free any strings.
 "Their" strings only point to the allocs in tokenlist.

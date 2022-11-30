@@ -146,16 +146,3 @@ void	findandexpand(t_par *p)
 		p->str_b = ft_substr(p->data->env[i], ft_strlen(p->str_b) + 1,
 				ft_strlen(p->data->env[i]));
 }
-
-/*
-Doesn't free input string because the calling functions sometimes already do it.
-So absolutely needs to be freed in calling function.
-*/
-char	*del_singlechar(char *string, int del_pos)
-{
-	char	*result;
-
-	string[del_pos] = 0;
-	result = ft_strjoin(string, string + del_pos + 1);
-	return (result);
-}

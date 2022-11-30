@@ -69,7 +69,6 @@ bool	has_consecoperatortokens(t_par *p);
 //2_lexer.c
 void	lexer(t_par *p);
 int		get_chartype(t_par *p, char c);
-char	*append_char(char *string, char c);
 void	add_tokennode(t_par *p, char *lexeme);
 void	check_quotation(t_par *p, char c);
 
@@ -78,7 +77,6 @@ void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
 void	findandexpand(t_par *p);
-char	*del_singlechar(char *string, int deletechar);
 
 //4_remove_quotes.c
 void	remove_quotes(t_par *p);
@@ -86,13 +84,19 @@ void	remove_quotes(t_par *p);
 //5_make_commands.c
 t_list	*make_commands(t_list *tokenlist, t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
-char	**append_string(char **array, char *string);
+t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
+			char *lexeme);
+void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
+			char *lexeme);
+
+//5_make_commands2.c
 t_cmd	*add_commandnode(t_par *p);
-<<<<<<< HEAD
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
-=======
-t_list	*freeandreturnnext(t_par *p, t_tok *token);
->>>>>>> 7037fd1ca83b029499fad6b496dcb713436aaa6c
+
+//6_util_general.c
+char	*append_char(char *string, char c);
+char	**append_string(char **array, char *string);
+char	*del_singlechar(char *string, int del_pos);
 
 //6_util_is.c
 bool	is_whitespace(char c);
