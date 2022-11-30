@@ -88,7 +88,11 @@ t_list	*make_commands(t_list *tokenlist, t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);
+<<<<<<< HEAD
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
+=======
+t_list	*freeandreturnnext(t_par *p, t_tok *token);
+>>>>>>> 7037fd1ca83b029499fad6b496dcb713436aaa6c
 
 //6_util_is.c
 bool	is_whitespace(char c);

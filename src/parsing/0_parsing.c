@@ -5,17 +5,12 @@ Parsing is done using hard coded syntax checks (pre-processing
 and post-processing) and a very reduced finite state machine.
 This seemed the most pragmatic approach for the small
 number of operators in the subject.
-Less pragmatic, more oriented along the way bash handles it:
 - lexing, creating tokens
 - var expansion
 - quote removal
-- parsing
+- actual parsing
 Had it in a more compact model with hybrid steps and rewrote to be
 more similar to the order in which bash deals with it.
-Old model was like
-- var expansion
-- lexing, quote removal
-- parsing
 */
 int	parsing(char *input, char **env, t_data *data)
 {

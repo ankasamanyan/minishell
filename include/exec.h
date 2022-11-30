@@ -20,5 +20,6 @@ void	if_no_output(t_cmd *cmd);
 void	search_path_env(t_cmd *cmd);
 void	find_cmd_path(char *big_path, t_data *data);
 
+void	onexit(t_data *data);
 
 #endif
