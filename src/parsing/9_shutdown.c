@@ -32,24 +32,35 @@ void	del_tokenlist(t_list *list)
 	}
 }
 
+/*
+Doesn't free the char *, only the char **. The char *
+are freed in del_tokenlist.
+*/
 void	del_cmdlist(t_list *list)
 {
 	t_list		*temp;
-	t_cmd		*cmd;
+	t_cmd		*cmdnode;
 
 	while (list)
 	{
-		cmd = list->content;
-		free(cmd->cmd_arr);
-		del_pairlist(cmd->inputlist);
-		del_pairlist(cmd->outputlist);
-		free(cmd);
+		cmdnode = list->content;
+		if (cmdnode->cmd_arr)
+			free(cmdnode->cmd_arr);
+		del_pairlist(cmdnode->inputlist);
+		del_pairlist(cmdnode->outputlist);
+		free(cmdnode);
 		temp = list;
 		list = list->next;
 		free(temp);
 	}
 }
 
+/*
+The pointer to the allocated string in pair.string points
+to the string from tokenlist. It doesn't get freed here
+because it gets freed in del_tokenlist.
+
+*/
 void	del_pairlist(t_list *list)
 {
 	t_list		*temp;

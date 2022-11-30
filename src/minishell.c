@@ -30,10 +30,14 @@ int	main(int argc, char *argv[], char *env[])
 		errorexit_onlymsg("env (PATH)");
 	while (1)
 	{
-		input = readline("\033[0;36mMinishell-0.1$\033[0m ");
+		input = readline("\033[0;36mMinishell-0.1 lvl$\033[0m ");
 		if (specialcase(input))
 			continue ;
-		parsing(input, env, &data);
+		if (parsing(input, env, &data))
+		{
+			shutdown(&data);
+			continue ;
+		}
 		pipe(data.pipe);
 		ft_lstiter(data.cmd_list, &exec);
 		shutdown(&data);
@@ -42,11 +46,15 @@ int	main(int argc, char *argv[], char *env[])
 
 /*
 Function to catch edge cases such as empty input or NULL input.
+Maybe expand to deal with some builtins?
 */
 bool	specialcase(char *input)
 {
 	if (!input)
-		commandexit();
+	{
+		write(1, "exit\n", 5);
+		exit(0);
+	}
 	if (!input[0])
 	{
 		free(input);

@@ -15,11 +15,3 @@ bool	broadcast_senut(char c)
 	return (true);
 }
 
-/*
-check for bash exit codes depending on exit case
-*/
-void	commandexit(void)
-{
-	write(1, "exit\n", 5);
-	exit(2);
-}

@@ -88,7 +88,7 @@ t_list	*make_commands(t_list *tokenlist, t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 char	**append_string(char **array, char *string);
 t_cmd	*add_commandnode(t_par *p);
-t_list	*freeandreturnnext(t_par *p, t_tok *token);
+t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
 
 //6_util_is.c
 bool	is_whitespace(char c);
@@ -105,7 +105,6 @@ void	print_outputlist(t_list *node);
 
 //8_exits&broadcast.c
 void	errorexit_onlymsg(char *msg);
-void	commandexit(void);
 bool	broadcast_senut(char c);
 
 //9_shutdown.c
