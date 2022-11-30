@@ -1,5 +1,15 @@
 #include "../../include/minishell.h"
 
+void	parse_commands(t_par *p)
+{
+	t_list		*temp;
+
+	temp = p->tokenlist;
+	while (temp)
+		temp = make_commands(temp, p);
+	p->data->cmd_list = p->cmdlist;
+}
+
 /*
 The decision tree is distributed over the "handle" functions.
 */
