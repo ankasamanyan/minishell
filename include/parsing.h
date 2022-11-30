@@ -81,16 +81,15 @@ void	findandexpand(t_par *p);
 //4_remove_quotes.c
 void	remove_quotes(t_par *p);
 
-//5_make_commands.c
+//5_parser1.c
 void	parse_commands(t_par *p);
-t_list	*make_commands(t_list *tokenlist, t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
 void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
 
-//5_make_commands2.c
+//5_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
 
@@ -121,6 +120,5 @@ void	shutdown(t_data *data);
 void	del_tokenlist(t_list *list);
 void	del_cmdlist(t_list *list);
 void	del_pairlist(t_list *list);
-void	free2d_char(char **array);
 
 #endif
