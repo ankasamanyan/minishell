@@ -61,6 +61,7 @@ typedef struct s_data
 	int					pid;
 	bool				first;	//init to true; or 1;
 	int					cmd_count;	//init it to 0
+	char				exitcode; //innit it to 0
 }		t_data;
 
 bool	specialcase(char *input);

@@ -67,7 +67,8 @@ void	input_files(void *infile)
 		}
 		free(stringy);
 		close(pipy[WRITE_END]);
-		close(input->cmd->fd_in);
+		if (input->cmd->fd_in > 2)
+			close(input->cmd->fd_in);
 		input->cmd->fd_in = pipy[READ_END];
 	}
 }
@@ -76,8 +77,8 @@ void	if_no_output(t_cmd *cmd)
 {
 	if (cmd->outputlist == NULL)
 	{
-		printf("%sHi from the if_no_output!%s\n", GREEN, RESET);
-		printf("%sif close when cmd->outputlist == NULL %p %s\n", GREEN, cmd->outputlist, RESET);
+		// printf("%sHi from the if_no_output!%s\n", GREEN, RESET);
+		// printf("%sif close when cmd->outputlist == NULL %p %s\n", GREEN, cmd->outputlist, RESET);
 		if (ft_lstsize(cmd->data->cmd_list) == cmd->data->cmd_count)
 		{
 			if (cmd->fd_out > 2)
@@ -101,8 +102,8 @@ void	output_files(void *outfile)
 	output = (t_pair *)outfile;
 	if (output->doublebracket == false)
 	{
-		// if (output->cmd->fd_out > 2)
-			// close(output->cmd->fd_out);
+		if (output->cmd->fd_out > 2)
+			close(output->cmd->fd_out);
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 		// if (access(output->string, W_OK) != 0)		// if file doesnt have write rights cmd is not executed but next one is
 		perror("Minishell: Output error");

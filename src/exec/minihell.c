@@ -16,28 +16,45 @@ void	find_cmd_path(char *big_path, t_data *data)
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd_w_flags->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
+		{
 			data->full_path = lil_path;
+			return ;
+		}
+		else if (access(lil_path, F_OK) == 0)
+		{
+			free(lil_path);
+			data->exitcode = 126;
+		}
 		else
 		{
-			access(lil_path, F_OK);
+			data->exitcode = 127;
 			free(lil_path);
 		}
 	}
 	if (access(cmd_w_flags->cmd_arr[0], X_OK) == 0)
+	{
 		data->full_path = ft_strdup(cmd_w_flags->cmd_arr[0]);
+		return ;
+	}
 	else
+	{
+		data->exitcode = 126;
 		access(cmd_w_flags->cmd_arr[0], F_OK);
+	}
+	data->exitcode = 127;
 	ft_free_array(smoll_pathsies);
+	perror(cmd_w_flags->cmd_arr[0]);
 }
 
 void	kiddi_process(t_cmd *cmd)
 {
-	// printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
-	if (cmd->fd_in > 2)
-		dup2(cmd->fd_in, STDIN_FILENO);
-	if (cmd->fd_in > 2)
-		dup2(cmd->fd_out, STDOUT_FILENO);
 	// printf("full path before execve: %s\n",cmd->data->full_path);
+	printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
+	// if (cmd->fd_in > 2)
+		dup2(cmd->fd_in, STDIN_FILENO);
+	// if (cmd->fd_in > 2)
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	// print_2d_array(cmd->cmd_arr, 2);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -50,8 +67,6 @@ void	search_path_env(t_cmd *cmd)
 	i = 0;
 	while (cmd->data->env[i])
 	{
-		// if (ft_strncmp(cmd->data->env[i], "SHLVL=", 6) == 0)
-		// 	cmd->data->shell_lvl = (ft_atoi(cmd->data->env[i] + 6));
 		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
 			cmd->data->big_path = (cmd->data->env[i] + 5);
 		i++;
@@ -94,7 +109,10 @@ void	exec(void *cmd_list)
 	else
 	{
 		// printf("Hi, from parent\n");
-		waitpid(cmd->data->pid, NULL, 0);
+		int tmp;
+		// waitpid(cmd->data->pid, &(cmd->data->exitcode), 0);
+		waitpid(cmd->data->pid, &tmp, 0);
+		cmd->data->exitcode = tmp;
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
 		if (cmd->fd_out > 2)
@@ -115,5 +133,21 @@ void	exec(void *cmd_list)
 
 		// close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
 	}
-
 }
+// void	print_2d_array(char	**arr, int fd)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	if (arr)
+// 	{
+// 		while (arr[i] != NULL)
+// 		{
+// 			ft_putstr_fd(arr[i], fd);
+// 			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
+// 				ft_putchar_fd('\n', fd);
+// 			i++;
+// 		}
+// 	}
+// }
+// }
