@@ -14,7 +14,7 @@ more similar to the order in which bash deals with it.
 */
 int	parsing(char *input, char **env, t_data *data)
 {
-	t_list		*temp;
+	//t_list		*temp;
 	t_par		*p;
 
 	p = &data->parsing_struct;
@@ -26,10 +26,14 @@ int	parsing(char *input, char **env, t_data *data)
 	remove_quotes(p);
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
-	temp = p->tokenlist;
-	while (temp)
+	parse_commands(p);
+
+	/*temp = p->tokenlist;
+	 while (temp)
 		temp = make_commands(temp, p);
-	data->cmd_list = p->cmdlist;
+	data->cmd_list = p->cmdlist; */
+
+
 	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }

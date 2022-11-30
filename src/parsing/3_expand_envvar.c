@@ -135,8 +135,10 @@ char	*replace_dollar(t_par *p, char *lexeme)
 void	findandexpand(t_par *p)
 {
 	int		i;
+	char	*temp;
 
 	i = 0;
+	temp = p->str_b;
 	while (p->data->env[i]
 		&& ft_strncmp(p->data->env[i], p->str_b, ft_strlen(p->str_b)))
 		i++;
@@ -145,4 +147,5 @@ void	findandexpand(t_par *p)
 	else
 		p->str_b = ft_substr(p->data->env[i], ft_strlen(p->str_b) + 1,
 				ft_strlen(p->data->env[i]));
+	free(temp);
 }

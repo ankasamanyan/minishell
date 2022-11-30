@@ -2,11 +2,26 @@
 
 void	parse_commands(t_par *p)
 {
-	t_list		*temp;
+	t_list			*temp;
+	t_tok			*token;
+	static t_cmd	*cmdnode;
+	t_toktype		curr_tokentype;
 
 	temp = p->tokenlist;
 	while (temp)
-		temp = make_commands(temp, p);
+	{
+		token = temp->content;
+		curr_tokentype = get_tokentype(p, token);
+		cmdnode = handle_cmdnode(p, cmdnode, curr_tokentype, token->lexeme);
+		handle_redirnode(p, cmdnode, curr_tokentype, token->lexeme);
+		p->prev_tokentype = curr_tokentype;
+		//return (tokenlist->next);
+		temp = temp->next;
+
+
+
+		//temp = make_commands(temp, p);
+	}
 	p->data->cmd_list = p->cmdlist;
 }
 
@@ -19,8 +34,8 @@ t_list	*make_commands(t_list *tokenlist, t_par *p)
 	static t_cmd	*cmdnode;
 	t_toktype		curr_tokentype;
 
-	if (!tokenlist->content)
-		return (NULL);
+	/* if (!tokenlist->content)
+		return (NULL); */
 	token = tokenlist->content;
 	curr_tokentype = get_tokentype(p, token);
 	cmdnode = handle_cmdnode(p, cmdnode, curr_tokentype, token->lexeme);

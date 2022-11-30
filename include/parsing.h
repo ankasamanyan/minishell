@@ -82,6 +82,7 @@ void	findandexpand(t_par *p);
 void	remove_quotes(t_par *p);
 
 //5_make_commands.c
+void	parse_commands(t_par *p);
 t_list	*make_commands(t_list *tokenlist, t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,

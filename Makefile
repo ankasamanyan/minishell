@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g -fsanitize=address
+CFLAGS = -g #-fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RM = rm -rf
