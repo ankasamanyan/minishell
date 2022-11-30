@@ -1,20 +1,17 @@
 #include "../../include/minishell.h"
 
 /*
-Parsing is done using hard coded syntax checks (pre-processing
-and post-processing) and a very reduced finite state machine.
-This seemed the most pragmatic approach for the small
-number of operators in the subject.
-- lexing, creating tokens
-- var expansion
-- quote removal
-- actual parsing
-Had it in a more compact model with hybrid steps and rewrote to be
-more similar to the order in which bash deals with it.
+Syntax checks are perfomed in two steps (pre-processing
+and post-processing) to make it easier to detect illegal
+sequences.
+Lexing and parsing use small finite state machines.
+Due to the small number of possible operators in the subject,
+the identification and handling of operators is pretty much
+hard coded. This is a pragmatic approach for the subject, but
+not useful for the creation of a more complex shell.
 */
 int	parsing(char *input, char **env, t_data *data)
 {
-	//t_list		*temp;
 	t_par		*p;
 
 	p = &data->parsing_struct;
@@ -27,13 +24,6 @@ int	parsing(char *input, char **env, t_data *data)
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	parse_commands(p);
-
-	/*temp = p->tokenlist;
-	 while (temp)
-		temp = make_commands(temp, p);
-	data->cmd_list = p->cmdlist; */
-
-
 	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }

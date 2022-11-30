@@ -4,20 +4,17 @@ void	expand_envvar(t_par *p)
 {
 	t_list	*temp;
 	t_tok	*token;
-	int		get_pos;
 	char	*tempstring;
 
 	temp = p->tokenlist;
 	while (temp)
 	{
 		token = temp->content;
-		get_pos = get_dollarposition(p, token->lexeme);
-		while (get_pos != -1)
+		while (get_dollarposition(p, token->lexeme) != -1)
 		{
 			tempstring = token->lexeme;
 			token->lexeme = replace_dollar(p, token->lexeme);
 			free(tempstring);
-			get_pos = get_dollarposition(p, token->lexeme);
 		}
 		temp = temp->next;
 	}
@@ -97,7 +94,7 @@ Splits the input string into 3 parts:
 	ft_substr will just terminate at end of string. Only important that it
 	doesn't terminate too soon.
 -	Keeps string_a and string_c
--	Searches for the contents of string_b in at the start of each position of env.
+-	Searches for the contents of string_b at the start of each position of env.
 -	If found, takes the substring of that env part. Starts strlen of string_b + 1
 	in order to skip the identifier string and the equal sign at start of env
 	position.
@@ -119,7 +116,7 @@ char	*replace_dollar(t_par *p, char *lexeme)
 	i = dollar + 1;
 	while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
 		i++;
-	p->str_b = ft_substr(lexeme, dollar + 1, i - dollar - 1);
+	p->str_b = ft_substr(lexeme, dollar + 1, i - (dollar + 1));
 	p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
 	findandexpand(p);
 	result = ft_strjoin(p->str_a, p->str_b);

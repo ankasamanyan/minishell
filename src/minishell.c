@@ -54,6 +54,7 @@ int	main(int argc, char *argv[], char *env[])
 		input = readline("\033[0;36mMinishell-0.1 lvl$\033[0m ");
 		if (specialcase(input))
 			continue ;
+		add_history(input);
 		if (parsing(input, env, &data))
 		{
 			shutdown(&data);
