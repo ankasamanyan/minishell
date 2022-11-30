@@ -101,8 +101,9 @@ Splits the input string into 3 parts:
 -	If found, takes the substring of that env part. Starts strlen of string_b + 1
 	in order to skip the identifier string and the equal sign at start of env
 	position.
--	Then just mashes the strings back together
--	Frees strings b and c; lexeme gets freed in calling function
+-	Then mashes the strings back together
+-	Frees strings a, b, c and the first result (a+b);
+	lexeme gets freed in calling function.
 */
 char	*replace_dollar(t_par *p, char *lexeme)
 {
@@ -114,20 +115,19 @@ char	*replace_dollar(t_par *p, char *lexeme)
 	dollar = get_dollarposition(p, lexeme);
 	if (is_quotationmark(lexeme[dollar + 1]))
 		return (del_singlechar(lexeme, dollar));
-	i = dollar;
-	p->str_a = ft_substr(lexeme, 0, i);
-	i++;
+	p->str_a = ft_substr(lexeme, 0, dollar);
+	i = dollar + 1;
 	while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
 		i++;
 	p->str_b = ft_substr(lexeme, dollar + 1, i - dollar - 1);
 	p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
 	findandexpand(p);
 	result = ft_strjoin(p->str_a, p->str_b);
-	free(p->str_a);
-	free(p->str_b);
 	temp = result;
 	result = ft_strjoin(result, p->str_c);
 	free(temp);
+	free(p->str_a);
+	free(p->str_b);
 	free(p->str_c);
 	return (result);
 }

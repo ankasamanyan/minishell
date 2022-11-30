@@ -1,5 +1,8 @@
 #include "../../include/minishell.h"
 
+/*
+The decision tree is spread across the 2 "handle" functions.
+*/
 void	parse_commands(t_par *p)
 {
 	t_list			*temp;
@@ -15,33 +18,9 @@ void	parse_commands(t_par *p)
 		cmdnode = handle_cmdnode(p, cmdnode, curr_tokentype, token->lexeme);
 		handle_redirnode(p, cmdnode, curr_tokentype, token->lexeme);
 		p->prev_tokentype = curr_tokentype;
-		//return (tokenlist->next);
 		temp = temp->next;
-
-
-
-		//temp = make_commands(temp, p);
 	}
 	p->data->cmd_list = p->cmdlist;
-}
-
-/*
-The decision tree is distributed over the "handle" functions.
-*/
-t_list	*make_commands(t_list *tokenlist, t_par *p)
-{
-	t_tok			*token;
-	static t_cmd	*cmdnode;
-	t_toktype		curr_tokentype;
-
-	/* if (!tokenlist->content)
-		return (NULL); */
-	token = tokenlist->content;
-	curr_tokentype = get_tokentype(p, token);
-	cmdnode = handle_cmdnode(p, cmdnode, curr_tokentype, token->lexeme);
-	handle_redirnode(p, cmdnode, curr_tokentype, token->lexeme);
-	p->prev_tokentype = curr_tokentype;
-	return (tokenlist->next);
 }
 
 t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
