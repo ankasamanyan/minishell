@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g -fsanitize=address
+CFLAGS = -g #-fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RM = rm -rf
@@ -21,8 +21,10 @@ SRC = 	src/minishell.c\
 		2_lexer.c\
 		3_expand_envvar.c\
 		4_remove_quotes.c\
-		5_make_commands.c\
+		5_parser1.c\
+		5_parser2.c\
 		6_util_is.c\
+		6_util_general.c\
 		7_helper_print.c\
 		8_exits+broadcast.c\
 		9_shutdown.c)

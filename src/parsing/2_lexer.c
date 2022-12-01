@@ -61,34 +61,6 @@ int	get_chartype(t_par *p, char c)
 }
 
 /*
-Appends a char to a string. If the string doesn't exist yet,
-makes a new string with the char as only content.
-Frees the passed string.
-*/
-char	*append_char(char *string, char c)
-{
-	char	*result;
-	int		i;
-
-	if (!string)
-	{
-		result = ft_calloc(2, sizeof(char));
-		result[0] = c;
-		return (result);
-	}
-	result = ft_calloc(ft_strlen(string) + 2, sizeof(char));
-	i = 0;
-	while (string[i])
-	{
-		result[i] = string[i];
-		i++;
-	}
-	result[i] = c;
-	free (string);
-	return (result);
-}
-
-/*
 Creates a t_tok struct and fills it with the data from lexer.
 Adds a node to a standard libft t_list struct whose content is the created
 t_tok struct.

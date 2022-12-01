@@ -4,20 +4,17 @@ void	expand_envvar(t_par *p)
 {
 	t_list	*temp;
 	t_tok	*token;
-	int		get_pos;
 	char	*tempstring;
 
 	temp = p->tokenlist;
 	while (temp)
 	{
 		token = temp->content;
-		get_pos = get_dollarposition(p, token->lexeme);
-		while (get_pos != -1)
+		while (get_dollarposition(p, token->lexeme) != -1)
 		{
 			tempstring = token->lexeme;
 			token->lexeme = replace_dollar(p, token->lexeme);
 			free(tempstring);
-			get_pos = get_dollarposition(p, token->lexeme);
 		}
 		temp = temp->next;
 	}
@@ -97,12 +94,13 @@ Splits the input string into 3 parts:
 	ft_substr will just terminate at end of string. Only important that it
 	doesn't terminate too soon.
 -	Keeps string_a and string_c
--	Searches for the contents of string_b in at the start of each position of env.
+-	Searches for the contents of string_b at the start of each position of env.
 -	If found, takes the substring of that env part. Starts strlen of string_b + 1
 	in order to skip the identifier string and the equal sign at start of env
 	position.
--	Then just mashes the strings back together
--	Frees strings b and c; lexeme gets freed in calling function
+-	Then mashes the strings back together
+-	Frees strings a, b, c and the first result (a+b);
+	lexeme gets freed in calling function.
 */
 char	*replace_dollar(t_par *p, char *lexeme)
 {
@@ -114,20 +112,19 @@ char	*replace_dollar(t_par *p, char *lexeme)
 	dollar = get_dollarposition(p, lexeme);
 	if (is_quotationmark(lexeme[dollar + 1]))
 		return (del_singlechar(lexeme, dollar));
-	i = dollar;
-	p->str_a = ft_substr(lexeme, 0, i);
-	i++;
+	p->str_a = ft_substr(lexeme, 0, dollar);
+	i = dollar + 1;
 	while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
 		i++;
-	p->str_b = ft_substr(lexeme, dollar + 1, i - dollar - 1);
+	p->str_b = ft_substr(lexeme, dollar + 1, i - (dollar + 1));
 	p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
 	findandexpand(p);
 	result = ft_strjoin(p->str_a, p->str_b);
-	free(p->str_a);
-	free(p->str_b);
 	temp = result;
 	result = ft_strjoin(result, p->str_c);
 	free(temp);
+	free(p->str_a);
+	free(p->str_b);
 	free(p->str_c);
 	return (result);
 }
@@ -135,8 +132,10 @@ char	*replace_dollar(t_par *p, char *lexeme)
 void	findandexpand(t_par *p)
 {
 	int		i;
+	char	*temp;
 
 	i = 0;
+	temp = p->str_b;
 	while (p->data->env[i]
 		&& ft_strncmp(p->data->env[i], p->str_b, ft_strlen(p->str_b)))
 		i++;
@@ -145,17 +144,5 @@ void	findandexpand(t_par *p)
 	else
 		p->str_b = ft_substr(p->data->env[i], ft_strlen(p->str_b) + 1,
 				ft_strlen(p->data->env[i]));
-}
-
-/*
-Doesn't free input string because the calling functions sometimes already do it.
-So absolutely needs to be freed in calling function.
-*/
-char	*del_singlechar(char *string, int del_pos)
-{
-	char	*result;
-
-	string[del_pos] = 0;
-	result = ft_strjoin(string, string + del_pos + 1);
-	return (result);
+	free(temp);
 }

@@ -10,6 +10,11 @@ void	shutdown(t_data *data)
 	free(p->input);
 }
 
+/*
+Cmdlist, inputlist and outputlist don't free any strings.
+"Their" strings only point to the allocs in tokenlist.
+All char * are freed in this function.
+*/
 void	del_tokenlist(t_list *list)
 {
 	t_list		*temp1;
@@ -40,7 +45,8 @@ void	del_cmdlist(t_list *list)
 	while (list)
 	{
 		cmd = list->content;
-		free(cmd->cmd_arr);
+		if (cmd->cmd_arr)
+			free(cmd->cmd_arr);
 		del_pairlist(cmd->inputlist);
 		del_pairlist(cmd->outputlist);
 		free(cmd);

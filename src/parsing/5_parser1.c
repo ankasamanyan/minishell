@@ -1,53 +1,59 @@
 #include "../../include/minishell.h"
 
 /*
-Casts the t_list to token.
-Checks what type of token it is. This is a mix of content evaluation and
-machine state.
-If cmdlist has no node, puts one. This is only the case in the first call.
-Might move this out, into init.
+The decision tree is spread across the 2 "handle" functions.
 */
-t_list	*make_commands(t_list *list, t_par *p)
+void	parse_commands(t_par *p)
 {
+	t_list			*temp;
 	t_tok			*token;
 	static t_cmd	*cmdnode;
-	t_pair			*redir_pair;
 	t_toktype		curr_tokentype;
 
-	if (!list->content)
-		return (NULL);
-	token = list->content;
-	curr_tokentype = get_tokentype(p, token);
+	temp = p->tokenlist;
+	while (temp)
+	{
+		token = temp->content;
+		curr_tokentype = get_tokentype(p, token);
+		cmdnode = handle_cmdnode(p, cmdnode, curr_tokentype, token->lexeme);
+		handle_redirnode(p, cmdnode, curr_tokentype, token->lexeme);
+		p->prev_tokentype = curr_tokentype;
+		temp = temp->next;
+	}
+	p->data->cmd_list = p->cmdlist;
+}
+
+t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
+	char *lexeme)
+{
 	if (p->cmdlist == NULL)
 		cmdnode = add_commandnode(p);
 	if (curr_tokentype == newcmd)
 	{
 		if (p->prev_tokentype != init_tok)
 			cmdnode = add_commandnode(p);
-		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, token->lexeme);
+		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, lexeme);
 	}
 	if (curr_tokentype == cmdstring)
-		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, token->lexeme);
+		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, lexeme);
+	return (cmdnode);
+}
+
+void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
+	char *lexeme)
+{
+	t_pair			*redir_pair;
+
 	if (curr_tokentype & (input_redir_oper | output_redir_oper))
-	{
-		redir_pair = malloc (1 * sizeof(t_pair));
-		redir_pair->doublebracket = ft_strlen(token->lexeme) == 2;
-		redir_pair->cmd = cmdnode;
-		if (curr_tokentype == input_redir_oper)
-			ft_lstadd_back(&cmdnode->inputlist, ft_lstnew(redir_pair));
-		else
-			ft_lstadd_back(&cmdnode->outputlist, ft_lstnew(redir_pair));
-	}
+		redir_pair = add_redirnode(cmdnode, lexeme, curr_tokentype);
 	if (curr_tokentype & (input_redir_str | output_redir_str))
 	{
 		if (p->prev_tokentype == input_redir_oper)
 			redir_pair = ft_lstlast(cmdnode->inputlist)->content;
-		else if (p->prev_tokentype == output_redir_oper)
+		if (p->prev_tokentype == output_redir_oper)
 			redir_pair = ft_lstlast(cmdnode->outputlist)->content;
-		redir_pair->string = token->lexeme;
+		redir_pair->string = lexeme;
 	}
-	p->prev_tokentype = curr_tokentype;
-	return (list->next);
 }
 
 /*
@@ -87,54 +93,4 @@ int	get_tokentype(t_par *p, t_tok *token)
 	if (p->prev_tokentype & (newcmd | cmdstring | input_redir_str))
 		return (cmdstring);
 	return (newcmd);
-}
-
-/*
-Appends a string to a string array.
-If the string array doesn't exist yet,
-makes a new string array with the string as only content.
-Frees the passed string array.
-*/
-char	**append_string(char **array, char *string)
-{
-	char	**result;
-	int		i;
-
-	if (!array)
-	{
-		result = malloc(2 * sizeof(char *));
-		result[0] = string;
-		result[1] = NULL;
-		return (result);
-	}
-	i = 0;
-	while (array[i])
-		i++;
-	result = malloc((i + 2) * sizeof(char *));
-	i = 0;
-	while (array[i])
-	{
-		result[i] = array[i];
-		i++;
-	}
-	result[i] = string;
-	i++;
-	result[i] = NULL;
-	free(array);
-	return (result);
-}
-
-t_cmd	*add_commandnode(t_par *p)
-{
-	t_cmd	*cmdnode;
-
-	cmdnode = malloc(1 * sizeof(t_cmd));
-	cmdnode->cmd_arr = NULL;
-	cmdnode->inputlist = NULL;
-	cmdnode->outputlist = NULL;
-	cmdnode->fd_in = 0;
-	cmdnode->fd_out = 1;
-	cmdnode->data = p->data;
-	ft_lstadd_back(&p->cmdlist, ft_lstnew(cmdnode));
-	return (cmdnode);
 }
