@@ -1,5 +1,22 @@
 #include "../../include/minishell.h"
 
+void	print_2d_array(char	**arr, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i] != NULL)
+		{
+			ft_putstr_fd(arr[i], fd);
+			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
+				ft_putchar_fd('\n', fd);
+			i++;
+		}
+	}
+}
+
 void	find_cmd_path(char *big_path, t_data *data)
 {
 	char	**smoll_pathsies;
@@ -48,13 +65,13 @@ void	find_cmd_path(char *big_path, t_data *data)
 
 void	kiddi_process(t_cmd *cmd)
 {
-	// printf("full path before execve: %s\n",cmd->data->full_path);
 	printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
-	// if (cmd->fd_in > 2)
+	if (cmd->fd_in > 2)
 		dup2(cmd->fd_in, STDIN_FILENO);
-	// if (cmd->fd_in > 2)
+	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-	// print_2d_array(cmd->cmd_arr, 2);
+	print_2d_array(cmd->cmd_arr, 2);
+	printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -113,12 +130,14 @@ void	exec(void *cmd_list)
 		// waitpid(cmd->data->pid, &(cmd->data->exitcode), 0);
 		waitpid(cmd->data->pid, &tmp, 0);
 		cmd->data->exitcode = tmp;
+
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
 		if (cmd->fd_out > 2)
 			close(cmd->fd_out);
 		if (cmd->data->pipe[WRITE_END] > 2)
 			close(cmd->data->pipe[WRITE_END]);
+		cmd->data->temp_pipe = cmd->data->pipe[READ_END];
 		if (cmd->data->pipe[READ_END] > 2)
 			close(cmd->data->pipe[READ_END]);
 		
@@ -134,20 +153,4 @@ void	exec(void *cmd_list)
 		// close(cmd->data->pipe[WRITE_END]); // close pipe[write]	
 	}
 }
-// void	print_2d_array(char	**arr, int fd)
-// {
-// 	int	i;
 
-// 	i = 0;
-// 	if (arr)
-// 	{
-// 		while (arr[i] != NULL)
-// 		{
-// 			ft_putstr_fd(arr[i], fd);
-// 			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
-// 				ft_putchar_fd('\n', fd);
-// 			i++;
-// 		}
-// 	}
-// }
-// }

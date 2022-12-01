@@ -54,6 +54,7 @@ typedef struct s_data
 	t_list				*cmd_list; //t_cmd as content
 	t_par				parsing_struct;
 	char				**env;
+	int					temp_pipe;
 	int					pipe[2];
 	int					first_cmd; // init it to 0
 	char				*big_path;

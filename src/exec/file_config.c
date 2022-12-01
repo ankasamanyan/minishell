@@ -7,8 +7,8 @@ void	if_no_input(t_cmd *cmd)
 	{
 		if (cmd->data->first)
 		{
-			if (cmd->fd_in > 2)
-				close(cmd->fd_in);
+			// if (cmd->fd_in > 2)
+			// 	close(cmd->fd_in);
 			cmd->fd_in = STDIN_FILENO;
 			cmd->data->first = false;
 		}
@@ -16,7 +16,7 @@ void	if_no_input(t_cmd *cmd)
 		{
 			if (cmd->fd_in > 2)
 				close(cmd->fd_in);
-			cmd->fd_in = cmd->data->pipe[READ_END];
+			cmd->fd_in = cmd->data->temp_pipe;
 		}
 	}
 }
@@ -44,7 +44,7 @@ void	input_files(void *infile)
 				perror("Minishell: Input file error");
 			if (!(input->cmd->cmd_arr))
 			{
-				//you don't have to close alllllll the 
+				//you don't have to close alllllll the fdsss
 				//leave ze pipe!!!!!!!!!!!
 				return ;
 			}
@@ -59,7 +59,9 @@ void	input_files(void *infile)
 		while (42)
 		{
 			stringy = readline("> ");
-			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0))
+			stringy = append_char(stringy, '\n');
+			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
+				&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n'))
 				break ;
 			else
 				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
