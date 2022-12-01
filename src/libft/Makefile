@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: wmardin <wmardin@student.42wolfsburg.de>   +#+  +:+       +#+         #
+#    By: akasaman <akasaman@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/26 13:39:51 by wmardin           #+#    #+#              #
-#    Updated: 2022/11/17 10:35:07 by wmardin          ###   ########.fr        #
+#    Updated: 2022/12/01 13:17:31 by akasaman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
