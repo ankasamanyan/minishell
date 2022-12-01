@@ -5,17 +5,19 @@ void	if_no_input(t_cmd *cmd)
 	// printf(" . = . %p\n", cmd->data);
 	if (cmd->inputlist == NULL)
 	{
-		if (cmd->data->first)
+		if (cmd->data->first && cmd->data->cmd_count == 1)
 		{
+			printf("HELLO\n");
 			// if (cmd->fd_in > 2)
 			// 	close(cmd->fd_in);
-			cmd->fd_in = STDIN_FILENO;
+			// cmd->fd_in = STDIN_FILENO;
 			cmd->data->first = false;
 		}
 		else 
 		{
 			if (cmd->fd_in > 2)
 				close(cmd->fd_in);
+			printf("temp pipe : %i\n", cmd->data->temp_pipe);
 			cmd->fd_in = cmd->data->temp_pipe;
 		}
 	}
@@ -29,6 +31,8 @@ void	input_files(void *infile)
 
 	// printf("Start of a Input_files() call\n");
 	input = (t_pair *)infile;
+	if (input->cmd->data->temp_pipe > 2)
+		close(input->cmd->data->temp_pipe);
 	if (input->doublebracket == false)
 	{
 		if (access(input->string, F_OK) != 0)
@@ -49,7 +53,7 @@ void	input_files(void *infile)
 				return ;
 			}
 			// helper function that finds out if there is no cmd 
-			// and closeall the pipes		
+			// and closeall the pipes	
 		}
 	}
 	if (input->doublebracket == true)

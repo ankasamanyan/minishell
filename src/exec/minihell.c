@@ -17,50 +17,39 @@ void	print_2d_array(char	**arr, int fd)
 	}
 }
 
-void	find_cmd_path(char *big_path, t_data *data)
+void	find_cmd_path(char *big_path, t_cmd *cmd)
 {
 	char	**smoll_pathsies;
+	// t_cmd	*cmd;
 	char	*lil_path;
-	t_cmd	*cmd_w_flags;
 	int		i;
-
+	(void)big_path;
 	i = 0;
-	cmd_w_flags = (t_cmd *)data->cmd_list->content;
-	smoll_pathsies = ft_split(big_path, ':');
-	data->full_path = NULL;
+	// printf("got here for command\n" );
+	// printf(" from find cmd path: %s\n", big_path);
+	smoll_pathsies = ft_split(cmd->data->big_path, ':');
+	cmd->data->full_path = NULL;
 	while (smoll_pathsies[i])
 	{
+		// print_2d_array(smoll_pathsies, 1);
+		// write(1, "\n", 1);
+		// printf("%p\n", cmd->cmd_arr[0]);
+		// printf("HELLOO??????\n");
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
-				"/", cmd_w_flags->cmd_arr[0]);
+				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
-		{
-			data->full_path = lil_path;
-			return ;
-		}
-		else if (access(lil_path, F_OK) == 0)
-		{
-			free(lil_path);
-			data->exitcode = 126;
-		}
+			cmd->data->full_path = lil_path;
 		else
 		{
-			data->exitcode = 127;
+			access(lil_path, F_OK);
 			free(lil_path);
 		}
 	}
-	if (access(cmd_w_flags->cmd_arr[0], X_OK) == 0)
-	{
-		data->full_path = ft_strdup(cmd_w_flags->cmd_arr[0]);
-		return ;
-	}
+	if (access(cmd->cmd_arr[0], X_OK) == 0)
+		cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
 	else
-	{
-		data->exitcode = 126;
-		access(cmd_w_flags->cmd_arr[0], F_OK);
-	}
-	data->exitcode = 127;
+		access(cmd->cmd_arr[0], F_OK);
 	ft_free_array(smoll_pathsies);
-	perror(cmd_w_flags->cmd_arr[0]);
 }
 
 void	kiddi_process(t_cmd *cmd)
@@ -70,8 +59,8 @@ void	kiddi_process(t_cmd *cmd)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-	print_2d_array(cmd->cmd_arr, 2);
-	printf("full path before execve: %s\n",cmd->data->full_path);
+	// print_2d_array(cmd->cmd_arr, 2);
+	// printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -105,16 +94,16 @@ void	exec(void *cmd_list)
 	if_no_input(cmd);
 			// printf("after no input func\n start the ft_lstiter on inputs\n");
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
+	if_no_output(cmd);
 			// printf("start the ft_lstiter on outputs\n");
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
 			// printf("after no ft_lstiter on outputs\n start no output func\n");
-	if_no_output(cmd);
 			// printf("after no output func\n");
 			// printf("find PATH in env");
 	search_path_env(cmd); //find PATH in env
 			// printf(" results into: %s\n", cmd->data->big_path);
 			// printf("find executable of cmd\n");
-	find_cmd_path(cmd->data->big_path, cmd->data); //find executable of cmd
+	find_cmd_path(cmd->data->big_path, cmd); //find executable of cmd
 			// printf("fork\n");
 	cmd->data->pid = fork();
 	if (cmd->data->pid == 0)
@@ -138,8 +127,8 @@ void	exec(void *cmd_list)
 		if (cmd->data->pipe[WRITE_END] > 2)
 			close(cmd->data->pipe[WRITE_END]);
 		cmd->data->temp_pipe = cmd->data->pipe[READ_END];
-		if (cmd->data->pipe[READ_END] > 2)
-			close(cmd->data->pipe[READ_END]);
+		// if (cmd->data->pipe[READ_END] > 2)
+		// 	close(cmd->data->pipe[READ_END]);
 		
 		// printf("Hi, after parent\n");
 

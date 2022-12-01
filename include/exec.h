@@ -18,7 +18,7 @@ void	output_files(void *output);
 void	if_no_output(t_cmd *cmd);
 /* path manipulations */
 void	search_path_env(t_cmd *cmd);
-void	find_cmd_path(char *big_path, t_data *data);
+void	find_cmd_path(char *big_path, t_cmd *cmd);
 
 void	onexit(t_data *data);
 
