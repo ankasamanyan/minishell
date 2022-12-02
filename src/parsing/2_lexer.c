@@ -11,28 +11,6 @@
 -	Always stores current char in lexeme - unless it is a whitespace
 -	Updates prev chartype to the current char's type
 -	Final token creation after all the input has been read.
-operators in minishell:
-<
->
-<<
->>
-|
-allowed combos in bash
-<<< (herestring, but not allowed in minishell subject)
-| <
-| >
-| >>
-| <<
-
-not allowed
-<		>		<<		>>		|
-______________________________________
-< <		> <		<< <	>> <	| |
-< >		> >		<< >	>> >
-< <<	> <<	<< <<	>> <<
-< >>	> >>	<< >>	>> >>
-< |		> |		<< |	>> |
-______________________________________
 */
 void	lexer(t_par *p)
 {
@@ -60,22 +38,6 @@ void	lexer(t_par *p)
 	add_tokennode(p, lexeme);
 	free(lexeme);
 }
-
-/*
-Checks whether the current token should be delimited.
-If the current chartype is not the same as the previous or the
-previous wasn't init: delimits.
-Checks for operator completeness. Brute approach, but suitable
-for the small number of operators in the subject.
-
-bool	token_end(t_par *p, t_chartype curr_chartype, char *lexeme)
-{
-	if (!(p->prev_chartype & (curr_chartype | init_lex)))
-		return (true);
-	if
-	return (false);
-}
-*/
 
 /*
 Used by lexer for token delimiting.

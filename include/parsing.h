@@ -109,9 +109,9 @@ void	print_cmd_arr(t_list *node);
 void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
-//8_exits&broadcast.c
+//8_exits+broadcast.c
 void	errorexit_onlymsg(char *msg);
-bool	broadcast_senut(char c);
+bool	msg_senut(char c);
 
 //9_shutdown.c
 void	shutdown(t_data *data);

@@ -13,13 +13,13 @@ bool	preproc_syntaxerror(t_par *p)
 
 	lastchar = p->input[ft_strlen(p->input) - 1];
 	if (is_operatorchar(lastchar))
-		return (broadcast_senut('\n'));
+		return (msg_senut('\n'));
 	if (p->input[0] == '|')
-		return (broadcast_senut('|'));
+		return (msg_senut('|'));
 	if (has_unclosedquote(p->input))
 	{
 		printf(E_UNCLOSEDQUOTE);
-		return (broadcast_senut(lastchar));
+		return (msg_senut(lastchar));
 	}
 	return (false);
 }
@@ -86,8 +86,7 @@ bool	has_invalidoperator(t_list *tokenlist)
 				&& ft_strncmp(token->lexeme, "<<", 3)
 				&& ft_strncmp(token->lexeme, "|", 2))
 			{
-				broadcast_senut(
-					token->lexeme[ft_strlen(token->lexeme) - 1]);
+				msg_senut(token->lexeme[ft_strlen(token->lexeme) - 1]);
 				return (true);
 			}
 		}
@@ -96,6 +95,26 @@ bool	has_invalidoperator(t_list *tokenlist)
 	return (false);
 }
 
+/*
+operators in minishell:
+< > << >> |
+allowed combos in bash:
+<<< (herestring, but not allowed in minishell subject)
+| <
+| >
+| >>
+| <<
+
+not allowed
+<		>		<<		>>		|
+______________________________________
+< <		> <		<< <	>> <	| |
+< >		> >		<< >	>> >
+< <<	> <<	<< <<	>> <<
+< >>	> >>	<< >>	>> >>
+< |		> |		<< |	>> |
+______________________________________
+*/
 bool	has_illegaloperatorsequence(t_par *p)
 {
 	t_list		*temp;
@@ -109,13 +128,13 @@ bool	has_illegaloperatorsequence(t_par *p)
 		next_token = temp->next->content;
 		if (token->operator && next_token->operator)
 		{
-			if (!ft_strncmp(token->lexeme, "|", 2)
-				&& !ft_strncmp(next_token->lexeme, "|", 2))
+			if (token->lexeme[0] == '|' && next_token->lexeme[0] != '|')
 			{
-				broadcast_senut(
-					next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
-				return (true);
+				temp = temp->next;
+				continue ;
 			}
+			msg_senut(next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
+			return (true);
 		}
 		temp = temp->next;
 	}
