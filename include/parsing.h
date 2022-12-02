@@ -62,7 +62,7 @@ bool	preproc_syntaxerror(t_par *p);
 bool	has_unclosedquote(char *input);
 bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
-bool	has_consecoperatortokens(t_par *p);
+bool	has_illegaloperatorsequence(t_par *p);
 
 //2_lexer.c
 void	lexer(t_par *p);

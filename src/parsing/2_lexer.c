@@ -11,6 +11,31 @@
 -	Always stores current char in lexeme - unless it is a whitespace
 -	Updates prev chartype to the current char's type
 -	Final token creation after all the input has been read.
+operators in ms:
+<
+>
+<<
+>>
+|
+allowed combos in bash
+< >
+<<< (herestring, but not in minishell subject)
+pipe may be followed by all minishell operators.
+| <
+| >
+| >>
+| <<
+
+not allowed
+> <
+<< >>
+>> <<
+<< >
+<< <
+>> >
+>> <
+>>>
+
 */
 void	lexer(t_par *p)
 {

@@ -60,7 +60,7 @@ bool	postproc_syntaxerror(t_par *p)
 {
 	if (has_invalidoperator(p->tokenlist))
 		return (true);
-	if (has_consecoperatortokens(p))
+	if (has_illegaloperatorsequence(p))
 		return (true);
 	return (false);
 }
@@ -96,7 +96,7 @@ bool	has_invalidoperator(t_list *tokenlist)
 	return (false);
 }
 
-bool	has_consecoperatortokens(t_par *p)
+bool	has_illegaloperatorsequence(t_par *p)
 {
 	t_list		*temp;
 	t_tok		*token;
@@ -107,7 +107,8 @@ bool	has_consecoperatortokens(t_par *p)
 	{
 		token = temp->content;
 		next_token = temp->next->content;
-		if (token->operator && next_token->operator)
+		if (token->operator && next_token->operator
+			&& ft_strncmp(token->lexeme, "|", 2))
 		{
 			broadcast_senut(
 				next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
