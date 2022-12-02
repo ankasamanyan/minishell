@@ -75,6 +75,7 @@ void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
 void	findandexpand(t_par *p);
+char	*joinandfree(t_par *p, char *lexeme);
 
 //4_remove_quotes.c
 void	remove_quotes(t_par *p);

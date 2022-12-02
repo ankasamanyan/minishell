@@ -4,18 +4,13 @@ void	expand_envvar(t_par *p)
 {
 	t_list	*temp;
 	t_tok	*token;
-	char	*tempstring;
 
 	temp = p->tokenlist;
 	while (temp)
 	{
 		token = temp->content;
 		while (get_dollarposition(p, token->lexeme) != -1)
-		{
-			tempstring = token->lexeme;
 			token->lexeme = replace_dollar(p, token->lexeme);
-			free(tempstring);
-		}
 		temp = temp->next;
 	}
 }
@@ -72,24 +67,31 @@ The subject only deals with the following var expansion cases:
 -	$?
 
 There are 2 cases For an actionable $:
--	$ immediately followed by a quotation mark
+1	$ immediately followed by a quotation mark
 	-	Remove $, keep what is inside quotes
 	-	do not attempt expansion
--	$ immediately followed by non metachar and non quotation mark
+2	$ immediately followed by non metachar and non quotation mark
 	- 	remove $ and all following chars up to next metachar or
-		quotation mark or $
+		quotation mark or $. Doesn't have to test for metachar here
+		because we are already in tokens.
 	-	attempt expansion using the removed chars minus the $
 	-	if expansion fails: write nothing.
 	-	if expansion succeeds: write what was found
+2a	$ immediately followed by a '?'. This is a subcategory of case 2.
 
 Splits the input string into 3 parts:
 -	string_a: Start of string up to and including the last char before the
 	first valid $.
--	string_b: Starts at first char after the $ up to but not including the
+-	string_b: The part of the string to be modified.
+	Starts at first char after the $ up to but not including the
 	first 0 or quotationmark.
+	Unless the char immediately after the $ is a ?. Then string_b becomes the
+	last exitcode, which is stored in the main struct as a char.
 -	string_c: Starts at and includes the 0 or quotationmark that delimited string_b
 	and goes to the end of the string (which will ofc be the same char in
 	case of 0).
+	Unless the char immediately after the $ is a ?. Then string_c starts after
+	the "$?" regardless of what the next char is.
 	ft_strlen(lexeme) will always be too long, but it doesn't matter because
 	ft_substr will just terminate at end of string. Only important that it
 	doesn't terminate too soon.
@@ -98,35 +100,32 @@ Splits the input string into 3 parts:
 -	If found, takes the substring of that env part. Starts strlen of string_b + 1
 	in order to skip the identifier string and the equal sign at start of env
 	position.
--	Then mashes the strings back together
--	Frees strings a, b, c and the first result (a+b);
-	lexeme gets freed in calling function.
+-	Then mashes the strings back together and frees in joinandfree
 */
 char	*replace_dollar(t_par *p, char *lexeme)
 {
 	int		i;
 	int		dollar;
-	char	*result;
-	char	*temp;
 
 	dollar = get_dollarposition(p, lexeme);
 	if (is_quotationmark(lexeme[dollar + 1]))
 		return (del_singlechar(lexeme, dollar));
 	p->str_a = ft_substr(lexeme, 0, dollar);
 	i = dollar + 1;
-	while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
-		i++;
-	p->str_b = ft_substr(lexeme, dollar + 1, i - (dollar + 1));
-	p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
-	findandexpand(p);
-	result = ft_strjoin(p->str_a, p->str_b);
-	temp = result;
-	result = ft_strjoin(result, p->str_c);
-	free(temp);
-	free(p->str_a);
-	free(p->str_b);
-	free(p->str_c);
-	return (result);
+	if (lexeme[i] == '?')
+	{
+		p->str_b = ft_itoa(p->data->exitcode);
+		p->str_c = ft_substr(lexeme, i + 1, ft_strlen(lexeme));
+	}
+	else
+	{
+		while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
+			i++;
+		p->str_b = ft_substr(lexeme, dollar + 1, i - (dollar + 1));
+		p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
+		findandexpand(p);
+	}
+	return (joinandfree(p, lexeme));
 }
 
 void	findandexpand(t_par *p)
@@ -145,4 +144,19 @@ void	findandexpand(t_par *p)
 		p->str_b = ft_substr(p->data->env[i], ft_strlen(p->str_b) + 1,
 				ft_strlen(p->data->env[i]));
 	free(temp);
+}
+
+char	*joinandfree(t_par *p, char *lexeme)
+{
+	char	*result;
+	char	*temp;
+
+	temp = ft_strjoin(p->str_a, p->str_b);
+	free(p->str_a);
+	free(p->str_b);
+	result = ft_strjoin(temp, p->str_c);
+	free(temp);
+	free(p->str_c);
+	free(lexeme);
+	return (result);
 }
