@@ -17,7 +17,7 @@ typedef enum char_type
 	word = 2,
 	whitespace = 4,
 	operator = 8,
-	dollar = 16,
+	pipe_char = 16,
 }	t_chartype;
 
 typedef enum token_type

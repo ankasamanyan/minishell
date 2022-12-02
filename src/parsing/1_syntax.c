@@ -107,12 +107,15 @@ bool	has_illegaloperatorsequence(t_par *p)
 	{
 		token = temp->content;
 		next_token = temp->next->content;
-		if (token->operator && next_token->operator
-			&& ft_strncmp(token->lexeme, "|", 2))
+		if (token->operator && next_token->operator)
 		{
-			broadcast_senut(
-				next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
-			return (true);
+			if (!ft_strncmp(token->lexeme, "|", 2)
+				&& !ft_strncmp(next_token->lexeme, "|", 2))
+			{
+				broadcast_senut(
+					next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
+				return (true);
+			}
 		}
 		temp = temp->next;
 	}
