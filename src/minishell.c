@@ -55,7 +55,8 @@ int	main(int argc, char *argv[], char *env[])
 		if (specialcase(input))
 			continue ;
 		add_history(input);
-		if (parsing(input, env, &data))
+		init_datastruct(&data, env);
+		if (parsing(input, &data))
 		{
 			shutdown(&data);
 			continue ;
@@ -87,4 +88,14 @@ bool	specialcase(char *input)
 		return (1);
 	}
 	return (0);
+}
+
+void	init_datastruct(t_data *data, char **env)
+{
+	data->cmd_list = NULL;
+	data->env = env;
+	data->first_cmd = 0;
+	data->first = true;
+	data->cmd_count = 0;
+	data->exitcode = 0;
 }

@@ -54,8 +54,8 @@ typedef struct token
 }	t_tok;
 
 //0_parsing.c
-int		parsing(char *input, char **env, t_data *data);
-void	set_struct(t_par *p, t_data *data, char *input, char **env);
+int		parsing(char *input, t_data *data);
+void	init_parsingstruct(t_par *p, t_data *data, char *input);
 
 //1_syntax.c
 bool	preproc_syntaxerror(t_par *p);

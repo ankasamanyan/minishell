@@ -10,12 +10,12 @@ the identification and handling of operators is pretty much
 hard coded. This is a pragmatic approach for the subject, but
 not useful for the creation of a more complex shell.
 */
-int	parsing(char *input, char **env, t_data *data)
+int	parsing(char *input, t_data *data)
 {
 	t_par		*p;
 
 	p = &data->parsing_struct;
-	set_struct(p, data, input, env);
+	init_parsingstruct(p, data, input);
 	if (preproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	lexer(p);
@@ -28,7 +28,7 @@ int	parsing(char *input, char **env, t_data *data)
 	return (EXIT_SUCCESS);
 }
 
-void	set_struct(t_par *p, t_data *data, char *input, char **env)
+void	init_parsingstruct(t_par *p, t_data *data, char *input)
 {
 	p->input = input;
 	p->data = data;
@@ -41,7 +41,4 @@ void	set_struct(t_par *p, t_data *data, char *input, char **env)
 	p->str_a = NULL;
 	p->str_b = NULL;
 	p->str_c = NULL;
-	data->first = true;
-	data->cmd_count = 0;
-	data->env = env;
 }
