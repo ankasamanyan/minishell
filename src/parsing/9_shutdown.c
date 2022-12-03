@@ -8,6 +8,7 @@ void	shutdown(t_data *data)
 	del_tokenlist(p->tokenlist);
 	del_cmdlist(p->cmdlist);
 	free(p->input);
+	//free(data->shell_lvl);
 }
 
 /*

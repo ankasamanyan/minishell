@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -fsanitize=address -g
+CFLAGS = -g -fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RM = rm -rf
@@ -27,7 +27,9 @@ SRC = 	src/minishell.c\
 		6_util_general.c\
 		7_helper_print.c\
 		8_exits+broadcast.c\
-		9_shutdown.c)
+		9_shutdown.c)\
+		$(addprefix src/signals/,\
+		1_signals.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
 
@@ -43,7 +45,7 @@ $(LIBFT):
 
 obj/%.o: src/%.c
 	@mkdir -p obj
-	@mkdir -p obj/parsing obj/exec
+	@mkdir -p obj/parsing obj/exec obj/signals
 	$(CC) $(EFLAGS) -c $< -o $@
 
 clean:

@@ -9,10 +9,12 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <signal.h>
 
 # include "exec.h"
 # include "../src/libft/include/libft.h"
 # include "parsing.h"
+# include "signals.h"
 
 # define RESET		"\033[0m"
 # define BLACK		"\033[0;30m"
@@ -63,9 +65,10 @@ typedef struct s_data
 	bool				first;	//init to true; or 1;
 	int					cmd_count;	//init it to 0
 	char				exitcode; //innit it to 0
+	char				*shell_lvl;
 }		t_data;
 
-bool	specialcase(char *input);
+bool	specialcase(t_data *data, char *input);
 void	init_datastruct(t_data *d, char **env);
 
 #endif

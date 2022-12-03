@@ -12,22 +12,21 @@
 	- leak with exit
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 */
-void	increase_shell_lvl(char **env)
+void	increase_shell_lvl(t_data *data,char **env)
 {
-	char	*tmp;
-	int i = 0;
+	int		i;
+	char	*temp;
 
-	while(env[i])
-	{
-		if (ft_strncmp(env[i], "SHLVL=", 6) == 0)
-		{
-			tmp = ft_strjoin("SHLVL=", ft_itoa(ft_atoi(env[i]+6) + 1));
-			// free(env[i]);
-			env[i] = tmp;
-			printf("%s\n", tmp);
-		}
+	i = 0;
+	while (env[i] && ft_strncmp(env[i], "SHLVL=", 6))
 		i++;
-	}
+	if (!env[i])
+		return ;
+	temp = ft_itoa(ft_atoi(env[i] + 6) + 1);
+	data->shell_lvl = ft_strjoin("SHLVL=", temp);
+	free(temp);
+	env[i] = data->shell_lvl;
+	printf("%s\n", data->shell_lvl);
 }
 
 int	main(int argc, char *argv[], char *env[])
@@ -37,8 +36,8 @@ int	main(int argc, char *argv[], char *env[])
 	t_data		data;
 
 	(void)argv;
-	increase_shell_lvl(env);
-	// printf("%s\n");
+	increase_shell_lvl(&data, env);
+	signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	if (!env)
@@ -52,9 +51,9 @@ int	main(int argc, char *argv[], char *env[])
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
-		if (specialcase(input))
-			continue ;
 		add_history(input);
+		if (specialcase(&data, input))
+			continue ;
 		init_datastruct(&data, env);
 		if (parsing(input, &data))
 		{
@@ -75,11 +74,12 @@ int	main(int argc, char *argv[], char *env[])
 Function to catch edge cases such as empty input or NULL input.
 Maybe expand to deal with some builtins?
 */
-bool	specialcase(char *input)
+bool	specialcase(t_data *data, char *input)
 {
 	if (!input)
 	{
 		write(1, "exit\n", 5);
+		free(data->shell_lvl);
 		exit(0);
 	}
 	if (!input[0])
