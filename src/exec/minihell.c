@@ -20,36 +20,45 @@ void	print_2d_array(char	**arr, int fd)
 void	find_cmd_path(char *big_path, t_cmd *cmd)
 {
 	char	**smoll_pathsies;
-	// t_cmd	*cmd;
 	char	*lil_path;
 	int		i;
-	(void)big_path;
+
 	i = 0;
-	// printf("got here for command\n" );
-	// printf(" from find cmd path: %s\n", big_path);
-	smoll_pathsies = ft_split(cmd->data->big_path, ':');
-	cmd->data->full_path = NULL;
+	smoll_pathsies = ft_split(big_path, ':');
+	cmd->data->big_path = NULL;
 	while (smoll_pathsies[i])
 	{
-		// print_2d_array(smoll_pathsies, 1);
-		// write(1, "\n", 1);
-		// printf("%p\n", cmd->cmd_arr[0]);
-		// printf("HELLOO??????\n");
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
+		{
 			cmd->data->full_path = lil_path;
+			return ;
+		}
+		else if (access(lil_path, F_OK) == 0)
+		{
+			free(lil_path);
+			cmd->data->exitcode = 126;
+		}
 		else
 		{
-			access(lil_path, F_OK);
+			cmd->data->exitcode = 127;
 			free(lil_path);
 		}
 	}
 	if (access(cmd->cmd_arr[0], X_OK) == 0)
+	{
 		cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
+		return ;
+	}
 	else
+	{
+		cmd->data->exitcode = 126;
 		access(cmd->cmd_arr[0], F_OK);
+	}
+	cmd->data->exitcode = 127;
 	ft_free_array(smoll_pathsies);
+	perror(cmd->cmd_arr[0]);
 }
 
 void	kiddi_process(t_cmd *cmd)
