@@ -19,7 +19,7 @@ int	parsing(char *input, t_data *data)
 	if (preproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	lexer(p);
-	expand_envvar(p);
+	expand_var(p);
 	remove_quotes(p);
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);

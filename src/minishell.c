@@ -47,6 +47,7 @@ int	main(int argc, char *argv[], char *env[])
 		i++;
 	if (!env[i])
 		errorexit_onlymsg("env (PATH)");
+	pwd();
 
 	while (1)
 	{

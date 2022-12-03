@@ -9,9 +9,19 @@ void	errorexit_onlymsg(char *msg)
 bool	msg_senut(char c)
 {
 	if (c == '\n')
-		printf("%s `newline'\n", E_SENUT);
+	{
+		ft_putstr_fd(E_SENUT, 2);
+		ft_putstr_fd(" `newline'\n", 2);
+		//printf("%s `newline'\n", E_SENUT);
+	}
 	else
-		printf("%s `%c'\n", E_SENUT, c);
+	{
+		ft_putstr_fd(E_SENUT, 2);
+		ft_putstr_fd(" `", 2);
+		write(2, &c, 1);
+		ft_putstr_fd("'\n", 2);
+		//printf("%s `%c'\n", E_SENUT, c);
+	}
 	return (true);
 }
 

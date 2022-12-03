@@ -70,8 +70,8 @@ int		get_chartype(t_par *p, char c);
 void	add_tokennode(t_par *p, char *lexeme);
 void	check_quotation(t_par *p, char c);
 
-//3_expand_envvar.c
-void	expand_envvar(t_par *p);
+//3_expand_var.c
+void	expand_var(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
 void	findandexpand(t_par *p);

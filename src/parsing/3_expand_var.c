@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	expand_envvar(t_par *p)
+void	expand_var(t_par *p)
 {
 	t_list	*temp;
 	t_tok	*token;

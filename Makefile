@@ -19,7 +19,7 @@ SRC = 	src/minishell.c\
 		0_parsing.c\
 		1_syntax.c\
 		2_lexer.c\
-		3_expand_envvar.c\
+		3_expand_var.c\
 		4_remove_quotes.c\
 		5_parser1.c\
 		5_parser2.c\
@@ -29,7 +29,9 @@ SRC = 	src/minishell.c\
 		8_exits+broadcast.c\
 		9_shutdown.c)\
 		$(addprefix src/signals/,\
-		1_signals.c)
+		1_signals.c)\
+		$(addprefix src/builtins/,\
+		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
 
@@ -45,7 +47,7 @@ $(LIBFT):
 
 obj/%.o: src/%.c
 	@mkdir -p obj
-	@mkdir -p obj/parsing obj/exec obj/signals
+	@mkdir -p obj/parsing obj/exec obj/signals obj/builtins
 	$(CC) $(EFLAGS) -c $< -o $@
 
 clean:

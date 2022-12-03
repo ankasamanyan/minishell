@@ -15,6 +15,7 @@
 # include "../src/libft/include/libft.h"
 # include "parsing.h"
 # include "signals.h"
+# include "builtins.h"
 
 # define RESET		"\033[0m"
 # define BLACK		"\033[0;30m"

@@ -12,10 +12,10 @@ bool	preproc_syntaxerror(t_par *p)
 	char	lastchar;
 
 	lastchar = p->input[ft_strlen(p->input) - 1];
-	if (is_operatorchar(lastchar))
-		return (msg_senut('\n'));
 	if (p->input[0] == '|')
 		return (msg_senut('|'));
+	if (is_operatorchar(lastchar))
+		return (msg_senut('\n'));
 	if (has_unclosedquote(p->input))
 	{
 		printf(E_UNCLOSEDQUOTE);
