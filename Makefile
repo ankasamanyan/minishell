@@ -16,18 +16,19 @@ SRC = 	src/minishell.c\
 		src/exec/better_libft.c\
 		src/exec/minihell.c\
 		$(addprefix src/parsing/,\
-		0_parsing.c\
-		1_syntax.c\
-		2_lexer.c\
-		3_expand_var.c\
-		4_remove_quotes.c\
-		5_parser1.c\
-		5_parser2.c\
-		6_util_is.c\
-		6_util_general.c\
-		7_helper_print.c\
-		8_exits+broadcast.c\
-		9_shutdown.c)\
+		00_parsing.c\
+		01_preproc_syntax.c\
+		02_lexer.c\
+		03_expand_var.c\
+		04_remove_quotes.c\
+		05_postproc_syntax.c\
+		06_parser1.c\
+		06_parser2.c\
+		07_util_is.c\
+		07_util_general.c\
+		08_helper_print.c\
+		09_exits+broadcast.c\
+		10_shutdown.c)\
 		$(addprefix src/signals/,\
 		1_signals.c)\
 		$(addprefix src/builtins/,\

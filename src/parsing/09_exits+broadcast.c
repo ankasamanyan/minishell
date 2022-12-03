@@ -6,23 +6,26 @@ void	errorexit_onlymsg(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-bool	msg_senut(char c)
+void	msg_senut(char c)
 {
 	if (c == '\n')
 	{
 		ft_putstr_fd(E_SENUT, 2);
-		ft_putstr_fd(" `newline'\n", 2);
-		//printf("%s `newline'\n", E_SENUT);
+		ft_putstr_fd("newline'\n", 2);
 	}
 	else
 	{
 		ft_putstr_fd(E_SENUT, 2);
-		ft_putstr_fd(" `", 2);
 		write(2, &c, 1);
 		ft_putstr_fd("'\n", 2);
-		//printf("%s `%c'\n", E_SENUT, c);
 	}
-	return (true);
+}
+
+void	msg_bltnwithflag(char *string)
+{
+	ft_putstr_fd(E_BLTNFLAG, 2);
+	ft_putstr_fd(string, 2);
+	ft_putstr_fd("'\n", 2);
 }
 
 /*

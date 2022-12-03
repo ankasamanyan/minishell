@@ -4,7 +4,8 @@
 
 # define E_ARGC "Additional arguments discarded. Running as \"./minishell\"\n"
 # define E_UNCLOSEDQUOTE "minishell: unclosed quote\n"
-# define E_SENUT "minishell: syntax error near unexpected token"
+# define E_SENUT "minishell: syntax error near unexpected token `"
+# define E_BLTNFLAG "minishell: flags not accepted for builtin `"
 
 //forward declarations
 typedef struct s_list	t_list;
@@ -53,34 +54,39 @@ typedef struct token
 	bool	operator;
 }	t_tok;
 
-//0_parsing.c
+//00_parsing.c
 int		parsing(char *input, t_data *data);
 void	init_parsingstruct(t_par *p, t_data *data, char *input);
 
-//1_syntax.c
+//01_preproc_syntax.c
 bool	preproc_syntaxerror(t_par *p);
 bool	has_unclosedquote(char *input);
 bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
 bool	has_illegaloperatorsequence(t_par *p);
 
-//2_lexer.c
+//02_lexer.c
 void	lexer(t_par *p);
 int		get_chartype(t_par *p, char c);
 void	add_tokennode(t_par *p, char *lexeme);
 void	check_quotation(t_par *p, char c);
 
-//3_expand_var.c
+//03_expand_var.c
 void	expand_var(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
 void	findandexpand(t_par *p);
 char	*joinandfree(t_par *p, char *lexeme);
 
-//4_remove_quotes.c
+//04_remove_quotes.c
 void	remove_quotes(t_par *p);
 
-//5_parser1.c
+//05_postproc_syntax.c
+bool	postproc_syntaxerror(t_par *p);
+bool	has_invalidoperator(t_list *tokenlist);
+bool	has_illegaloperatorsequence(t_par *p);
+
+//06_parser1.c
 void	parse_commands(t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
@@ -88,33 +94,35 @@ t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
 
-//5_parser2.c
+//06_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
+bool	is_builtinwithflag(t_par *p);
 
-//6_util_general.c
+//07_util_general.c
 char	*append_char(char *string, char c);
 char	**append_string(char **array, char *string);
 char	*del_singlechar(char *string, int del_pos);
 
-//6_util_is.c
+//07_util_is.c
 bool	is_whitespace(char c);
 bool	is_operatorchar(char c);
 bool	is_metachar(char c);
 bool	is_quotationmark(char c);
 
-//7_helper_print.c
+//08_helper_print.c
 void	print_tokenlist(t_list *list);
 void	print_cmdlist(t_list *list);
 void	print_cmd_arr(t_list *node);
 void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
-//8_exits+broadcast.c
+//09_exits+broadcast.c
 void	errorexit_onlymsg(char *msg);
-bool	msg_senut(char c);
+void	msg_senut(char c);
+void	msg_bltnwithflag(char *string);
 
-//9_shutdown.c
+//10_shutdown.c
 void	shutdown(t_data *data);
 void	del_tokenlist(t_list *list);
 void	del_cmdlist(t_list *list);
