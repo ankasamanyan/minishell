@@ -6,7 +6,7 @@ void	errorexit_onlymsg(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-bool	broadcast_senut(char c)
+bool	msg_senut(char c)
 {
 	if (c == '\n')
 		printf("%s `newline'\n", E_SENUT);

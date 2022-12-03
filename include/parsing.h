@@ -17,7 +17,7 @@ typedef enum char_type
 	word = 2,
 	whitespace = 4,
 	operator = 8,
-	dollar = 16,
+	pipe_char = 16,
 }	t_chartype;
 
 typedef enum token_type
@@ -54,15 +54,15 @@ typedef struct token
 }	t_tok;
 
 //0_parsing.c
-int		parsing(char *input, char **env, t_data *data);
-void	set_struct(t_par *p, t_data *data, char *input, char **env);
+int		parsing(char *input, t_data *data);
+void	init_parsingstruct(t_par *p, t_data *data, char *input);
 
 //1_syntax.c
 bool	preproc_syntaxerror(t_par *p);
 bool	has_unclosedquote(char *input);
 bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
-bool	has_consecoperatortokens(t_par *p);
+bool	has_illegaloperatorsequence(t_par *p);
 
 //2_lexer.c
 void	lexer(t_par *p);
@@ -75,6 +75,7 @@ void	expand_envvar(t_par *p);
 int		get_dollarposition(t_par *p, char *input);
 char	*replace_dollar(t_par *p, char *string);
 void	findandexpand(t_par *p);
+char	*joinandfree(t_par *p, char *lexeme);
 
 //4_remove_quotes.c
 void	remove_quotes(t_par *p);
@@ -109,9 +110,9 @@ void	print_cmd_arr(t_list *node);
 void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
-//8_exits&broadcast.c
+//8_exits+broadcast.c
 void	errorexit_onlymsg(char *msg);
-bool	broadcast_senut(char c);
+bool	msg_senut(char c);
 
 //9_shutdown.c
 void	shutdown(t_data *data);

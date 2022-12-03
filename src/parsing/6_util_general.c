@@ -64,14 +64,16 @@ char	**append_string(char **array, char *string)
 }
 
 /*
-Doesn't free input string because the calling functions sometimes already do it.
-So absolutely needs to be freed in calling function.
+Deletes the char at the position "del_pos" of the string "string".
 */
 char	*del_singlechar(char *string, int del_pos)
 {
 	char	*result;
 
+	if (!string)
+		return (NULL);
 	string[del_pos] = 0;
 	result = ft_strjoin(string, string + del_pos + 1);
+	free(string);
 	return (result);
 }

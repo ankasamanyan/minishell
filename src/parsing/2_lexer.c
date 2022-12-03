@@ -43,15 +43,22 @@ void	lexer(t_par *p)
 Used by lexer for token delimiting.
 Quotation removal and var expansion are done later.
 Delimitation occurs when adjacent chars are not part of the same
-group. There are 3 char groups:
+group. There are 4 char groups:
 -	word
 -	whitespace
 -	operator
+-	pipe
+Pipe gets its own group, because in the subject, an unquoted pipe can
+not be combined with anything, thus delimiting the token. And they may
+be followed by other operators, so they have to be delimited in order to
+not fail the post processing syntax check.
 */
 int	get_chartype(t_par *p, char c)
 {
 	if (p->double_quoted || p->single_quoted)
 		return (word);
+	if (c == '|')
+		return (pipe_char);
 	if (is_whitespace(c))
 		return (whitespace);
 	if (is_operatorchar(c))
@@ -73,7 +80,7 @@ void	add_tokennode(t_par *p, char *lexeme)
 		return ;
 	token = malloc(1 * sizeof(t_tok));
 	token->lexeme = ft_strdup(lexeme);
-	token->operator = p->prev_chartype == operator;
+	token->operator = p->prev_chartype & (operator | pipe_char);
 	ft_lstadd_back(&p->tokenlist, ft_lstnew(token));
 }
 

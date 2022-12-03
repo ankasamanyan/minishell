@@ -51,7 +51,7 @@ void	print_cmd_arr(t_list *node)
 	printf("___cmd_arr___\n");
 	while (array[i])
 	{
-		ft_printf("cmd_arr[%i]:%s\n", i, array[i]); //problemread
+		printf("cmd_arr[%i]:%s\n", i, array[i]); //problemread
 		i++;
 	}
 }
