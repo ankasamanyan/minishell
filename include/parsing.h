@@ -97,7 +97,6 @@ void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 //06_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
-bool	is_builtinwithflag(t_par *p);
 
 //07_util_general.c
 char	*append_char(char *string, char c);
@@ -109,6 +108,7 @@ bool	is_whitespace(char c);
 bool	is_operatorchar(char c);
 bool	is_metachar(char c);
 bool	is_quotationmark(char c);
+bool	is_builtinwithflag(t_par *p);
 
 //08_helper_print.c
 void	print_tokenlist(t_list *list);

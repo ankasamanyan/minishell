@@ -28,31 +28,3 @@ t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype)
 		ft_lstadd_back(&cmdnode->outputlist, ft_lstnew(redir_pair));
 	return (redir_pair);
 }
-
-/*
-echo should be handled differently because it should only be treated
-as a builtin if it has flag -n. Other cases can get executed normally.
-*/
-bool	is_builtinwithflag(t_par *p)
-{
-	t_list		*temp;
-	t_cmd		*cmdnode;
-
-	temp = p->cmdlist;
-	while (temp)
-	{
-		cmdnode = temp->content;
-		if (!ft_strncmp("cd", cmdnode->cmd_arr[0], 3)
-			|| !ft_strncmp("pwd", cmdnode->cmd_arr[0], 4)
-			|| !ft_strncmp("export", cmdnode->cmd_arr[0], 7)
-			|| !ft_strncmp("unset", cmdnode->cmd_arr[0], 6)
-			|| !ft_strncmp("env", cmdnode->cmd_arr[0], 4)
-			|| !ft_strncmp("exit", cmdnode->cmd_arr[0], 5))
-		{
-			if (cmdnode->cmd_arr[1])
-				return (msg_bltnwithflag(cmdnode->cmd_arr[0]), true);
-		}
-		temp = temp->next;
-	}
-	return (false);
-}
