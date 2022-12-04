@@ -3,6 +3,9 @@
 /*
 Appends a char to a string. If the string doesn't exist yet,
 makes a new string with the char as only content.
+Has an extra test for !string and char == 0 to prevent the resulting
+string from being 00. If the char is 0, only callocs for the 0 byte,
+so the resulting string is 0.
 Frees the passed string.
 */
 char	*append_char(char *string, char c)
@@ -10,6 +13,8 @@ char	*append_char(char *string, char c)
 	char	*result;
 	int		i;
 
+	if (!string && c == 0)
+		return (ft_calloc(1, sizeof(char)));
 	if (!string)
 	{
 		result = ft_calloc(2, sizeof(char));
