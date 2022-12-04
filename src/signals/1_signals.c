@@ -30,7 +30,7 @@ void	signals(void)
 	new_action.sa_handler = sig_handler;
 	sigemptyset(&new_action.sa_mask);
 	new_action.sa_flags = 0;
-	new_action.sa_restorer = NULL;
+	// new_action.sa_restorer = NULL;
 	sigaction(SIGINT, &new_action, NULL);
 	new_action.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &new_action, NULL);
@@ -50,7 +50,7 @@ void	sig_handler(int sig)
 {
 	if (sig == SIGINT)
 	{
-		rl_replace_line("", 0);
+		// rl_replace_line("", 0);
 		rl_on_new_line();
 		write (1, "\n", 1);
 		rl_redisplay();

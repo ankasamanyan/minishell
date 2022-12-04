@@ -26,7 +26,7 @@ void	increase_shell_lvl(t_data *data,char **env)
 	data->shell_lvl = ft_strjoin("SHLVL=", temp);
 	free(temp);
 	env[i] = data->shell_lvl;
-	printf("%s\n", data->shell_lvl);
+	// printf("%s\n", data->shell_lvl);
 }
 
 int	main(int argc, char *argv[], char *env[])
