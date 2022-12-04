@@ -6,6 +6,8 @@
 # define E_UNCLOSEDQUOTE "minishell: unclosed quote\n"
 # define E_SENUT "minishell: syntax error near unexpected token `"
 # define E_BLTNFLAG "minishell: flags not accepted for builtin `"
+# define E_MANYARG "too many arguments"
+# define E_NOFILDIR "No such file or directory"
 
 //forward declarations
 typedef struct s_list	t_list;
@@ -121,6 +123,7 @@ void	print_outputlist(t_list *node);
 void	errorexit_onlymsg(char *msg);
 void	msg_senut(char c);
 void	msg_bltnwithflag(char *string);
+void	msg_bltnfail(char *cmd_name, char *err_msg1, char *err_msg2);
 
 //10_shutdown.c
 void	shutdown(t_data *data);

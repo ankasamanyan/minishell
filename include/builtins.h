@@ -1,6 +1,10 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+//cd.c
+void	cd(t_data *data, char *inputpath);
+char	*get_homedir(char **env);
+
 //pwd.c
 void	pwd(void);
 

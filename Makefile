@@ -32,8 +32,9 @@ SRC = 	src/minishell.c\
 		$(addprefix src/signals/,\
 		1_signals.c)\
 		$(addprefix src/builtins/,\
-		pwd.c\
-		echo-n.c)
+		cd.c\
+		echo-n.c\
+		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a
 

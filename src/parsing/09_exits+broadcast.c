@@ -28,6 +28,23 @@ void	msg_bltnwithflag(char *string)
 	ft_putstr_fd("'\n", 2);
 }
 
+void	msg_bltnfail(char *cmd_name, char *err_msg1, char *err_msg2)
+{
+	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd(cmd_name, 2);
+	if (err_msg1)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(err_msg1, 2);
+	}
+	if (err_msg2)
+	{
+		ft_putstr_fd(": ", 2);
+		ft_putstr_fd(err_msg2, 2);
+	}
+	write (2, "\n", 1);
+}
+
 /*
 check for bash exit codes depending on exit case
 */
