@@ -42,7 +42,7 @@ LIBFT =	src/libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME) $(LIBFT)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
 
