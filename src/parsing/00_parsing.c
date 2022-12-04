@@ -26,7 +26,6 @@ int	parsing(char *input, t_data *data)
 	parse_commands(p);
 	if (is_builtinwithflag(p))
 		return (EXIT_FAILURE);
-	env(data);
 	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
