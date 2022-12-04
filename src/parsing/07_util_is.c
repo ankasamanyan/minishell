@@ -33,19 +33,14 @@ bool	is_quotationmark(char c)
 
 /*
 echo should be handled differently because it should only be treated
-as a builtin if it has flag -n. Other cases can get executed normally.
+as a builtin if it has flag -n. Other cases can get executed normally via
+execve. See file in builtins for more.
 Solution could be to implement a check for a builtin in exec part.
 if builtin
 	call our function
 else
 	execve
 if builtin could be a copypaste of the test below without arr[1] part.
-For echo it should be like this
-if (!ft_strncmp("echo", cmdnode->cmd_arr[0], 5)
-		&& cmdnode->cmd_arr[1] && !ft_strncmp("-n", cmdnode->cmd_arr[1], 3))
-	call our function
-else
-	execve echo with whatever flag
 */
 bool	is_builtinwithflag(t_par *p)
 {
