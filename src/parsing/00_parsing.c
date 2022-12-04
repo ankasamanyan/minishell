@@ -23,7 +23,7 @@ int	parsing(char *input, t_data *data)
 	remove_quotes(p);
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
-	parse_commands(p);
+	parser(p);
 	if (is_builtinwithflag(p))
 		return (EXIT_FAILURE);
 	print_cmdlist(data->cmd_list);
