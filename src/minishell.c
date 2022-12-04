@@ -61,12 +61,11 @@ int	main(int argc, char *argv[], char *env[])
 			shutdown(&data);
 			continue ;
 		}
-		pipe(data.pipe);
 		ft_lstiter(data.cmd_list, &exec);
 		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// if (data.exitcode > 255)
 		// 	data.exitcode/=256;
-		printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
+		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		shutdown(&data);
 	}
 }

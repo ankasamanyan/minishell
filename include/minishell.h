@@ -29,6 +29,7 @@
 # define ON_RED 	"\033[41m"
 # define ON_PURPLE	"\033[44m"
 # define ON_PINK	"\033[45m"
+// # define ON_SKY		"\033[36m"
 
 # define READ_END	0
 # define WRITE_END	1

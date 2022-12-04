@@ -20,7 +20,7 @@ void	print_2d_array(char	**arr, int fd)
 void	find_cmd_path(char *big_path, t_cmd *cmd)
 {
 	char	**smoll_pathsies;
-	char	*lil_path;
+	char	*path;
 	int		i;
 
 	i = 0;
@@ -28,22 +28,22 @@ void	find_cmd_path(char *big_path, t_cmd *cmd)
 	cmd->data->big_path = NULL;
 	while (smoll_pathsies[i])
 	{
-		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
+		path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
-		if (access(lil_path, X_OK) == 0)
+		if (access(path, X_OK) == 0)
 		{
-			cmd->data->full_path = lil_path;
+			cmd->data->full_path = path;
 			return ;
 		}
-		else if (access(lil_path, F_OK) == 0)
+		else if (access(path, F_OK) == 0)
 		{
-			free(lil_path);
+			free(path);
 			cmd->data->exitcode = 126;
 		}
 		else
 		{
 			cmd->data->exitcode = 127;
-			free(lil_path);
+			free(path);
 		}
 	}
 	if (access(cmd->cmd_arr[0], X_OK) == 0)
@@ -63,7 +63,9 @@ void	find_cmd_path(char *big_path, t_cmd *cmd)
 
 void	kiddi_process(t_cmd *cmd)
 {
-	printf("before the dups  fd_in = %d   fd_out = %d \n", cmd->fd_in, cmd->fd_out);
+	// printf("%s\tbefore the dups  fd_in = %d   fd_out = %d \n%s",SKY, cmd->fd_in, cmd->fd_out, RESET);
+	// printf("%s\tbefore the dups  pipe[WRITE] = %d   pipe[READ] = %d \n%s", SKY, cmd->data->pipe[WRITE_END], cmd->data->pipe[READ_END], RESET);
+	// printf("%s\tbefore the dups  temp_pipe = %d \n%s", SKY, cmd->data->temp_pipe, RESET);
 	if (cmd->fd_in > 2)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
@@ -96,8 +98,18 @@ void	exec(void *cmd_list)
 			// printf("\n\n\n");
 			// printf("exec function start, cmd: %s\n", cmd->cmd_arr[0]);
 			// printf("\n\n\n");
+	// if (cmd->data->pipe[READ_END] > 2)
+	// 	close(cmd->data->pipe[READ_END]);
+	// if (cmd->data->pipe[WRITE_END] > 2)
+	// 	close(cmd->data->pipe[WRITE_END]);
+	// printf("%s pipe[READ_END] from exec: %i\n%s", RED, cmd->data->pipe[READ_END], RESET);
+	// printf("%s pipe[WRITE_END] from exec: %i\n%s", RED, cmd->data->pipe[WRITE_END], RESET);
+	// printf("%s\n", RESET);
 	pipe(cmd->data->pipe);
-
+	// printf("%s    das ist pipe[READ_END] from exec: %i\n%s", PINK, cmd->data->pipe[READ_END], RESET);
+	// printf("%s    das ist pipe[WRITE_END] from exec: %i\n%s", PINK, cmd->data->pipe[WRITE_END], RESET);
+	// printf("%sbefore the dups  temp_pipe = %d \n%s", PINK, cmd->data->temp_pipe, RESET);
+	// printf("%s\n", RESET);
 	cmd->data->cmd_count++;
 			// printf("before no input func\n");
 	if_no_input(cmd);
@@ -135,13 +147,18 @@ void	exec(void *cmd_list)
 			close(cmd->fd_out);
 		if (cmd->data->pipe[WRITE_END] > 2)
 			close(cmd->data->pipe[WRITE_END]);
+		if (cmd->data->temp_pipe > 2)
+			close(cmd->data->temp_pipe);
 		cmd->data->temp_pipe = cmd->data->pipe[READ_END];
 		// if (cmd->data->pipe[READ_END] > 2)
 		// 	close(cmd->data->pipe[READ_END]);
+		// printf("%s    das ist pipe[READ_END] from parent: %i\n%s", PINK, cmd->data->pipe[READ_END], RESET);
+		// printf("%s    das ist pipe[WRITE_END] from exec: %i\n%s", PINK, cmd->data->pipe[WRITE_END], RESET);
+		// printf("%s\tbefore the dups  temp_pipe = %d \n%s", PINK, cmd->data->temp_pipe, RESET);
 		
 		// printf("Hi, after parent\n");
-
-
+		if(cmd->data->cmd_count == ft_lstsize(cmd->data->cmd_list) + 1)
+			close(cmd->data->temp_pipe);
 
 		// waitpid(-1, &(cmd->data->exitcode), WNOHANG); // innit thisssssssssssssssss
 
