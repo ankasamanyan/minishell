@@ -34,6 +34,7 @@ SRC = 	src/minishell.c\
 		$(addprefix src/builtins/,\
 		cd.c\
 		echo-n.c\
+		env.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a

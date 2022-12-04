@@ -26,10 +26,9 @@ int	parsing(char *input, t_data *data)
 	parse_commands(p);
 	if (is_builtinwithflag(p))
 		return (EXIT_FAILURE);
-	if (((t_cmd *)(data->cmd_list->content))->cmd_arr[0][0] == 'c')
-		cd(data, ((t_cmd *)(data->cmd_list->content))->cmd_arr[1]);
+	env(data);
 	print_cmdlist(data->cmd_list);
-	return (EXIT_SUCCESS); 
+	return (EXIT_SUCCESS);
 }
 
 void	init_parsingstruct(t_par *p, t_data *data, char *input)

@@ -12,4 +12,7 @@ void	pwd(void);
 void	echo_minus_n(t_cmd *cmdnode);
 bool	is_builtinecho(t_cmd *cmdnode);
 
+//env.c
+void	env(t_data *data);
+
 #endif
