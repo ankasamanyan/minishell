@@ -89,11 +89,9 @@ bool	has_invalidoperator(t_list *tokenlist);
 bool	has_illegaloperatorsequence(t_par *p);
 
 //06_parser1.c
-void	parse_commands(t_par *p);
+void	parser(t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
-t_cmd	*handle_cmdnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
-			char *lexeme);
-void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
+t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
 
 //06_parser2.c

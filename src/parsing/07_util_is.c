@@ -53,6 +53,8 @@ bool	is_builtinwithflag(t_par *p)
 	while (temp)
 	{
 		cmdnode = temp->content;
+		if (!cmdnode || !cmdnode->cmd_arr[0])
+			return (false);
 		if ((!ft_strncmp("pwd", cmdnode->cmd_arr[0], 4)
 				|| !ft_strncmp("export", cmdnode->cmd_arr[0], 7)
 				|| !ft_strncmp("unset", cmdnode->cmd_arr[0], 6)
