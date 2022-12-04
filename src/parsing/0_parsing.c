@@ -24,7 +24,7 @@ int	parsing(char *input, t_data *data)
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	parse_commands(p);
-	print_cmdlist(data->cmd_list);
+	// print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
 

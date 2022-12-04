@@ -21,5 +21,7 @@ void	search_path_env(t_cmd *cmd);
 void	find_cmd_path(char *big_path, t_cmd *cmd);
 
 void	onexit(t_data *data);
+void	print_2d_array(char	**arr, int fd);
+
 
 #endif
