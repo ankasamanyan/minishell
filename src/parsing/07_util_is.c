@@ -59,10 +59,10 @@ bool	is_builtinwithflag(t_par *p)
 				|| !ft_strncmp("env", cmdnode->cmd_arr[0], 4)
 				|| !ft_strncmp("exit", cmdnode->cmd_arr[0], 5))
 			&& cmdnode->cmd_arr[1])
-			return (msg_bltnfail(cmdnode->cmd_arr[0], E_MANYARG), true);
+			return (msg_error(cmdnode->cmd_arr[0], E_MANYARG, NULL), true);
 		if (!ft_strncmp("cd", cmdnode->cmd_arr[0], 3)
 			&& cmdnode->cmd_arr[1] && cmdnode->cmd_arr[2])
-			return (msg_bltnfail("cd", E_MANYARG), true);
+			return (msg_error("cd", E_MANYARG, NULL), true);
 		temp = temp->next;
 	}
 	return (false);

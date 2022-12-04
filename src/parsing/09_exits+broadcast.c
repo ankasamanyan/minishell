@@ -21,17 +21,15 @@ void	msg_senut(char c)
 	}
 }
 
-void	msg_bltnwithflag(char *string)
-{
-	ft_putstr_fd(E_BLTNFLAG, 2);
-	ft_putstr_fd(string, 2);
-	ft_putstr_fd("'\n", 2);
-}
-
-void	msg_bltnfail(char *cmd_name, char *err_msg1, char *err_msg2)
+/*
+Format:
+printf("minishell: %s: %s: %s", err_msg0, err_msg1, err_msg2)
+Can send NULL if not all 3 strings needed, will terminate accordingly.
+*/
+void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(cmd_name, 2);
+	ft_putstr_fd(err_msg0, 2);
 	if (err_msg1)
 	{
 		ft_putstr_fd(": ", 2);

@@ -18,7 +18,7 @@ bool	preproc_syntaxerror(t_par *p)
 		return (msg_senut('\n'), true);
 	if (has_unclosedquote(p->input))
 	{
-		printf(E_UNCLOSEDQUOTE);
+		msg_error(E_UNCLOSEDQUOTE, NULL, NULL);
 		return (msg_senut(lastchar), true);
 	}
 	return (false);

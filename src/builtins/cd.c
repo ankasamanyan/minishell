@@ -29,7 +29,7 @@ void	cd(t_data *data, char *inputpath)
 		outputpath = ft_strjoin(temp, inputpath);
 	}
 	if (chdir(outputpath))
-		msg_bltnfail("cd", inputpath, E_NOFILDIR);
+		msg_error("cd", inputpath, E_NOFILDIR);
 	if (cwd)
 	{
 		free(cwd);

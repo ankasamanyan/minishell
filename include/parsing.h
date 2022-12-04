@@ -122,8 +122,7 @@ void	print_outputlist(t_list *node);
 //09_exits+broadcast.c
 void	errorexit_onlymsg(char *msg);
 void	msg_senut(char c);
-void	msg_bltnwithflag(char *string);
-void	msg_bltnfail(char *cmd_name, char *err_msg1, char *err_msg2);
+void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
 
 //10_shutdown.c
 void	shutdown(t_data *data);
