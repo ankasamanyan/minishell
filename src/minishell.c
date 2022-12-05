@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argv;
 	increase_shell_lvl(&data, env);
-	signals();
+	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	if (!env)
@@ -48,7 +48,6 @@ int	main(int argc, char *argv[], char *env[])
 	if (!env[i])
 		errorexit_onlymsg("env (PATH)");
 	pwd();
-
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
