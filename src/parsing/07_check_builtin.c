@@ -1,5 +1,24 @@
 #include "../../include/minishell.h"
 
+void	check_builtin(t_par *p)
+{
+	t_list		*temp;
+	t_cmd		*cmdnode;
+
+	temp = p->cmdlist;
+	printf("hello check builtin\n");
+	while (temp)
+	{
+		cmdnode = temp->content;
+		cmdnode->builtin = is_builtin(cmdnode);
+		if (is_builtin(cmdnode))
+			printf("yes builtin\n");
+		else
+			printf("no builtin\n");
+		temp = temp->next;
+	}
+}
+
 /*
 echo should be handled differently because it should only be treated
 as a builtin if it has flag -n. Other cases can get executed normally via
@@ -39,3 +58,22 @@ bool	is_builtinwithflag(t_par *p)
 	return (false);
 }
 
+/*
+echo with option -n
+OK cd with only a relative or absolute path ◦ pwd with no options
+OK export with no options
+OK unset with no options
+OK env with no options or arguments
+OK exit with no options
+*/
+bool	is_builtin(t_cmd *cmdnode)
+{
+	if (!ft_strncmp("pwd", cmdnode->cmd_arr[0], 4)
+		|| !ft_strncmp("export", cmdnode->cmd_arr[0], 7)
+		|| !ft_strncmp("unset", cmdnode->cmd_arr[0], 6)
+		|| !ft_strncmp("env", cmdnode->cmd_arr[0], 4)
+		|| !ft_strncmp("exit", cmdnode->cmd_arr[0], 5)
+		|| !ft_strncmp("echo", cmdnode->cmd_arr[0], 5))
+		return (true);
+	return (false);
+}

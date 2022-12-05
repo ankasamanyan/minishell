@@ -98,6 +98,10 @@ t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
 
+//07_check_builtin.c
+void	check_builtin(t_par *p);
+bool	is_builtin(t_cmd *cmdnode);
+
 //07_util_general.c
 char	*append_char(char *string, char c);
 char	**append_string(char **array, char *string);

@@ -24,6 +24,7 @@ int	parsing(char *input, t_data *data)
 	if (postproc_syntaxerror(p))
 		return (EXIT_FAILURE);
 	parser(p);
+	check_builtin(p);
 	if (is_builtinwithflag(p))
 		return (EXIT_FAILURE);
 	print_cmdlist(data->cmd_list);
