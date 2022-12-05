@@ -70,6 +70,8 @@ bool	has_illegaloperatorsequence(t_par *p)
 	t_tok		*token;
 	t_tok		*next_token;
 
+	if (!p->tokenlist)
+		return (false);
 	temp = p->tokenlist;
 	while (temp->next)
 	{

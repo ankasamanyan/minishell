@@ -63,6 +63,7 @@ typedef struct s_cmd
 	int					fd_in;
 	int					fd_out;
 	t_data				*data;
+	bool				builtin;
 }	t_cmd;
 
 typedef struct s_pair
