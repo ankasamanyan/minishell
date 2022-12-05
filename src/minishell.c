@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argv;
 	increase_shell_lvl(&data, env);
-	signals();
+	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	if (!env)

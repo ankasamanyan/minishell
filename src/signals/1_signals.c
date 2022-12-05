@@ -23,19 +23,24 @@ Sets newaction to handle SIGINT.
 Calls sigaction to set behavior for each signal to the actions
 specified in new_action.
 */
-void	signals(void)
+/* void	signals_sigaction(void)
 {
 	struct sigaction	new_action;
 
 	new_action.sa_handler = sig_handler;
 	sigemptyset(&new_action.sa_mask);
 	new_action.sa_flags = 0;
-	new_action.sa_restorer = NULL;
+	//new_action.sa_restorer = NULL;
 	sigaction(SIGINT, &new_action, NULL);
 	new_action.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &new_action, NULL);
-}
+} */
 
+void	set_signals(void)
+{
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
 /*
 Usually, this function would handle more signals. But we only have to handle
 SIGINT so the if clause isn't necessary. Kept it because the structure is

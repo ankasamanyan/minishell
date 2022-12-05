@@ -3,7 +3,9 @@ NAME = minishell
 CC = gcc
 CFLAGS = -g -fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -lreadline
+#LIBFLAGS = -lreadline
+RL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+RL_FLAG_O =  -I $(HOME)/goinfre/.brew/opt/readline/include/
 RM = rm -rf
 
 PINK	:= \033[0;35m
@@ -42,7 +44,7 @@ LIBFT =	src/libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS) $(RL_FLAG)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
 
@@ -52,7 +54,7 @@ $(LIBFT):
 obj/%.o: src/%.c
 	@mkdir -p obj
 	@mkdir -p obj/parsing obj/exec obj/signals obj/builtins
-	$(CC) $(EFLAGS) -c $< -o $@
+	$(CC) $(EFLAGS) -c $<  $(RL_FLAG_O) -o $@
 
 clean:
 	@$(RM) $(OBJ) obj
