@@ -1,6 +1,25 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+/*
+# minishell
+
+<img width="730" alt="image" src="https://user-images.githubusercontent.com/89840461/205446900-ba137aab-9ce3-487b-998c-c36f306957fc.png">
+
+
+if ! [ -r $HOME/goinfre/.brew/Cellar/readline ]; then
+	rm -rf $HOME/goinfre/.brew
+
+	git clone --depth=1 https://github.com/Homebrew/brew $HOME/goinfre/.brew
+
+	echo 'export PATH=$HOME/goinfre/.brew/bin:$PATH' >> $HOME/.zshrc
+
+	source $HOME/.zshrc && brew update
+
+	brew install readline
+fi
+*/
+
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
