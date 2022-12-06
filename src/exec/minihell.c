@@ -20,45 +20,38 @@ void	print_2d_array(char	**arr, int fd)
 void	find_cmd_path(char *big_path, t_cmd *cmd)
 {
 	char	**smoll_pathsies;
-	char	*path;
+	// t_cmd	*cmd;
+	char	*lil_path;
 	int		i;
-
+	(void)big_path;
 	i = 0;
-	smoll_pathsies = ft_split(big_path, ':');
-	cmd->data->big_path = NULL;
+	// printf("got here for command\n" );
+	// printf(" from find cmd path: %s\n", big_path);
+	smoll_pathsies = ft_split(cmd->data->big_path, ':');
+	cmd->data->full_path = NULL;
 	while (smoll_pathsies[i])
 	{
-		path = ft_triple_strjoin(smoll_pathsies[i++],
+		// print_2d_array(smoll_pathsies, 1);
+		// write(1, "\n", 1);
+		// printf("%p\n", cmd->cmd_arr[0]);
+		// printf("HELLOO??????\n");
+		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
-		if (access(path, X_OK) == 0)
-		{
-			cmd->data->full_path = path;
-			return ;
-		}
-		else if (access(path, F_OK) == 0)
-		{
-			free(path);
-			cmd->data->exitcode = 126;
-		}
+		if (access(lil_path, X_OK) == 0)
+			cmd->data->full_path = lil_path;
 		else
 		{
-			cmd->data->exitcode = 127;
-			free(path);
+			cmd->data->exitcode = 126;
+			if (access(lil_path, F_OK))
+				cmd->data->exitcode++;
+			free(lil_path);
 		}
 	}
 	if (access(cmd->cmd_arr[0], X_OK) == 0)
-	{
 		cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
-		return ;
-	}
 	else
-	{
-		cmd->data->exitcode = 126;
 		access(cmd->cmd_arr[0], F_OK);
-	}
-	cmd->data->exitcode = 127;
 	ft_free_array(smoll_pathsies);
-	perror(cmd->cmd_arr[0]);
 }
 
 void	kiddi_process(t_cmd *cmd)
@@ -70,8 +63,8 @@ void	kiddi_process(t_cmd *cmd)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-	// print_2d_array(cmd->cmd_arr, 2);
-	// printf("full path before execve: %s\n",cmd->data->full_path);
+	print_2d_array(cmd->cmd_arr, 2);
+	printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -140,7 +133,7 @@ void	exec(void *cmd_list)
 		// waitpid(cmd->data->pid, &(cmd->data->exitcode), 0);
 		waitpid(cmd->data->pid, &tmp, 0);
 		cmd->data->exitcode = tmp;
-
+		free(cmd->data->full_path);
 		if (cmd->fd_in > 2)
 			close(cmd->fd_in);
 		if (cmd->fd_out > 2)
