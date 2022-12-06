@@ -8,6 +8,7 @@
 # define E_BLTNFLAG "minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
 # define E_NOFILDIR "No such file or directory"
+# define E_INVALOPT "invalid option"
 
 //forward declarations
 typedef struct s_list	t_list;
@@ -97,6 +98,10 @@ t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 //06_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
+
+//07_check_builtin.c
+void	check_builtin(t_par *p);
+bool	is_builtin(t_cmd *cmdnode);
 
 //07_util_general.c
 char	*append_char(char *string, char c);

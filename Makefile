@@ -36,7 +36,7 @@ SRC = 	src/minishell.c\
 		1_signals.c)\
 		$(addprefix src/builtins/,\
 		cd.c\
-		echo-n.c\
+		echo.c\
 		env.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))

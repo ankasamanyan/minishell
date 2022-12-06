@@ -1,18 +1,29 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+typedef struct s_export
+{
+	char	*name;
+	char	*value;
+	int		order;
+}	t_exp;
+
 //cd.c
-void	cd(t_data *data, char *inputpath);
+bool	cd(t_cmd *cmdnode);
 char	*get_homedir(char **env);
+char	*build_absolutepath(char *rel_path);
 
 //pwd.c
-void	pwd(void);
+bool	pwd(t_cmd *cmdnode);
 
-//echo-n.c
-void	echo_minus_n(t_cmd *cmdnode);
-bool	is_builtinecho(t_cmd *cmdnode);
+//echo.c
+bool	echo(t_cmd *cmdnode);
 
 //env.c
-void	env(t_data *data);
+bool	env(t_cmd *cmdnode);
+
+//export.c
+bool	export(t_cmd *cmdnode);
+void	replace_env(t_data *data);
 
 #endif
