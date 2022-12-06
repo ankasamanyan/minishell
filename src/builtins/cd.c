@@ -1,41 +1,43 @@
 #include "../../include/minishell.h"
 
 /*
-NULLs cwd because it has to be initialized before being passed to getcwd.
-Also serves as a check for whether there was a malloc that we have to free:
-Outputpath is not always malloc'd.
-If inputpath is NULL, that means the command was just "cd" and that goes to
-homedir.
-If inputpath starts with a '/', that means we have an absolute path, so inputpath
-is exactly where we want to try to go.
-Else, we have to build an absolute path from the relative path that was given:
-'current directory' + '/' + 'inputpath'.
+-	Checks for too many arguments
+-	If path is NULL, that means the command was just "cd" and that goes to
+	homedir.
+-	If inputpath doesn't start with a '/': it is a relative path, so an
+	absolute path must be built. This had to be a separate function because I
+	could only squeeze it to ca. 27 lines, but not 25. I find it less readable
+	because now we have to introduce a bool that checks whether path was allocated
+	or not. Could do it more elegantly with !cwd if it could remain inlined.
+-	Remaining case is inputpath does start with '/': just keep it as is.
+-	Calls chdir and stores result in failure.
+-	If we called build_path and thus there was an alloc: free path.
+-	If chdir didn't succeed and returned non zero: Print error msg.
+-	Return whatever failure is.
 */
-void	cd(t_data *data, char *inputpath)
+bool	cd(t_cmd *cmdnode)
 {
-	char	*outputpath;
-	char	*cwd;
-	char	*temp;
+	char	*path;
+	bool	alloc;
+	bool	failure;
 
-	cwd = NULL;
-	if (!inputpath)
-		outputpath = get_homedir(data->env);
-	else if (inputpath[0] == '/')
-		outputpath = inputpath;
-	else
+	alloc = false;
+	if (cmdnode->cmd_arr[1] && cmdnode->cmd_arr[2])
+		return (msg_error("cd", E_MANYARG, NULL), true);
+	path = cmdnode->cmd_arr[1];
+	if (!path)
+		path = get_homedir(cmdnode->data->env);
+	else if (path[0] != '/')
 	{
-		cwd = getcwd(cwd, 0);
-		temp = ft_strjoin(cwd, "/");
-		outputpath = ft_strjoin(temp, inputpath);
+		path = build_path(path);
+		alloc = true;
 	}
-	if (chdir(outputpath))
-		msg_error("cd", inputpath, E_NOFILDIR);
-	if (cwd)
-	{
-		free(cwd);
-		free(temp);
-		free(outputpath);
-	}
+	failure = chdir(path);
+	if (alloc)
+		free(path);
+	if (failure)
+		msg_error("cd", path, E_NOFILDIR);
+	return (failure);
 }
 
 char	*get_homedir(char **env)
@@ -48,4 +50,19 @@ char	*get_homedir(char **env)
 	if (!env[i])
 		return (NULL);
 	return (env[i] + 5);
+}
+
+char	*build_absolutepath(char *rel_path)
+{
+	char	*cwd;
+	char	*temp;
+	char	*abs_path;
+
+	cwd = NULL;
+	cwd = getcwd(cwd, 0);
+	temp = ft_strjoin(cwd, "/");
+	abs_path = ft_strjoin(temp, rel_path);
+	free(cwd);
+	free(temp);
+	return (abs_path);
 }

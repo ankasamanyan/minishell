@@ -2,8 +2,9 @@
 # define BUILTINS_H
 
 //cd.c
-void	cd(t_data *data, char *inputpath);
+bool	cd(t_cmd *cmdnode);
 char	*get_homedir(char **env);
+char	*build_absolutepath(char *rel_path);
 
 //pwd.c
 void	pwd(void);
