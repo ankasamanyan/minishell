@@ -53,11 +53,6 @@ void	input_files(void *infile)
 			if (input->cmd->fd_in > 2)
 				close(input->cmd->fd_in);
 			input->cmd->fd_in = open(input->string, O_RDONLY);
-			// printf("%stemp pipe (input_files): %i\n%s", YELLOW, input->cmd->data->temp_pipe, RESET);
-			// printf("%s pipe[WRITE_END] (input_files): %i\n%s", YELLOW, input->cmd->data->pipe[WRITE_END], RESET);
-			// printf("%s pipe[READ_END] (input_files): %i\n%s", YELLOW, input->cmd->data->pipe[READ_END], RESET);
-			// printf("%sfd in(input_files) : %i\n%s", PURPLE, input->cmd->fd_in, RESET);
-			// printf("%sfd out(input_files) : %i\n%s", GREEN, input->cmd->fd_out, RESET);
 			if (input->cmd->fd_in < 0)
 				perror("Minishell: Input file error");
 			if (!(input->cmd->cmd_arr))
@@ -90,11 +85,6 @@ void	input_files(void *infile)
 		if (input->cmd->fd_in > 2)
 			close(input->cmd->fd_in);
 		input->cmd->fd_in = pipy[READ_END];
-		// printf("%stemp pipe (input_files here_doc): %i\n%s", YELLOW, input->cmd->data->temp_pipe, RESET);
-		// printf("%s pipe[WRITE_END] (input_files here_doc): %i\n%s", YELLOW, input->cmd->data->pipe[WRITE_END], RESET);
-		// printf("%s pipe[READ_END] (input_files here_doc): %i\n%s", YELLOW, input->cmd->data->pipe[READ_END], RESET);
-		// printf("%sfd in(input_files here_doc) : %i\n%s", PURPLE, input->cmd->fd_in, RESET);
-		// printf("%sfd out(input_files here_doc) : %i\n%s", GREEN, input->cmd->fd_out, RESET);
 	}
 }
 
@@ -102,29 +92,17 @@ void	if_no_output(t_cmd *cmd)
 {
 	if (cmd->outputlist == NULL)
 	{
-		// printf("%sHi from the if_no_output!%s\n", GREEN, RESET);
-		// printf("%sif close when cmd->outputlist == NULL %p %s\n", GREEN, cmd->outputlist, RESET);
 		if (ft_lstsize(cmd->data->cmd_list) == cmd->data->cmd_count)
 		{
 			if (cmd->fd_out > 2)
 				close(cmd->fd_out);
 			cmd->fd_out = STDOUT_FILENO;
-			// printf("%stemp pipe (if_no_output): %i\n%s", YELLOW, cmd->data->temp_pipe, RESET);
-			// printf("%s pipe[WRITE_END] (if_no_output): %i\n%s", YELLOW, cmd->data->pipe[WRITE_END], RESET);
-			// printf("%s pipe[READ_END] (if_no_output): %i\n%s", YELLOW, cmd->data->pipe[READ_END], RESET);			
-			// printf("%sfd in(if_no_output) : %i\n%s", PURPLE, cmd->fd_in, RESET);
-			// printf("%sfd out(if_no_output) : %i\n%s", GREEN, cmd->fd_out, RESET);
 		}
 		else
 		{
 			if (cmd->fd_out > 2)
 				close(cmd->fd_out);
 			cmd->fd_out = cmd->data->pipe[WRITE_END];
-			// printf("%stemp pipe (if_no_output): %i\n%s", YELLOW, cmd->data->temp_pipe, RESET);
-			// printf("%s pipe[WRITE_END] (if_no_output): %i\n%s", YELLOW, cmd->data->pipe[WRITE_END], RESET);
-			// printf("%s pipe[READ_END] (if_no_output): %i\n%s", YELLOW, cmd->data->pipe[READ_END], RESET);		
-			// printf("%sfd in(if_no_output) : %i\n%s", PURPLE, cmd->fd_in, RESET);
-			// printf("%sfd out(if_no_output) : %i\n%s", GREEN, cmd->fd_out, RESET);
 		}
 	}
 }
