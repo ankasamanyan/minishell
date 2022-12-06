@@ -14,19 +14,6 @@ void	check_builtin(t_par *p)
 	}
 }
 
-/*
-echo should be handled differently because it should only be treated
-as a builtin if it has flag -n. Other cases can get executed normally via
-execve. See file in builtins for more.
-cd also needs different treatment, because it takes exactly on argument.
-Solution could be to implement a check for a builtin in exec part.
-if builtin
-	call our function
-else
-	execve
-if builtin could be a copypaste of the test below without arr[1] part.
-Could all be one big if but that would be even less readable...
-*/
 bool	is_builtinwithflag(t_par *p)
 {
 	t_list		*temp;
@@ -62,7 +49,8 @@ bool	is_builtin(t_cmd *cmdnode)
 		|| !ft_strncmp("unset", cmdnode->cmd_arr[0], 6)
 		|| !ft_strncmp("env", cmdnode->cmd_arr[0], 4)
 		|| !ft_strncmp("exit", cmdnode->cmd_arr[0], 5)
-		|| !ft_strncmp("echo", cmdnode->cmd_arr[0], 5))
+		|| !ft_strncmp("echo", cmdnode->cmd_arr[0], 5)
+		|| !ft_strncmp("cd", cmdnode->cmd_arr[0], 3))
 		return (true);
 	return (false);
 }

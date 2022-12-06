@@ -29,7 +29,7 @@ bool	cd(t_cmd *cmdnode)
 		path = get_homedir(cmdnode->data->env);
 	else if (path[0] != '/')
 	{
-		path = build_path(path);
+		path = build_absolutepath(path);
 		alloc = true;
 	}
 	failure = chdir(path);
