@@ -15,4 +15,8 @@ bool	echo(t_cmd *cmdnode);
 //env.c
 bool	env(t_cmd *cmdnode);
 
+//export.c
+bool	export(t_cmd *cmdnode);
+char	**clone_env(t_data *data);
+
 #endif
