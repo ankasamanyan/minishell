@@ -9,11 +9,10 @@ char	*build_absolutepath(char *rel_path);
 //pwd.c
 bool	pwd(void);
 
-//echo-n.c
-void	echo_minus_n(t_cmd *cmdnode);
-bool	is_builtinecho(t_cmd *cmdnode);
+//echo.c
+bool	echo(t_cmd *cmdnode);
 
 //env.c
-void	env(t_data *data);
+bool	env(t_cmd *cmdnode);
 
 #endif
