@@ -3,7 +3,7 @@
 # define PARSING_H
 
 # define E_ARGC "Additional arguments discarded. Running as \"./minishell\"\n"
-# define E_UNCLOSEDQUOTE "minishell: unclosed quote\n"
+# define E_UNCLOSEDQUOTE "minishell: unclosed quote"
 # define E_SENUT "minishell: syntax error near unexpected token `"
 # define E_BLTNFLAG "minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
