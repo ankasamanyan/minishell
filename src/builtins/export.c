@@ -50,29 +50,32 @@ void	replace_env(t_data *data)
 }
 
 /*
--	get name of env line:
+-	len_name is the int length of the name (the part of the env string before
+	the equal sign). With that info, ft_substr can divide the string into
+	the variable's name and its value.
+-	init order to -1 to show that it has not been evaluated.
+	Used for alphabetizing which cmd export with no args does...
 
--	get value of env line:
-	ft_strchr returns a pointer to the first occurence of a char. Use this to get
-	the address of the '=' in the env[i] string and pass that + 1 as the start of
-	ft_substr. Pass ft_strlen as max len to ft_substr because it only has to be
-	long enough, doesn't matter if too long.
+printf("name:%s\n", expnode->name);
+printf("value:%s\n", expnode->value);
 */
 void	build_exportlist(t_data *data)
 {
 	int		i;
 	t_exp	*expnode;
+	int		len_name;
 
 	i = 0;
 	while (data->env[i])
 	{
 		expnode = malloc(1 * sizeof(t_exp));
-		expnode->name = ft_substr(data->env[i], 0, ft_strchr(data->env[i], '=') - data->env[i]);
-		expnode->value = ft_substr(data->env[i], ft_strchr(data->env[i], '=') - data->env[i] + 1,
+		len_name = ft_strchr(data->env[i], '=') - data->env[i];
+		expnode->name = ft_substr(data->env[i], 0, len_name);
+		expnode->value = ft_substr(data->env[i], len_name + 1,
 				ft_strlen(data->env[i]));
-		printf("expnode name:%s\n", expnode->name);
-		printf("expnode value:%s\n", expnode->value);
+		expnode->order = -1;
 		ft_lstadd_back(&data->exp_list, ft_lstnew(expnode));
 		i++;
 	}
+	
 }
