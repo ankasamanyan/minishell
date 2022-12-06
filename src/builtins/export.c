@@ -77,5 +77,70 @@ void	build_exportlist(t_data *data)
 		ft_lstadd_back(&data->exp_list, ft_lstnew(expnode));
 		i++;
 	}
-	
+	set_order(data->exp_list);
+}
+
+/*
+Returns the first node whose content's order value has not yet
+been modified. This corresponds to order = -1.
+*/
+t_list	*get_firstunordered(t_list *list)
+{
+	t_list	*temp;
+	t_exp	*expnode;
+
+	temp = list;
+	while (temp)
+	{
+		expnode = temp->content;
+		if (expnode->order == -1)
+			return (temp);
+		temp = temp->next;
+	}
+	return (NULL);
+}
+
+/*
+Assigns ranks based on the ascending values of node content.
+i is initialized to 1 and not 0 because the last node is
+not reached during the while loop and therefore shouldn't
+be included in the the while's condition count.
+*/
+void	set_order(t_list *list)
+{
+	int		i;
+	t_list	*temp;
+	t_list	*currentranked;
+	t_exp	*content_a;
+	t_exp	*content_b;
+	int		lstsize;
+
+	i = 1;
+	lstsize = ft_lstsize(list);
+	printf("lstsize:%i\n", lstsize);
+	while (i < lstsize - 1)
+	{
+		printf("i:%i\n", i);
+		currentranked = get_firstunordered(list);
+		content_a = currentranked->content;
+		content_a->order = i;
+		temp = currentranked->next;
+		while (temp)
+		{
+			content_b = temp->content;
+			if (content_b->order == -1
+				&& ft_strncmp(content_a->name, content_b->name,
+					ft_strlen(content_a->name) + 1) > 0)
+			{
+				content_b->order = i;
+				printf("newlyranked:%s\n", content_b->name);
+				content_a->order = -1;
+				currentranked = temp;
+			}
+			temp = temp->next;
+		}
+	i++;
+	}
+	content_a = get_firstunordered(list)->content;
+	content_a->order = i;
 }

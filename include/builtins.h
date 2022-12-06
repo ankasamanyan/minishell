@@ -26,5 +26,7 @@ bool	env(t_cmd *cmdnode);
 bool	export(t_cmd *cmdnode);
 void	replace_env(t_data *data);
 void	build_exportlist(t_data *data);
+void	set_order(t_list *list);
+t_list	*get_firstunordered(t_list *list);
 
 #endif
