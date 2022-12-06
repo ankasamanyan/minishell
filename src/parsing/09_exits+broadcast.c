@@ -24,7 +24,7 @@ void	msg_senut(char c)
 /*
 Format:
 printf("minishell: %s: %s: %s", err_msg0, err_msg1, err_msg2)
-Can send NULL if not all 3 strings needed, will terminate accordingly.
+Can send NULL if string 2 or 3 not needed, will skip accordingly.
 */
 void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2)
 {
@@ -32,12 +32,12 @@ void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2)
 	ft_putstr_fd(err_msg0, 2);
 	if (err_msg1)
 	{
-		ft_putstr_fd(": ", 2);
+		write(2, ": ", 2);
 		ft_putstr_fd(err_msg1, 2);
 	}
 	if (err_msg2)
 	{
-		ft_putstr_fd(": ", 2);
+		write(2, ": ", 2);
 		ft_putstr_fd(err_msg2, 2);
 	}
 	write (2, "\n", 1);

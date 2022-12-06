@@ -7,7 +7,7 @@ char	*get_homedir(char **env);
 char	*build_absolutepath(char *rel_path);
 
 //pwd.c
-bool	pwd(void);
+bool	pwd(t_cmd *cmdnode);
 
 //echo.c
 bool	echo(t_cmd *cmdnode);
