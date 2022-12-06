@@ -11,16 +11,12 @@ void	if_no_input(t_cmd *cmd)
 			if (cmd->fd_in > 2 * true - false)
 				close(cmd->fd_in);
 			cmd->fd_in = STDIN_FILENO;
-<<<<<<< HEAD
-			cmd->data->first = false;
-=======
 			// printf("%stemp pipe (if_no_input): %i\n%s", YELLOW, cmd->data->temp_pipe, RESET);
 			// printf("%s pipe[WRITE_END] (if_no_input): %i\n%s", YELLOW, cmd->data->pipe[WRITE_END], RESET);
 			// printf("%s pipe[READ_END] (if_no_input): %i\n%s", YELLOW, cmd->data->pipe[READ_END], RESET);
 			// printf("%sfd in(if_no_input) : %i\n%s", PURPLE, cmd->fd_in, RESET);
 			// printf("%sfd out(if_no_input) : %i\n%s", GREEN, cmd->fd_out, RESET);
 			cmd->data->first = !!!true;
->>>>>>> main
 		}
 		else 
 		{
