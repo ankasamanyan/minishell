@@ -1,0 +1,21 @@
+total 224
+drwxr-xr-x  20 akasaman  2021_wolfsburg    680 Dec  6 18:44 .
+drwxr-xr-x  14 akasaman  2021_wolfsburg    476 Dec  5 19:38 ..
+drwxr-xr-x  14 akasaman  2021_wolfsburg    476 Dec  6 15:37 .git
+-rw-r--r--   1 akasaman  2021_wolfsburg     27 Nov 29 17:55 .gitignore
+-rw-r--r--   1 akasaman  2021_wolfsburg     77 Nov 27 19:03 .gitmodules
+-rw-r--r--   1 akasaman  2021_wolfsburg   1773 Dec  6 15:36 Makefile
+-rw-r--r--   1 akasaman  2021_wolfsburg    152 Dec  4 20:33 README.md
+-rwxr-xr-x   1 akasaman  2021_wolfsburg   1703 Dec  1 16:34 aaaaaa.txt
+-rw-r--r--   1 akasaman  2021_wolfsburg     86 Nov 30 16:30 anotha.txt
+-rwxr-xr-x   1 akasaman  2021_wolfsburg     39 Dec  6 15:25 file.txt
+-rwxr-xr-x   1 akasaman  2021_wolfsburg      0 Dec  6 15:57 halp
+-rwxr-xr-x   1 akasaman  2021_wolfsburg      0 Dec  4 17:02 halp.txt
+-rwxr-xr-x   1 akasaman  2021_wolfsburg      0 Dec  6 18:45 halpp
+-rwxr-xr-x   1 akasaman  2021_wolfsburg     82 Dec  4 19:42 halppp.txt
+drwxr-xr-x   7 akasaman  2021_wolfsburg    238 Dec  6 15:36 include
+-rwxr-xr-x   1 akasaman  2021_wolfsburg  72136 Dec  6 18:44 minishell
+drwxr-xr-x   7 akasaman  2021_wolfsburg    238 Dec  6 18:43 obj
+-rwxr-xr-x   1 akasaman  2021_wolfsburg   3872 Dec  1 20:20 output.txt
+drwxr-xr-x   9 akasaman  2021_wolfsburg    306 Dec  6 15:36 src
+-rw-r--r--   1 akasaman  2021_wolfsburg      4 Dec  6 15:36 test

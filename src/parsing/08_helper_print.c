@@ -28,6 +28,10 @@ void	print_cmdlist(t_list *list)
 	while (temp)
 	{
 		printf("__________COMMAND NODE %i__________\n", i);
+		if (((t_cmd *)(temp->content))->builtin)
+			printf("eto builtin: da\n");
+		else
+			printf("eto builtin: net\n");
 		i++;
 		print_cmd_arr(temp);
 		print_inputlist(temp);

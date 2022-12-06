@@ -3,7 +3,9 @@ NAME = minishell
 CC = gcc
 CFLAGS = -g -fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -lreadline
+#LIBFLAGS = -lreadline
+RL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
+RL_FLAG_O =  -I $(HOME)/goinfre/.brew/opt/readline/include/
 RM = rm -rf
 
 PINK	:= \033[0;35m
@@ -24,6 +26,7 @@ SRC = 	src/minishell.c\
 		05_postproc_syntax.c\
 		06_parser1.c\
 		06_parser2.c\
+		07_check_builtin.c\
 		07_util_is.c\
 		07_util_general.c\
 		08_helper_print.c\
@@ -33,7 +36,7 @@ SRC = 	src/minishell.c\
 		1_signals.c)\
 		$(addprefix src/builtins/,\
 		cd.c\
-		echo-n.c\
+		echo.c\
 		env.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
@@ -42,7 +45,7 @@ LIBFT =	src/libft/libft.a
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) $(LIBFLAGS) -o $(NAME) $(LIBFT)
+	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS) $(RL_FLAG)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
 
@@ -52,7 +55,7 @@ $(LIBFT):
 obj/%.o: src/%.c
 	@mkdir -p obj
 	@mkdir -p obj/parsing obj/exec obj/signals obj/builtins
-	$(CC) $(EFLAGS) -c $< -o $@
+	$(CC) $(EFLAGS) -c $<  $(RL_FLAG_O) -o $@
 
 clean:
 	@$(RM) $(OBJ) obj
