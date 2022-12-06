@@ -122,7 +122,6 @@ void	exec(void *cmd_list)
 			kiddi_process(cmd);
 		else
 		{
-			int tmp;
 			waitpid(cmd->data->pid, &tmp, 0);
 			cmd->data->exitcode = tmp;
 			free(cmd->data->full_path);
