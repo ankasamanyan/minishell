@@ -26,6 +26,8 @@ int	parsing(char *input, t_data *data)
 	parser(p);
 	check_builtin(p);
 	print_cmdlist(data->cmd_list);
+	if(!ft_strncmp("export", ((t_cmd *)(data->cmd_list->content))->cmd_arr[0], 7))
+		export(data->cmd_list->content);
 	return (EXIT_SUCCESS);
 	// cat ctrl+ c duplicates prompt. Net chorosho
 }

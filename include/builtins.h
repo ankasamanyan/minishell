@@ -25,5 +25,6 @@ bool	env(t_cmd *cmdnode);
 //export.c
 bool	export(t_cmd *cmdnode);
 void	replace_env(t_data *data);
+void	build_exportlist(t_data *data);
 
 #endif

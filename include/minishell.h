@@ -75,19 +75,20 @@ typedef struct s_pair
 
 typedef struct s_data
 {
-	t_list				*cmd_list; //t_cmd as content
-	t_par				parsing_struct;
-	char				**env;
-	int					temp_pipe;
-	int					pipe[2];
-	int					first_cmd; // init it to 0
-	char				*big_path;
-	char				*full_path;
-	int					pid;
-	bool				first;	//init to true; or 1;
-	int					cmd_count;	//init it to 0
-	char				exitcode; //innit it to 0
-	char				*shell_lvl;
+	t_list			*cmd_list;
+	t_list			*exp_list;
+	t_par			parsing_struct;
+	char			**env;
+	int				temp_pipe;
+	int				pipe[2];
+	int				first_cmd;
+	char			*big_path;
+	char			*full_path;
+	int				pid;
+	bool			first;
+	int				cmd_count;
+	char			exitcode;
+	char			*shell_lvl;
 }		t_data;
 
 bool	specialcase(t_data *data, char *input);

@@ -91,6 +91,7 @@ bool	specialcase(t_data *data, char *input)
 void	init_datastruct(t_data *data, char **env)
 {
 	data->cmd_list = NULL;
+	data->exp_list = NULL;
 	data->env = env;
 	data->first_cmd = 0;
 	data->first = true;
