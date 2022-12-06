@@ -6,15 +6,10 @@ void	check_builtin(t_par *p)
 	t_cmd		*cmdnode;
 
 	temp = p->cmdlist;
-	printf("hello check builtin\n");
 	while (temp)
 	{
 		cmdnode = temp->content;
 		cmdnode->builtin = is_builtin(cmdnode);
-		if (is_builtin(cmdnode))
-			printf("yes builtin\n");
-		else
-			printf("no builtin\n");
 		temp = temp->next;
 	}
 }
@@ -58,16 +53,10 @@ bool	is_builtinwithflag(t_par *p)
 	return (false);
 }
 
-/*
-echo with option -n
-OK cd with only a relative or absolute path ◦ pwd with no options
-OK export with no options
-OK unset with no options
-OK env with no options or arguments
-OK exit with no options
-*/
 bool	is_builtin(t_cmd *cmdnode)
 {
+	if (!cmdnode->cmd_arr || !cmdnode->cmd_arr[0])
+		return (false);
 	if (!ft_strncmp("pwd", cmdnode->cmd_arr[0], 4)
 		|| !ft_strncmp("export", cmdnode->cmd_arr[0], 7)
 		|| !ft_strncmp("unset", cmdnode->cmd_arr[0], 6)
