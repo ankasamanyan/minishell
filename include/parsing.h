@@ -8,6 +8,7 @@
 # define E_BLTNFLAG "minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
 # define E_NOFILDIR "No such file or directory"
+# define E_INVALOPT "invalid option"
 
 //forward declarations
 typedef struct s_list	t_list;

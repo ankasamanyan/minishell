@@ -1,6 +1,13 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+typedef struct s_export
+{
+	char	*name;
+	char	*value;
+	int		order;
+}	t_exp;
+
 //cd.c
 bool	cd(t_cmd *cmdnode);
 char	*get_homedir(char **env);
@@ -17,6 +24,6 @@ bool	env(t_cmd *cmdnode);
 
 //export.c
 bool	export(t_cmd *cmdnode);
-char	**clone_env(t_data *data);
+void	replace_env(t_data *data);
 
 #endif
