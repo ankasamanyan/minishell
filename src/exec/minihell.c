@@ -24,6 +24,7 @@ void	find_cmd_path(t_cmd *cmd)
 	int		i;
 
 	i = 0;
+	cmd->data->halp = false; //cmd nott found
 	if (cmd->cmd_arr)
 	{
 		smoll_pathsies = ft_split(cmd->data->big_path, ':');
@@ -32,24 +33,40 @@ void	find_cmd_path(t_cmd *cmd)
 		{
 			lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 					"/", cmd->cmd_arr[0]);
-			if (access(lil_path, X_OK) == 0)
-				cmd->data->full_path = lil_path;
+			if (access(lil_path, X_OK) == 0) //if the file has exec rights
+			{
+				cmd->data->full_path = lil_path; //init the path to that file
+				cmd->data->halp = true; //cmd found
+			}
 			else
 			{
 				cmd->data->exitcode = 126;
-				if (access(lil_path, F_OK))
-					cmd->data->exitcode++;
+				if (access(lil_path, F_OK)) //if return is 0 (which meeans that cmd doesn't exist)
+				{
+					cmd->data->exitcode++; //cmd->data->exitcode = 127; if it doesn't exist
+				}
 				free(lil_path);
 			}
 		}
+
 		if (access(cmd->cmd_arr[0], X_OK) == 0)
+		{
 			cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
-		else
+			cmd->data->halp = true; //cmd found
+			
+		}
+		else 
 			access(cmd->cmd_arr[0], F_OK);
+			// perror(cmd->cmd_arr[0]);
 		ft_free_array(smoll_pathsies);
+		if (!cmd->data->halp)
+		{
+			// perror("blabla");
+			write(2, "Minishell: ", 11);
+			write(2, cmd->cmd_arr[0], ft_strlen(cmd->cmd_arr[0]));
+			write(2, ": command not found\n", 21);
+		}
 	}
-	else
-		cmd->data->full_path = NULL;
 }
 
 void	kiddi_process(t_cmd *cmd)
@@ -59,7 +76,7 @@ void	kiddi_process(t_cmd *cmd)
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	// print_2d_array(cmd->cmd_arr, 2);
-	printf("full path before execve: %s\n",cmd->data->full_path);
+	// printf("full path before execve: %s\n",cmd->data->full_path);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -86,7 +103,10 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	pipe(cmd->data->pipe);
 	cmd->data->cmd_count++;
+	cmd->data->file_err = false;
 	if_no_input(cmd);
+	// if (cmd->data->file_err)
+	// 	return ;
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
@@ -96,6 +116,8 @@ void	exec(void *cmd_list)
 	//if no cmd
 	if (cmd->cmd_arr)
 	{
+		if (!cmd->data->halp)
+			return ;
 		cmd->data->pid = fork();
 		if (cmd->data->pid == 0)
 			kiddi_process(cmd);

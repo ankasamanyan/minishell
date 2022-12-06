@@ -26,7 +26,7 @@ void	increase_shell_lvl(t_data *data,char **env)
 	data->shell_lvl = ft_strjoin("SHLVL=", temp);
 	free(temp);
 	env[i] = data->shell_lvl;
-	printf("%s\n", data->shell_lvl);
+	// printf("%s\n", data->shell_lvl);
 }
 
 int	main(int argc, char *argv[], char *env[])
@@ -60,7 +60,7 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		}
 		ft_lstiter(data.cmd_list, &exec);
-		printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
+		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// if (data.exitcode > 255)
 		// 	data.exitcode/=256;
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);

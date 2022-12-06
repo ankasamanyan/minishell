@@ -87,6 +87,8 @@ typedef struct s_data
 	char				*full_path;
 	int					pid;
 	bool				first;	//init to true; or 1;
+	bool				halp;
+	bool				file_err;
 	int					cmd_count;	//init it to 0
 	char				exitcode; //innit it to 0
 	char				*shell_lvl;

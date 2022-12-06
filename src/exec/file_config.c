@@ -40,21 +40,40 @@ void	input_files(void *infile)
 
 	// printf("Start of a Input_files() call\n");
 	input = (t_pair *)infile;
+	// input->cmd->data->file_err = false;
 	if (input->cmd->data->temp_pipe > 2)
 		close(input->cmd->data->temp_pipe);
 	if (input->doublebracket == false)
 	{
 		if (access(input->string, F_OK) != 0)
-			perror("Minishell: Input error");			// if file not existent cmd is not executed but next one is
+		{
+			input->cmd->data->file_err = true;
+			write(2, "Minishell: ", 11);
+			write(2, input->string, ft_strlen(input->string));
+			perror(" ");
+			return ;
+		}
 		else if (access(input->string, R_OK) != 0)
-			perror("Minishell: Input error");			// if no permission cmd is not executed but next one is
+		{
+			input->cmd->data->file_err = true;
+			write(2, "Minishell: ", 11);
+			write(2, input->string, ft_strlen(input->string));
+			perror(" ");
+			return ;
+		}
 		else
 		{
 			if (input->cmd->fd_in > 2)
 				close(input->cmd->fd_in);
 			input->cmd->fd_in = open(input->string, O_RDONLY);
 			if (input->cmd->fd_in < 0)
-				perror("Minishell: Input file error");
+			{
+				input->cmd->data->file_err = true;
+				write(2, "Minishell: ", 11);
+				write(2, input->string, ft_strlen(input->string));
+				perror(" ");
+				return ;
+			}
 			if (!(input->cmd->cmd_arr))
 			{
 				//you don't have to close alllllll the fdsss
@@ -68,7 +87,7 @@ void	input_files(void *infile)
 	if (input->doublebracket == true)
 	{
 		if(pipe(pipy) != 0)
-			perror("Minishell: Pipe() error in heredoc");	//set some flag and exot this function
+			perror("Minishell:");	//set some flag and exot this function
 		while (42)
 		{
 			stringy = readline("> ");
@@ -125,7 +144,7 @@ void	output_files(void *outfile)
 		// printf("%sfd out(output_files) : %i\n%s", GREEN, output->cmd->fd_out, RESET);
 		// if (access(output->string, W_OK) != 0)		// if file doesnt have write rights cmd is not executed but next one is
 		if (output->cmd->fd_out < 0)
-			perror("Minishell: Output file error")STOP
+			perror("Minishell: ")STOP
 		// printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
 	else if (output->doublebracket == true)

@@ -27,7 +27,7 @@ int	parsing(char *input, t_data *data)
 	check_builtin(p);
 	if (is_builtinwithflag(p))
 		return (EXIT_FAILURE);
-	print_cmdlist(data->cmd_list);
+	// print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
 
