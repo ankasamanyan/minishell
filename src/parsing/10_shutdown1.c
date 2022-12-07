@@ -5,17 +5,28 @@ void	shutdown(t_data *data)
 	t_par	*p;
 
 	p = &data->parsing_struct;
-	del_envclone(data->env);
+	free2d_char(data->env);
 	del_tokenlist(p->tokenlist);
 	del_cmdlist(p->cmdlist);
 	free(p->input);
 	//free(data->shell_lvl);
 }
 
-/*
+void	free2d_char(char **array)
+{
+	int		i;
 
-*/
-void	del_envclone()
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		printf("free i:%i\ncontent:%s\n", i, array[i]);
+		free(array[i]);
+		i++;
+	}
+	free(array);
+}
 
 /*
 Cmdlist, inputlist and outputlist don't free any strings.

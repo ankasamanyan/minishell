@@ -127,10 +127,14 @@ void	errorexit_onlymsg(char *msg);
 void	msg_senut(char c);
 void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
 
-//10_shutdown.c
+//10_shutdown1.c
 void	shutdown(t_data *data);
 void	del_tokenlist(t_list *list);
 void	del_cmdlist(t_list *list);
 void	del_pairlist(t_list *list);
+void	free2d_char(char **array);
+
+//10_shutdown2.c
+void	del_explist(t_list *list);
 
 #endif
