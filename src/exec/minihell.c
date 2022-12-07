@@ -52,7 +52,7 @@ void	find_cmd_path(t_cmd *cmd)
 			cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
 			cmd->data->halp = true; //cmd found
 		}
-		else 
+		else
 			access(cmd->cmd_arr[0], F_OK);
 			// perror(cmd->cmd_arr[0]);
 		ft_free_array(smoll_pathsies);
@@ -96,9 +96,9 @@ void	search_path_env(t_cmd *cmd)
 void	exec(void *cmd_list)
 {
 	t_cmd	*cmd;
-	int		tmp;
+	//int		tmp;
 
-	tmp = 0;
+	//tmp = 0;
 	cmd = (t_cmd *)cmd_list;
 	pipe(cmd->data->pipe);
 	cmd->data->cmd_count++;

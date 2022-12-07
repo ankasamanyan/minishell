@@ -37,6 +37,7 @@ int	main(int argc, char *argv[], char *env[])
 
 	(void)argv;
 	increase_shell_lvl(&data, env);
+	data.exitcode = 0;
 	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
@@ -95,7 +96,8 @@ void	init_datastruct(t_data *data, char **env)
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;
-	data->exitcode = 0;
+	data->file_err = false;
+	data->halp = false;
 }
 
 /*

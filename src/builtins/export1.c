@@ -55,10 +55,8 @@ bool	export(t_cmd *cmdnode)
 bool	has_invalidformat(char *string)
 {
 	int		i;
-	bool	invalid;
 
 	i = 0;
-	invalid = false;
 	if (ft_isdigit(string[0]))
 		return (msg_error("export", string, E_NOTVALID), true);
 	while (string[i])
