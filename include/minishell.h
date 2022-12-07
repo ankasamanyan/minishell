@@ -90,7 +90,7 @@ typedef struct s_data
 	bool				halp;
 	bool				file_err;
 	int					cmd_count;	//init it to 0
-	char				exitcode; //innit it to 0
+	int					exitcode; //innit it to 0
 	char				*shell_lvl;
 }		t_data;
 

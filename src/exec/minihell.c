@@ -42,9 +42,7 @@ void	find_cmd_path(t_cmd *cmd)
 			{
 				cmd->data->exitcode = 126;
 				if (access(lil_path, F_OK)) //if return is 0 (which meeans that cmd doesn't exist)
-				{
 					cmd->data->exitcode++; //cmd->data->exitcode = 127; if it doesn't exist
-				}
 				free(lil_path);
 			}
 		}
@@ -53,7 +51,6 @@ void	find_cmd_path(t_cmd *cmd)
 		{
 			cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
 			cmd->data->halp = true; //cmd found
-			
 		}
 		else 
 			access(cmd->cmd_arr[0], F_OK);
@@ -71,6 +68,8 @@ void	find_cmd_path(t_cmd *cmd)
 
 void	kiddi_process(t_cmd *cmd)
 {
+	if (cmd->data->file_err)
+		exit (0);
 	if (cmd->fd_in > 2)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
@@ -99,13 +98,12 @@ void	exec(void *cmd_list)
 	t_cmd	*cmd;
 	int		tmp;
 
+	tmp = 0;
 	cmd = (t_cmd *)cmd_list;
 	pipe(cmd->data->pipe);
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
 	if_no_input(cmd);
-	// if (cmd->data->file_err)
-	// 	return ;
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
@@ -122,8 +120,10 @@ void	exec(void *cmd_list)
 			kiddi_process(cmd);
 		else
 		{
-			waitpid(cmd->data->pid, &tmp, 0);
-			cmd->data->exitcode = tmp;
+			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			if (cmd->data->exitcode > 255)
+				cmd->data->exitcode%=256;
+			// cmd->data->exitcode = tmp;
 			free(cmd->data->full_path);
 			if (cmd->fd_in > 2)
 				close(cmd->fd_in);
