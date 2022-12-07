@@ -38,6 +38,8 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 	increase_shell_lvl(&data, env);
 	data.exitcode = 0;
+	data.env = replace_env(env);
+	build_exportlistfromenv(&data);
 	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
@@ -54,7 +56,7 @@ int	main(int argc, char *argv[], char *env[])
 		add_history(input);
 		if (specialcase(&data, input))
 			continue ;
-		init_datastruct(&data, env);
+		init_datastruct(&data);
 		if (parsing(input, &data))
 		{
 			shutdown(&data);
@@ -88,11 +90,9 @@ bool	specialcase(t_data *data, char *input)
 	return (0);
 }
 
-void	init_datastruct(t_data *data, char **env)
+void	init_datastruct(t_data *data)
 {
 	data->cmd_list = NULL;
-	data->env = replace_env(env);
-	build_exportlistfromenv(data);
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;

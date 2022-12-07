@@ -42,6 +42,11 @@ bool	export(t_cmd *cmdnode)
 		}
 		expnode->value = ft_substr(cmdnode->cmd_arr[i], len_name + 1,
 				ft_strlen(cmdnode->cmd_arr[i]));
+		if (!expnode->value[1])
+		{
+			free(expnode->value);
+			expnode->value = NULL;
+		}
 		expnode->rank = -1;
 		printf("name:%s\n", expnode->name);
 		printf("value:%s\n", expnode->value);
@@ -49,6 +54,7 @@ bool	export(t_cmd *cmdnode)
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
+	//print_export(cmdnode->data->exp_list);
 	return (false);
 }
 
@@ -74,6 +80,13 @@ void	print_export(t_list *list)
 	t_list		*temp;
 	t_exp		*expnode;
 
+	/* temp = list;
+	while (temp)
+	{
+		printf("name:%s\n", ((t_exp *)(temp->content))->name);
+		temp = temp->next;
+	} */
+
 	i = 0;
 	while (i < ft_lstsize(list))
 	{
@@ -85,7 +98,11 @@ void	print_export(t_list *list)
 			expnode = temp->content;
 		}
 		expnode = temp->content;
-		printf("declare -x %s=\"%s\"\n", expnode->name, expnode->value);
+		printf("declare -x %s", expnode->name);
+		if (expnode->value)
+			printf("=\"%s\"\n", expnode->value);
+		else
+			write(1, "\n", 1);
 		i++;
 	}
 }
