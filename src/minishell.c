@@ -92,9 +92,26 @@ void	init_datastruct(t_data *data, char **env)
 {
 	data->cmd_list = NULL;
 	data->exp_list = NULL;
-	data->env = env;
+	replace_env(data);
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;
 	data->exitcode = 0;
+}
+
+void	replace_env(t_data *data)
+{
+	int		i;
+	char	**env_clone;
+
+	if (!data->env)
+		return ;
+	i = 0;
+	env_clone = NULL;
+	while (data->env[i])
+	{
+		env_clone = append_string(env_clone, data->env[i]);
+		i++;
+	}
+	data->env = env_clone;
 }

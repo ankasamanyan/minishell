@@ -5,11 +5,17 @@ void	shutdown(t_data *data)
 	t_par	*p;
 
 	p = &data->parsing_struct;
+	del_envclone(data->env);
 	del_tokenlist(p->tokenlist);
 	del_cmdlist(p->cmdlist);
 	free(p->input);
 	//free(data->shell_lvl);
 }
+
+/*
+
+*/
+void	del_envclone()
 
 /*
 Cmdlist, inputlist and outputlist don't free any strings.

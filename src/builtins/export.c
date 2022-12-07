@@ -32,23 +32,6 @@ bool	export(t_cmd *cmdnode)
 	return (false);
 }
 
-void	replace_env(t_data *data)
-{
-	int		i;
-	char	**env_clone;
-
-	if (!data->env)
-		return ;
-	i = 0;
-	env_clone = NULL;
-	while (data->env[i])
-	{
-		env_clone = append_string(env_clone, data->env[i]);
-		i++;
-	}
-	data->env = env_clone;
-}
-
 /*
 -	len_name is the int length of the name (the part of the env string before
 	the equal sign). With that info, ft_substr can divide the string into
@@ -75,6 +58,7 @@ void	build_exportlist(t_data *data)
 		i++;
 	}
 	set_order(data->exp_list);
+	print_export(list);
 }
 
 /*
@@ -129,7 +113,6 @@ void	set_order(t_list *list)
 	}
 	curr_ranked = get_firstunranked(list);
 	((t_exp *)curr_ranked->content)->rank = i;
-	print_export(list);
 }
 
 bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2)

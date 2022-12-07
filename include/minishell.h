@@ -93,5 +93,6 @@ typedef struct s_data
 
 bool	specialcase(t_data *data, char *input);
 void	init_datastruct(t_data *d, char **env);
+void	replace_env(t_data *data);
 
 #endif
