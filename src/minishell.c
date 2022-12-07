@@ -102,7 +102,7 @@ void	init_datastruct(t_data *data, char **env)
 /*
 Using strdup to make a malloc'd copy of env so all variables are
 structured the same (will be adding malloc'd ones later with export
-and then would have a mixture of dyn / stat alloc in the env clone).
+and then would have a mix of dyn / stat alloc in the env clone).
 */
 char	**replace_env(char **env)
 {

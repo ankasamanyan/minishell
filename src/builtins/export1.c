@@ -23,12 +23,11 @@ bool	export(t_cmd *cmdnode)
 
 	//syntaxcheck, gotta do it per cmdarrpos tho, cause invalid ones get
 	//skipped and dont terminate whole shmismshmang
+	build_exportlist(cmdnode->data);
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
 	if (cmdnode->cmd_arr[1][0] == '-')
 		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
-	build_exportlist(cmdnode->data);
-	print_export(cmdnode->data->exp_list);
 	return (false);
 }
 
@@ -49,7 +48,7 @@ void	print_export(t_list *list)
 			expnode = temp->content;
 		}
 		expnode = temp->content;
-		printf("%i:%s\n", i, expnode->name);
+		printf("declare -x %s=\"%s\"\n", expnode->name, expnode->value);
 		i++;
 	}
 }
