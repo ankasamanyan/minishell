@@ -136,6 +136,7 @@ void	build_exportlistfromenv(t_data *data)
 	int		len_name;
 
 	i = 0;
+	data->exp_list = NULL;
 	while (data->env[i])
 	{
 		expnode = malloc(1 * sizeof(t_exp));
@@ -162,6 +163,7 @@ void	set_order(t_list *list)
 	t_list	*curr_ranked;
 	t_list	*compare;
 
+	reset_rank(list);
 	i = 0;
 	while (i < ft_lstsize(list) - 1)
 	{
@@ -170,6 +172,7 @@ void	set_order(t_list *list)
 		compare = curr_ranked->next;
 		while (compare)
 		{
+			//printf("rank:%i\n", ((t_exp *)(compare->content))->rank);
 			if (is_unrankedandprecedes(curr_ranked->content, compare->content))
 			{
 				((t_exp *)compare->content)->rank = i;
@@ -182,6 +185,18 @@ void	set_order(t_list *list)
 	}
 	curr_ranked = get_firstunranked(list);
 	((t_exp *)curr_ranked->content)->rank = i;
+}
+
+void	reset_rank(t_list *list)
+{
+	t_list	*temp;
+
+	temp = list;
+	while (temp)
+	{
+		((t_exp *)(temp->content))->rank = -1;
+		temp = temp->next;
+	}
 }
 
 /*

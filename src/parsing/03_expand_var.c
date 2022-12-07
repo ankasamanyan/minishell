@@ -122,7 +122,6 @@ char	*replace_dollar(t_par *p, char *lexeme)
 		while (lexeme[i] && !is_quotationmark(lexeme[i]) && lexeme[i] != '$')
 			i++;
 		p->str_b = ft_substr(lexeme, dollar + 1, i - (dollar + 1));
-		printf("string b:%s\n", p->str_b);
 		p->str_c = ft_substr(lexeme, i, ft_strlen(lexeme));
 		findandexpand(p);
 	}

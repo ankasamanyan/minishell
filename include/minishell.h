@@ -87,7 +87,7 @@ typedef struct s_data
 	int				pid;
 	bool			first;
 	int				cmd_count;
-	char			exitcode;
+	int				exitcode;
 	char			*shell_lvl;
 }		t_data;
 

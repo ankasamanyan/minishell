@@ -1,6 +1,8 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# define E_NOTVALID "not a valid identifier"
+
 typedef struct s_export
 {
 	char	*name;
@@ -24,8 +26,9 @@ bool	env(t_cmd *cmdnode);
 
 //export1.c
 bool	export(t_cmd *cmdnode);
+bool	has_invalidformat(char *string);
 void	print_export(t_list *list);
-
+void	reset_rank(t_list *list);
 //export1.c
 
 
