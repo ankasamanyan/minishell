@@ -31,13 +31,16 @@ SRC = 	src/minishell.c\
 		07_util_general.c\
 		08_helper_print.c\
 		09_exits+broadcast.c\
-		10_shutdown.c)\
+		10_shutdown1.c\
+		10_shutdown2.c)\
 		$(addprefix src/signals/,\
 		1_signals.c)\
 		$(addprefix src/builtins/,\
 		cd.c\
 		echo.c\
 		env.c\
+		export1.c\
+		export2.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a

@@ -2,13 +2,27 @@
 
 void	shutdown(t_data *data)
 {
-	t_par	*p;
-
-	p = &data->parsing_struct;
-	del_tokenlist(p->tokenlist);
-	del_cmdlist(p->cmdlist);
-	free(p->input);
+	free2d_char(data->env);
+	del_tokenlist(data->parsing_struct.tokenlist);
+	del_cmdlist(data->cmd_list);
+	del_explist(data->exp_list);
+	free(data->parsing_struct.input);
 	//free(data->shell_lvl);
+}
+
+void	free2d_char(char **array)
+{
+	int		i;
+
+	if (!array)
+		return ;
+	i = 0;
+	while (array[i])
+	{
+		free(array[i]);
+		i++;
+	}
+	free(array);
 }
 
 /*

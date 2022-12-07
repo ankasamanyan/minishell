@@ -1,11 +1,13 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# define E_NOTVALID "not a valid identifier"
+
 typedef struct s_export
 {
 	char	*name;
 	char	*value;
-	int		order;
+	int		rank;
 }	t_exp;
 
 //cd.c
@@ -22,8 +24,12 @@ bool	echo(t_cmd *cmdnode);
 //env.c
 bool	env(t_cmd *cmdnode);
 
-//export.c
+//export1.c
 bool	export(t_cmd *cmdnode);
-void	replace_env(t_data *data);
+bool	has_invalidformat(char *string);
+void	print_export(t_list *list);
+void	reset_rank(t_list *list);
+//export1.c
+
 
 #endif
