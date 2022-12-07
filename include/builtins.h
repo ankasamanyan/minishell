@@ -5,7 +5,7 @@ typedef struct s_export
 {
 	char	*name;
 	char	*value;
-	int		order;
+	int		rank;
 }	t_exp;
 
 //cd.c
@@ -27,6 +27,7 @@ bool	export(t_cmd *cmdnode);
 void	replace_env(t_data *data);
 void	build_exportlist(t_data *data);
 void	set_order(t_list *list);
-t_list	*get_firstunordered(t_list *list);
+t_list	*get_firstunranked(t_list *list);
+void	print_export(t_list *list);
 
 #endif

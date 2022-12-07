@@ -53,7 +53,7 @@ void	replace_env(t_data *data)
 -	len_name is the int length of the name (the part of the env string before
 	the equal sign). With that info, ft_substr can divide the string into
 	the variable's name and its value.
--	init order to -1 to show that it has not been evaluated.
+-	init rank to -1 to show that it has not been evaluated.
 	Used for alphabetizing which cmd export with no args does...
 
 printf("name:%s\n", expnode->name);
@@ -73,7 +73,7 @@ void	build_exportlist(t_data *data)
 		expnode->name = ft_substr(data->env[i], 0, len_name);
 		expnode->value = ft_substr(data->env[i], len_name + 1,
 				ft_strlen(data->env[i]));
-		expnode->order = -1;
+		expnode->rank = -1;
 		ft_lstadd_back(&data->exp_list, ft_lstnew(expnode));
 		i++;
 	}
@@ -81,10 +81,10 @@ void	build_exportlist(t_data *data)
 }
 
 /*
-Returns the first node whose content's order value has not yet
-been modified. This corresponds to order = -1.
+Returns the first node whose content's rank value has not yet
+been modified. This corresponds to rank = -1.
 */
-t_list	*get_firstunordered(t_list *list)
+t_list	*get_firstunranked(t_list *list)
 {
 	t_list	*temp;
 	t_exp	*expnode;
@@ -93,7 +93,7 @@ t_list	*get_firstunordered(t_list *list)
 	while (temp)
 	{
 		expnode = temp->content;
-		if (expnode->order == -1)
+		if (expnode->rank == -1)
 			return (temp);
 		temp = temp->next;
 	}
@@ -101,46 +101,67 @@ t_list	*get_firstunordered(t_list *list)
 }
 
 /*
-Assigns ranks based on the ascending values of node content.
-i is initialized to 1 and not 0 because the last node is
+Assigns ranks based on the alphabetical values of content.name.
+while loop is terminated at lstsize -1 because the last node is
 not reached during the while loop and therefore shouldn't
 be included in the the while's condition count.
 */
 void	set_order(t_list *list)
 {
 	int		i;
-	t_list	*temp;
-	t_list	*currentranked;
-	t_exp	*content_a;
-	t_exp	*content_b;
-	int		lstsize;
+	t_list	*curr_ranked;
+	t_list	*compare;
+	t_exp	*content_curr_ranked;
+	t_exp	*content_compare;
 
-	i = 1;
-	lstsize = ft_lstsize(list);
-	printf("lstsize:%i\n", lstsize);
-	while (i < lstsize - 1)
+	i = 0;
+	while (i < ft_lstsize(list) - 1)
 	{
-		printf("i:%i\n", i);
-		currentranked = get_firstunordered(list);
-		content_a = currentranked->content;
-		content_a->order = i;
-		temp = currentranked->next;
-		while (temp)
+		curr_ranked = get_firstunranked(list);
+		content_curr_ranked = curr_ranked->content;
+		content_curr_ranked->rank = i;
+		compare = curr_ranked->next;
+		while (compare)
 		{
-			content_b = temp->content;
-			if (content_b->order == -1
-				&& ft_strncmp(content_a->name, content_b->name,
-					ft_strlen(content_a->name) + 1) > 0)
+			content_curr_ranked = curr_ranked->content;
+			content_compare = compare->content;
+			if (content_compare->rank == -1
+				&& ft_strncmp(content_curr_ranked->name, content_compare->name,
+					ft_strlen(content_curr_ranked->name) + 1) > 0)
 			{
-				content_b->order = i;
-				printf("newlyranked:%s\n", content_b->name);
-				content_a->order = -1;
-				currentranked = temp;
+				content_compare->rank = i;
+				content_curr_ranked->rank = -1;
+				curr_ranked = compare;
 			}
-			temp = temp->next;
+			compare = compare->next;
 		}
-	i++;
+		i++;
 	}
-	content_a = get_firstunordered(list)->content;
-	content_a->order = i;
+	curr_ranked = get_firstunranked(list);
+	content_curr_ranked = curr_ranked->content;
+	content_curr_ranked->rank = i;
+	print_export(list);
+}
+
+void	print_export(t_list *list)
+{
+	int			i;
+	t_list		*temp;
+	t_exp		*expnode;
+
+	i = 0;
+	//temp = list;
+	while (i < ft_lstsize(list))
+	{
+		temp = list;
+		expnode = temp->content;
+		while (expnode->rank != i)
+		{
+			temp = temp->next;
+			expnode = temp->content;
+		}
+		expnode = temp->content;
+		printf("%i:%s\n", i, expnode->name);
+		i++;
+	}
 }
