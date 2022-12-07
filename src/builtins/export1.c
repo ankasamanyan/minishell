@@ -23,7 +23,6 @@ bool	export(t_cmd *cmdnode)
 
 	//syntaxcheck, gotta do it per cmdarrpos tho, cause invalid ones get
 	//skipped and dont terminate whole shmismshmang
-	build_exportlist(cmdnode->data);
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
 	if (cmdnode->cmd_arr[1][0] == '-')

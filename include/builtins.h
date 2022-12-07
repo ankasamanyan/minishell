@@ -27,9 +27,6 @@ bool	export(t_cmd *cmdnode);
 void	print_export(t_list *list);
 
 //export1.c
-void	build_exportlist(t_data *data);
-void	set_order(t_list *list);
-t_list	*get_firstunranked(t_list *list);
-bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
+
 
 #endif
