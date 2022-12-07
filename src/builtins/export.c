@@ -54,10 +54,7 @@ void	replace_env(t_data *data)
 	the equal sign). With that info, ft_substr can divide the string into
 	the variable's name and its value.
 -	init rank to -1 to show that it has not been evaluated.
-	Used for alphabetizing which cmd export with no args does...
-
-printf("name:%s\n", expnode->name);
-printf("value:%s\n", expnode->value);
+	Used for alphabetizing (export with no args prints in alphabetical order)
 */
 void	build_exportlist(t_data *data)
 {
@@ -111,26 +108,19 @@ void	set_order(t_list *list)
 	int		i;
 	t_list	*curr_ranked;
 	t_list	*compare;
-	t_exp	*content_curr_ranked;
-	t_exp	*content_compare;
 
 	i = 0;
 	while (i < ft_lstsize(list) - 1)
 	{
 		curr_ranked = get_firstunranked(list);
-		content_curr_ranked = curr_ranked->content;
-		content_curr_ranked->rank = i;
+		((t_exp *)curr_ranked->content)->rank = i;
 		compare = curr_ranked->next;
 		while (compare)
 		{
-			content_curr_ranked = curr_ranked->content;
-			content_compare = compare->content;
-			if (content_compare->rank == -1
-				&& ft_strncmp(content_curr_ranked->name, content_compare->name,
-					ft_strlen(content_curr_ranked->name) + 1) > 0)
+			if (is_unrankedandprecedes(curr_ranked->content, compare->content))
 			{
-				content_compare->rank = i;
-				content_curr_ranked->rank = -1;
+				((t_exp *)compare->content)->rank = i;
+				((t_exp *)curr_ranked->content)->rank = -1;
 				curr_ranked = compare;
 			}
 			compare = compare->next;
@@ -138,9 +128,15 @@ void	set_order(t_list *list)
 		i++;
 	}
 	curr_ranked = get_firstunranked(list);
-	content_curr_ranked = curr_ranked->content;
-	content_curr_ranked->rank = i;
+	((t_exp *)curr_ranked->content)->rank = i;
 	print_export(list);
+}
+
+bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2)
+{
+	return (node2->rank == -1
+		&& ft_strncmp(node1->name, node2->name,
+			ft_strlen(node1->name) + 1) > 0);
 }
 
 void	print_export(t_list *list)
