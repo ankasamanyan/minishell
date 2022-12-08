@@ -51,7 +51,6 @@ void	set_order(t_list *list)
 		compare = curr_ranked->next;
 		while (compare)
 		{
-			//printf("rank:%i\n", ((t_exp *)(compare->content))->rank);
 			if (is_unrankedandprecedes(curr_ranked->content, compare->content))
 			{
 				((t_exp *)compare->content)->rank = i;
@@ -69,26 +68,17 @@ void	set_order(t_list *list)
 void	reset_rank(t_list *list)
 {
 	t_list	*temp;
-	int		i = 0;
 
 	temp = list;
 	while (temp)
 	{
-		printf("reset i:%i\n", i++);
-		if (!temp->content)
-		{
-			printf("nocontentinresetrank\n");
-		}
-		else
-			printf("yescontentinreseterank\n");
 		((t_exp *)temp->content)->rank = -1;
-		printf("shmang\n");
 		temp = temp->next;
 	}
 }
 
 /*
-Returns the first node whose content's rank value has not yet
+Returns the first node whose content's rank value has not
 been modified. This corresponds to rank = -1.
 */
 t_list	*get_firstunranked(t_list *list)

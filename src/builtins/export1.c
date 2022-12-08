@@ -65,9 +65,12 @@ void	add_expnode(t_list *exp_list, char *string)
 	len_name = ft_strchr(string, '=') - string;
 	expnode->name = ft_substr(string, 0, len_name);
 	expnode->value = ft_substr(string, len_name + 1, ft_strlen(string));
+	if (!expnode->value[0])
+	{
+		free(expnode->value);
+		expnode->value = NULL;
+	}
 	expnode->rank = -1;
-	printf("name:%s\n", expnode->name);
-	printf("value:%s\n", expnode->value);
 	ft_lstadd_back(&exp_list, ft_lstnew(expnode));
 }
 
