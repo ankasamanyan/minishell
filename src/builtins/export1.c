@@ -31,8 +31,9 @@ bool	export(t_cmd *cmdnode)
 	{
 		name = ft_substr(cmdnode->cmd_arr[i], 0,
 				ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i]);
-		if (!has_invalidformat(name))
-			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
+		if (!has_invalidformat(name) || cmdnode->cmd_arr[i][0] == '=')
+			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i],
+				&cmdnode->data->env);
 		free(name);
 		i++;
 	}
@@ -56,7 +57,7 @@ bool	has_invalidformat(char *string)
 	return (false);
 }
 
-void	add_expnode(t_list *exp_list, char *string)
+void	add_expnode(t_list *exp_list, char *string, char ***env)
 {
 	int		len_name;
 	t_exp	*expnode;
@@ -69,6 +70,11 @@ void	add_expnode(t_list *exp_list, char *string)
 	{
 		free(expnode->value);
 		expnode->value = NULL;
+	}
+	else
+	{
+		printf("string:%s\n", string);
+		*env = append_string(*env, ft_strdup(string));
 	}
 	expnode->rank = -1;
 	ft_lstadd_back(&exp_list, ft_lstnew(expnode));
