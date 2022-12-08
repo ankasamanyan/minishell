@@ -85,13 +85,16 @@ void	input_files(void *infile)
 		while (42)
 		{
 			stringy = readline("> ");
-			stringy = append_char(stringy, '\n');
-			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
-				&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n'))
-				break ;
-			else
-				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
-			free(stringy);
+			if (stringy)
+			{
+				stringy = append_char(stringy, '\n');
+				if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
+					&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n') && stringy)
+					break ;
+				else
+					write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
+				free(stringy);
+			}
 		}
 		free(stringy);
 		close(pipy[WRITE_END]);
@@ -136,8 +139,6 @@ void	output_files(void *outfile)
 		// printf("%sfd in(output_files) : %i\n%s", PURPLE, output->cmd->fd_in, RESET);
 		// printf("%sfd out(output_files) : %i\n%s", GREEN, output->cmd->fd_out, RESET);
 		// if (access(output->string, W_OK) != 0)		// if file doesnt have write rights cmd is not executed but next one is
-		if (output->cmd->fd_out < 0)
-			perror("Minishell: ")STOP
 		// printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
 	else if (output->doublebracket == true)
@@ -145,5 +146,14 @@ void	output_files(void *outfile)
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out);
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_APPEND | O_CREAT, 0777);
+	}
+	if (output->cmd->fd_out < 0)
+	{
+		// perror("Minishell: ")STOP
+		output->cmd->data->file_err = true;
+		write(2, "Minishell: ", 11);
+		write(2, output->string, ft_strlen(output->string));
+		perror(" ");
+		return ;
 	}
 }
