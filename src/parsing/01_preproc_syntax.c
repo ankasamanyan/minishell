@@ -10,7 +10,11 @@ makes it smaller.
 bool	preproc_syntaxerror(t_par *p)
 {
 	char	lastchar;
+	char	*temp;
 
+	temp = p->input;
+	p->input = ft_strtrim(p->input, " \t\n\f\r\v");
+	free(temp);
 	lastchar = p->input[ft_strlen(p->input) - 1];
 	if (p->input[0] == '|')
 		return (msg_senut('|'), true);

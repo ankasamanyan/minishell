@@ -1,6 +1,5 @@
 #include "../../include/minishell.h"
 
-
 /*
 -	len_name is the int length of the name (the part of the env string before
 	the equal sign). With that info, ft_substr can divide the string into
