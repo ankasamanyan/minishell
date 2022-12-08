@@ -126,6 +126,7 @@ void	print_outputlist(t_list *node);
 void	errorexit_onlymsg(char *msg);
 void	msg_senut(char c);
 void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
+void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2);
 
 //10_shutdown1.c
 void	shutdown(t_data *data);

@@ -1,20 +1,11 @@
 #include "../../include/minishell.h"
 
 /*
-For now, is only creating the export shismshmang if the function is called.
-That prolly should be changed later and moved to init to be more structured.
-
-export a=3 b =2 c=3
-- 	a and c will work, it will not process b and give error ` =2': not a valid
-	identifier b will only get declared. So each string represents the var name
-	until either = or end of token (0, metachar whaeva)
--	bash-3.2$ export "a      =b"
-	bash: export: `a      =b': not a valid identifier
--	bash-3.2$ export "a|=b"
-	bash: export: `a|=b': not a valid identifier
--	bash-3.2$ export "a<=b"
-	bash: export: `a<=b': not a valid identifier
--	Gonna go with: no metachars allowed except ofc '='
+-	Rules for var names:
+	-	Must be alphanumerical or '_'
+	-	May not start with a number
+-	Project doesn't allow flags so first char'-' generates a different error msg
+	in 2nd cmd array position (the flag position).
 
 */
 bool	export(t_cmd *cmdnode)
@@ -31,9 +22,11 @@ bool	export(t_cmd *cmdnode)
 	{
 		name = ft_substr(cmdnode->cmd_arr[i], 0,
 				ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i]);
-		if (!has_invalidformat(name) || cmdnode->cmd_arr[i][0] == '=')
+		if (!has_invalidformat(name))
 			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i],
 				&cmdnode->data->env);
+		else
+			msg_err_quote("export", cmdnode->cmd_arr[i], E_NOTVALID);
 		free(name);
 		i++;
 	}
@@ -41,17 +34,24 @@ bool	export(t_cmd *cmdnode)
 	return (false);
 }
 
+/*
+-	May not start with digit
+-	edge case of input being "=abc" -> string would be just the 0 byte
+	because there is nothing before the '='. That woul skip the while loop.
+	So has to be checked for at start.
+-	Must be alnum or '-'
+*/
 bool	has_invalidformat(char *string)
 {
 	int		i;
 
 	i = 0;
-	if (ft_isdigit(string[0]))
-		return (msg_error("export", string, E_NOTVALID), true);
+	if (ft_isdigit(string[0]) || !string[0])
+		return (true);
 	while (string[i])
 	{
 		if (!ft_isalnum(string[i]) && string[i] != '_')
-			return (msg_error("export", string, E_NOTVALID), true);
+			return (true);
 		i++;
 	}
 	return (false);
