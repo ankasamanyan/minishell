@@ -78,6 +78,7 @@ int	main(int argc, char *argv[], char *env[])
 	//but may not be called by the shutdown in the while loop
 	//gonna change names to reflect the different shutdown timepoints
 	del_explist(data.exp_list);
+	free2d_char(data.env);
 }
 
 /*

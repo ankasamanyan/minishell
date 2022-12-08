@@ -30,6 +30,8 @@ int	parsing(char *input, t_data *data)
 	{
 		if (!ft_strncmp("export", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 7))
 			export(data->cmd_list->content);
+		if (!ft_strncmp("env", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 4))
+			env(data->cmd_list->content);
 	}
 	return (EXIT_SUCCESS);
 	// cat ctrl+ c duplicates prompt. Net chorosho

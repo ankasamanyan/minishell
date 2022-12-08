@@ -2,7 +2,6 @@
 
 void	shutdown(t_data *data)
 {
-	free2d_char(data->env);
 	del_tokenlist(data->parsing_struct.tokenlist);
 	del_cmdlist(data->cmd_list);
 	free(data->parsing_struct.input);
