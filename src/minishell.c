@@ -194,6 +194,10 @@ void	reset_rank(t_list *list)
 	temp = list;
 	while (temp)
 	{
+		if (!temp->content)
+		{
+			printf("nocontentinresetrank\n");
+		}
 		((t_exp *)(temp->content))->rank = -1;
 		temp = temp->next;
 	}
