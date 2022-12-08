@@ -41,7 +41,7 @@ void	set_signals(void)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 }
-/*
+ /*
 Usually, this function would handle more signals. But we only have to handle
 SIGINT so the if clause isn't necessary. Kept it because the structure is
 correct this way and doesn't have to void sig.

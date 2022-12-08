@@ -1,27 +1,17 @@
 #include "../../include/minishell.h"
 
 /*
-For now, is only creating the export shismshmang if the function is called.
-That prolly should be changed later and moved to init to be more structured.
-
-export a=3 b =2 c=3
-- 	a and c will work, it will not process b and give error ` =2': not a valid
-	identifier b will only get declared. So each string represents the var name
-	until either = or end of token (0, metachar whaeva)
--	bash-3.2$ export "a      =b"
-	bash: export: `a      =b': not a valid identifier
--	bash-3.2$ export "a|=b"
-	bash: export: `a|=b': not a valid identifier
--	bash-3.2$ export "a<=b"
-	bash: export: `a<=b': not a valid identifier
--	Gonna go with: no metachars allowed except ofc '='
+-	Rules for var names:
+	-	Must be alphanumerical or '_'
+	-	May not start with a number
+-	Project doesn't allow flags so first char'-' generates a different error msg
+	in 2nd cmd array position (the flag position).
 
 */
 bool	export(t_cmd *cmdnode)
 {
 	int		i;
-	t_exp	*expnode;
-	int		len_name;
+	char	*name;
 
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
@@ -30,6 +20,7 @@ bool	export(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
+<<<<<<< HEAD
 		expnode = malloc(1 * sizeof(t_exp));
 		len_name = ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i];
 		expnode->name = ft_substr(cmdnode->cmd_arr[i], 0, len_name);
@@ -51,6 +42,16 @@ bool	export(t_cmd *cmdnode)
 		printf("name:%s\n", expnode->name);
 		printf("value:%s\n", expnode->value);
 		ft_lstadd_back(&cmdnode->data->exp_list, ft_lstnew(expnode));
+=======
+		name = ft_substr(cmdnode->cmd_arr[i], 0,
+				ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i]);
+		if (!has_invalidformat(name))
+			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i],
+				&cmdnode->data->env);
+		else
+			msg_err_quote("export", cmdnode->cmd_arr[i], E_NOTVALID);
+		free(name);
+>>>>>>> parsing_00
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
@@ -58,20 +59,55 @@ bool	export(t_cmd *cmdnode)
 	return (false);
 }
 
+/*
+-	May not start with digit
+-	edge case of input being "=abc" -> string would be just the 0 byte
+	because there is nothing before the '='. That woul skip the while loop.
+	So has to be checked for at start.
+-	Must be alnum or '-'
+*/
 bool	has_invalidformat(char *string)
 {
 	int		i;
 
 	i = 0;
+<<<<<<< HEAD
 	if (ft_isdigit(string[0]))
 		return (msg_error("export", string, E_NOTVALID), true);
+=======
+	if (ft_isdigit(string[0]) || !string[0])
+		return (true);
+>>>>>>> parsing_00
 	while (string[i])
 	{
 		if (!ft_isalnum(string[i]) && string[i] != '_')
-			return (msg_error("export", string, E_NOTVALID), true);
+			return (true);
 		i++;
 	}
 	return (false);
+}
+
+void	add_expnode(t_list *exp_list, char *string, char ***env)
+{
+	int		len_name;
+	t_exp	*expnode;
+
+	expnode = malloc(1 * sizeof(t_exp));
+	len_name = ft_strchr(string, '=') - string;
+	expnode->name = ft_substr(string, 0, len_name);
+	expnode->value = ft_substr(string, len_name + 1, ft_strlen(string));
+	if (!expnode->value[0])
+	{
+		free(expnode->value);
+		expnode->value = NULL;
+	}
+	else
+	{
+		printf("string:%s\n", string);
+		*env = append_string(*env, ft_strdup(string));
+	}
+	expnode->rank = -1;
+	ft_lstadd_back(&exp_list, ft_lstnew(expnode));
 }
 
 void	print_export(t_list *list)
@@ -91,18 +127,21 @@ void	print_export(t_list *list)
 	while (i < ft_lstsize(list))
 	{
 		temp = list;
-		expnode = temp->content;
-		while (expnode->rank != i)
-		{
+		while (((t_exp *)temp->content)->rank != i)
 			temp = temp->next;
-			expnode = temp->content;
-		}
 		expnode = temp->content;
+<<<<<<< HEAD
 		printf("declare -x %s", expnode->name);
 		if (expnode->value)
 			printf("=\"%s\"\n", expnode->value);
 		else
 			write(1, "\n", 1);
+=======
+		printf("shmeclare -x %s", expnode->name);
+		if (expnode->value)
+			printf("=\"%s\"", expnode->value);
+		printf("\n");
+>>>>>>> parsing_00
 		i++;
 	}
 }
