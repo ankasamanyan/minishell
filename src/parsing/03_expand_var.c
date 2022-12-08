@@ -136,7 +136,7 @@ void	findandexpand(t_par *p)
 	i = 0;
 	temp = p->str_b;
 	while (p->data->env[i]
-		&& ft_strncmp(p->data->env[i], p->str_b, ft_strlen(p->str_b)))
+		&& ft_strncmp(p->data->env[i], p->str_b, ft_strlen(p->str_b) + 1))
 		i++;
 	if (!p->data->env[i])
 		p->str_b = ft_calloc(sizeof(char), 1);
