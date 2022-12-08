@@ -27,9 +27,14 @@ bool	env(t_cmd *cmdnode);
 //export1.c
 bool	export(t_cmd *cmdnode);
 bool	has_invalidformat(char *string);
+void	add_expnode(t_list *exp_list, char *string);
 void	print_export(t_list *list);
-void	reset_rank(t_list *list);
-//export1.c
 
+//export2.c
+void	build_exportlistfromenv(t_data *data);
+void	set_order(t_list *list);
+void	reset_rank(t_list *list);
+t_list	*get_firstunranked(t_list *list);
+bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
 
 #endif

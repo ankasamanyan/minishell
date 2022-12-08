@@ -20,8 +20,7 @@ export a=3 b =2 c=3
 bool	export(t_cmd *cmdnode)
 {
 	int		i;
-	t_exp	*expnode;
-	int		len_name;
+	char	*name;
 
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
@@ -30,22 +29,11 @@ bool	export(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
-		expnode = malloc(1 * sizeof(t_exp));
-		len_name = ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i];
-		expnode->name = ft_substr(cmdnode->cmd_arr[i], 0, len_name);
-		if (has_invalidformat(expnode->name))
-		{
-			free(expnode->name);
-			free(expnode);
-			i++;
-			continue ;
-		}
-		expnode->value = ft_substr(cmdnode->cmd_arr[i], len_name + 1,
-				ft_strlen(cmdnode->cmd_arr[i]));
-		expnode->rank = -1;
-		printf("name:%s\n", expnode->name);
-		printf("value:%s\n", expnode->value);
-		ft_lstadd_back(&cmdnode->data->exp_list, ft_lstnew(expnode));
+		name = ft_substr(cmdnode->cmd_arr[i], 0,
+				ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i]);
+		if (!has_invalidformat(name))
+			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
+		free(name);
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
@@ -55,10 +43,8 @@ bool	export(t_cmd *cmdnode)
 bool	has_invalidformat(char *string)
 {
 	int		i;
-	bool	invalid;
 
 	i = 0;
-	invalid = false;
 	if (ft_isdigit(string[0]))
 		return (msg_error("export", string, E_NOTVALID), true);
 	while (string[i])
@@ -68,6 +54,21 @@ bool	has_invalidformat(char *string)
 		i++;
 	}
 	return (false);
+}
+
+void	add_expnode(t_list *exp_list, char *string)
+{
+	int		len_name;
+	t_exp	*expnode;
+
+	expnode = malloc(1 * sizeof(t_exp));
+	len_name = ft_strchr(string, '=') - string;
+	expnode->name = ft_substr(string, 0, len_name);
+	expnode->value = ft_substr(string, len_name + 1, ft_strlen(string));
+	expnode->rank = -1;
+	printf("name:%s\n", expnode->name);
+	printf("value:%s\n", expnode->value);
+	ft_lstadd_back(&exp_list, ft_lstnew(expnode));
 }
 
 void	print_export(t_list *list)
@@ -80,14 +81,13 @@ void	print_export(t_list *list)
 	while (i < ft_lstsize(list))
 	{
 		temp = list;
-		expnode = temp->content;
-		while (expnode->rank != i)
-		{
+		while (((t_exp *)temp->content)->rank != i)
 			temp = temp->next;
-			expnode = temp->content;
-		}
 		expnode = temp->content;
-		printf("declare -x %s=\"%s\"\n", expnode->name, expnode->value);
+		printf("shmeclare -x %s", expnode->name);
+		if (expnode->value)
+			printf("=\"%s\"", expnode->value);
+		printf("\n");
 		i++;
 	}
 }
