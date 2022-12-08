@@ -20,29 +20,6 @@ bool	export(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
-<<<<<<< HEAD
-		expnode = malloc(1 * sizeof(t_exp));
-		len_name = ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i];
-		expnode->name = ft_substr(cmdnode->cmd_arr[i], 0, len_name);
-		if (has_invalidformat(expnode->name))
-		{
-			free(expnode->name);
-			free(expnode);
-			i++;
-			continue ;
-		}
-		expnode->value = ft_substr(cmdnode->cmd_arr[i], len_name + 1,
-				ft_strlen(cmdnode->cmd_arr[i]));
-		if (!expnode->value[1])
-		{
-			free(expnode->value);
-			expnode->value = NULL;
-		}
-		expnode->rank = -1;
-		printf("name:%s\n", expnode->name);
-		printf("value:%s\n", expnode->value);
-		ft_lstadd_back(&cmdnode->data->exp_list, ft_lstnew(expnode));
-=======
 		name = ft_substr(cmdnode->cmd_arr[i], 0,
 				ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i]);
 		if (!has_invalidformat(name))
@@ -51,7 +28,6 @@ bool	export(t_cmd *cmdnode)
 		else
 			msg_err_quote("export", cmdnode->cmd_arr[i], E_NOTVALID);
 		free(name);
->>>>>>> parsing_00
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
@@ -71,13 +47,8 @@ bool	has_invalidformat(char *string)
 	int		i;
 
 	i = 0;
-<<<<<<< HEAD
-	if (ft_isdigit(string[0]))
-		return (msg_error("export", string, E_NOTVALID), true);
-=======
 	if (ft_isdigit(string[0]) || !string[0])
 		return (true);
->>>>>>> parsing_00
 	while (string[i])
 	{
 		if (!ft_isalnum(string[i]) && string[i] != '_')
@@ -130,18 +101,10 @@ void	print_export(t_list *list)
 		while (((t_exp *)temp->content)->rank != i)
 			temp = temp->next;
 		expnode = temp->content;
-<<<<<<< HEAD
-		printf("declare -x %s", expnode->name);
-		if (expnode->value)
-			printf("=\"%s\"\n", expnode->value);
-		else
-			write(1, "\n", 1);
-=======
 		printf("shmeclare -x %s", expnode->name);
 		if (expnode->value)
 			printf("=\"%s\"", expnode->value);
 		printf("\n");
->>>>>>> parsing_00
 		i++;
 	}
 }

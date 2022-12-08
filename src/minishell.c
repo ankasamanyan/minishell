@@ -61,11 +61,7 @@ int	main(int argc, char *argv[], char *env[])
 		add_history(input);
 		if (specialcase(&data, input))
 			continue ;
-<<<<<<< HEAD
-		init_datastruct(&data);
-=======
 		reset_datastruct(&data);
->>>>>>> parsing_00
 		if (parsing(input, &data))
 		{
 			shutdown(&data);
@@ -104,21 +100,12 @@ bool	specialcase(t_data *data, char *input)
 	return (0);
 }
 
-<<<<<<< HEAD
-void	init_datastruct(t_data *data)
-=======
 void	reset_datastruct(t_data *data)
->>>>>>> parsing_00
 {
 	data->cmd_list = NULL;
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;
-<<<<<<< HEAD
-	data->file_err = false;
-	data->halp = false;
-=======
->>>>>>> parsing_00
 }
 
 /*
