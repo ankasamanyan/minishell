@@ -85,16 +85,16 @@ void	input_files(void *infile)
 		while (42)
 		{
 			stringy = readline("> ");
-			if (stringy)
-			{
-				stringy = append_char(stringy, '\n');
-				if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
-					&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n') && stringy)
-					break ;
-				else
-					write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
-				free(stringy);
-			}
+			// if (stringy)
+			// {
+			stringy = append_char(stringy, '\n');
+			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
+				&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n') && stringy)
+				break ;
+			else
+				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
+			free(stringy);
+			// }
 		}
 		free(stringy);
 		close(pipy[WRITE_END]);

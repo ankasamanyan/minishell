@@ -68,7 +68,15 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		}
 		ft_lstiter(data.cmd_list, &exec);
-
+		// int j = 0;
+		// while (j <= ft_lstsize(data.cmd_list))
+		// {
+		// 	waitpid(-1, &data.exitcode, 0);
+		// 	if (data.exitcode > 255)
+		// 		data.exitcode%=256;
+		// 	j++;
+		// }
+			
 		printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		shutdown(&data);

@@ -120,7 +120,9 @@ void	exec(void *cmd_list)
 			kiddi_process(cmd);
 		else
 		{
+			
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			// waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode%=256;
 			// cmd->data->exitcode = tmp;

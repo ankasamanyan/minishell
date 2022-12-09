@@ -25,7 +25,7 @@ int	parsing(char *input, t_data *data)
 		return (EXIT_FAILURE);
 	parser(p);
 	check_builtin(p);
-	print_cmdlist(data->cmd_list);
+	// print_cmdlist(data->cmd_list);
 	if (((t_cmd *)data->cmd_list->content)->cmd_arr)
 	{
 		if (!ft_strncmp("export", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 7))
