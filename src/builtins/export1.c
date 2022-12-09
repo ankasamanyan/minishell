@@ -29,7 +29,6 @@ bool	export(t_cmd *cmdnode)
 		{
 			msg_err_quote("export", cmdnode->cmd_arr[i], E_NOTVALID);
 			free(name);
-			//free(value);
 			i++;
 			continue ;
 		}

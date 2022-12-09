@@ -18,3 +18,26 @@ bool	env(t_cmd *cmdnode)
 	}
 	return (false);
 }
+
+void	build_env(t_data *data, t_list *exp_list)
+{
+	t_list		*temp;
+	char		*string;
+	t_exp		*expnode;
+
+	if (data->env)
+		free2d_char(data->env);
+	data->env = NULL;
+	temp = exp_list;
+	while (temp)
+	{
+		expnode = temp->content;
+		if (expnode->value)
+		{
+			string = ft_strjoin(expnode->name, '=');
+			data->env = append_string(data->env, ft_strjoin(string, expnode->value));
+			free (string);
+		}
+		temp = temp->next;
+	}
+}
