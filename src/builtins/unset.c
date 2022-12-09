@@ -69,6 +69,8 @@ bool	has_namematch(char *name, t_list *exp_list)
 Returns NULL if
 - Passed node is first node
 - Passed node is not present
+Ideally, this should not happen because the calling function
+tests for these cases.
 */
 t_list	*get_precedingnode(t_list *node, t_list *list)
 {
