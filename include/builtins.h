@@ -27,6 +27,7 @@ bool	env(t_cmd *cmdnode);
 //export1.c
 bool	export(t_cmd *cmdnode);
 bool	has_invalidformat(char *string);
+t_list	*get_samename(t_list *list, char *name);
 void	add_expnode(t_list *exp_list, char *string, char ***env);
 void	print_export(t_list *list);
 
