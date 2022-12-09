@@ -60,7 +60,7 @@ bool	export(t_cmd *cmdnode)
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
-	//build_env
+	build_env(cmdnode->data, cmdnode->data->exp_list);
 	return (false);
 }
 

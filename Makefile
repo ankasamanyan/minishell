@@ -41,6 +41,7 @@ SRC = 	src/minishell.c\
 		env.c\
 		export1.c\
 		export2.c\
+		unset.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
 LIBFT =	src/libft/libft.a

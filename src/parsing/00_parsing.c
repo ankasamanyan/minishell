@@ -32,6 +32,8 @@ int	parsing(char *input, t_data *data)
 			export(data->cmd_list->content);
 		if (!ft_strncmp("env", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 4))
 			env(data->cmd_list->content);
+		if (!ft_strncmp("unset", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 6))
+			unset(data->cmd_list->content);
 	}
 	return (EXIT_SUCCESS);
 	// cat ctrl+ c duplicates prompt. Net chorosho

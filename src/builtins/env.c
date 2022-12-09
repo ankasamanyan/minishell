@@ -34,7 +34,7 @@ void	build_env(t_data *data, t_list *exp_list)
 		expnode = temp->content;
 		if (expnode->value)
 		{
-			string = ft_strjoin(expnode->name, '=');
+			string = ft_strjoin(expnode->name, "=");
 			data->env = append_string(data->env, ft_strjoin(string, expnode->value));
 			free (string);
 		}
