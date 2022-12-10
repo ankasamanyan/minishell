@@ -14,9 +14,11 @@ BLUE	= \033[94m
 RESET	:= \033[0m
 
 SRC = 	src/minishell.c\
-		src/exec/file_config.c\
-		src/exec/better_libft.c\
-		src/exec/minihell.c\
+		$(addprefix src/exec/,\
+		file_config.c\
+		better_libft.c\
+		minihell.c\
+		builtin_config.c)\
 		$(addprefix src/parsing/,\
 		00_parsing.c\
 		01_preproc_syntax.c\

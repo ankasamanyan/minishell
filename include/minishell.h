@@ -93,6 +93,7 @@ typedef struct s_data
 	int				cmd_count;
 	int				exitcode;
 	char			*shell_lvl;
+	void			(*builtin)(t_data *data);
 }		t_data;
 
 bool	specialcase(t_data *data, char *input);
