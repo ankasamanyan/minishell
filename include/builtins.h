@@ -23,6 +23,7 @@ bool	echo(t_cmd *cmdnode);
 
 //env.c
 bool	env(t_cmd *cmdnode);
+void	env_builtin(t_cmd *cmdnode);
 
 //export1.c
 bool	export(t_cmd *cmdnode);
