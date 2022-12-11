@@ -41,5 +41,37 @@ void	env_builtin(t_cmd *cmdnode)
 		// printf("%s\n", data->env[i]);
 		i++;
 	}
-	// return (false);
+	//return (false);
+}
+
+/*
+env is the list of export variables that are declared and defined.
+E.g. "export i=0" will result in i being added to env.
+"export i" will not result in i being added to env (only to export).
+This function (re)builds env from the export list.
+It is called at the start of minishell to create the starting env version.
+It is also called whenever export makes a modification to the export list.
+*/
+void	build_env(t_data *data, t_list *exp_list)
+{
+	t_list		*temp;
+	char		*string;
+	t_exp		*expnode;
+
+	if (data->env)
+		free2d_char(data->env);
+	data->env = NULL;
+	temp = exp_list;
+	while (temp)
+	{
+		expnode = temp->content;
+		if (expnode->value)
+		{
+			string = ft_strjoin(expnode->name, "=");
+			data->env = append_string(data->env,
+					ft_strjoin(string, expnode->value));
+			free (string);
+		}
+		temp = temp->next;
+	}
 }

@@ -7,6 +7,12 @@ Has an extra test for !string and char == 0 to prevent the resulting
 string from being 00. If the char is 0, only callocs for the 0 byte,
 so the resulting string is 0.
 Frees the passed string.
+Danger! The intended use case is narrow. You might end up freeing stuff
+you intended to keep.
+It should mostly only be used for one and the same string.
+Ok:				string_a = appendchar(string_a, char c);
+Probably bad:	string_b = appendchar(string_a, char c);
+It won't leak, but string_a is lost.
 */
 char	*append_char(char *string, char c)
 {
@@ -38,6 +44,7 @@ Appends a string to a string array.
 If the string array doesn't exist yet,
 makes a new string array with the string as only content.
 Frees the passed string array.
+See dangers of this function outlined in append_char.
 */
 char	**append_string(char **array, char *string)
 {
