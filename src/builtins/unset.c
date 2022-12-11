@@ -17,6 +17,8 @@ bool	unset(t_cmd *cmdnode)
 	}
 	if (match)
 	{
+
+		//seems wyld
 		set_order(cmdnode->data->exp_list);
 		build_env(cmdnode->data, cmdnode->data->exp_list);
 	}

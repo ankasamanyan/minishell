@@ -34,6 +34,7 @@ bool	export(t_cmd *cmdnode)
 		}
 		value = ft_substr(cmdnode->cmd_arr[i], len_name + 1,
 				ft_strlen(cmdnode->cmd_arr[i]));
+		printf("val:'%s'\n", value);
 		if (!value[0])
 		{
 			free(value);
