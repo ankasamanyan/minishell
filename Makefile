@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g -fsanitize=address
+CFLAGS = -g #-fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
@@ -41,6 +41,7 @@ SRC = 	src/minishell.c\
 		env.c\
 		export1.c\
 		export2.c\
+		export3.c\
 		unset.c\
 		pwd.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))

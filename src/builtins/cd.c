@@ -33,10 +33,12 @@ bool	cd(t_cmd *cmdnode)
 		alloc = true;
 	}
 	failure = chdir(path);
-	if (alloc)
-		free(path);
 	if (failure)
 		msg_error("cd", path, E_NOFILDIR);
+	/* else
+		export() */
+	if (alloc)
+		free(path);
 	return (failure);
 }
 
