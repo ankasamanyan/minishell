@@ -57,7 +57,7 @@ int	main(int argc, char *argv[], char *env[])
 		errorexit_onlymsg("env (PATH)");
 	while (1)
 	{
-		input = readline("\033[0;36mMinishell-0.2$\033[0m ");
+		input = readline("\033[0;36mMinishell-3.2$\033[0m ");
 		add_history(input);
 		if (specialcase(&data, input))
 			continue ;
