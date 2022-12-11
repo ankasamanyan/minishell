@@ -20,6 +20,7 @@ bool	pwd(t_cmd *cmdnode);
 
 //echo.c
 bool	echo(t_cmd *cmdnode);
+void	echo_builtin(t_cmd *cmd);
 
 //env.c
 bool	env(t_cmd *cmdnode);
@@ -38,5 +39,6 @@ void	set_order(t_list *list);
 void	reset_rank(t_list *list);
 t_list	*get_firstunranked(t_list *list);
 bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
+
 
 #endif

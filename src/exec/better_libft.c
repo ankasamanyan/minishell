@@ -24,3 +24,19 @@ void	ft_free_array(char **array)
 	}
 }
 
+void	print_2d_array(char	**arr, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (arr)
+	{
+		while (arr[i] != NULL)
+		{
+			ft_putstr_fd(arr[i], fd);
+			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
+				ft_putchar_fd('\n', fd);
+			i++;
+		}
+	}
+}

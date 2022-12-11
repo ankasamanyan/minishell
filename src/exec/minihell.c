@@ -1,22 +1,5 @@
 #include "../../include/minishell.h"
 
-void	print_2d_array(char	**arr, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (arr)
-	{
-		while (arr[i] != NULL)
-		{
-			ft_putstr_fd(arr[i], fd);
-			if (arr[i][ft_strlen(arr[i]) - 1] != '\n')
-				ft_putchar_fd('\n', fd);
-			i++;
-		}
-	}
-}
-
 void	find_cmd_path(t_cmd *cmd)
 {
 	char	**smoll_pathsies;
@@ -108,37 +91,44 @@ void	exec(void *cmd_list)
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
 	search_path_env(cmd); //find PATH in env
-	find_cmd_path(cmd); //find executable of cmd
-	//function thingy if builtin
-	//if no cmd
-	if (cmd->cmd_arr)
+	if (cmd->builtin)
+		if_builtins(cmd);
+	else
 	{
-		if (!cmd->data->halp)
-			return ;
-		cmd->data->pid = fork();
-		if (cmd->data->pid == 0)
-			kiddi_process(cmd);
-		else
+		find_cmd_path(cmd); //find executable of cmd
+		if (cmd->cmd_arr)
 		{
-			
-			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			// waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			if (cmd->data->exitcode > 255)
-				cmd->data->exitcode%=256;
-			// cmd->data->exitcode = tmp;
-			free(cmd->data->full_path);
-			if (cmd->fd_in > 2)
-				close(cmd->fd_in);
-			if (cmd->fd_out > 2)
-				close(cmd->fd_out);
-			if (cmd->data->pipe[WRITE_END] > 2)
-				close(cmd->data->pipe[WRITE_END]);
-			if (cmd->data->temp_pipe > 2)
-				close(cmd->data->temp_pipe);
-			cmd->data->temp_pipe = cmd->data->pipe[READ_END];
-			if(cmd->data->cmd_count == ft_lstsize(cmd->data->cmd_list) + 1)
-				close(cmd->data->temp_pipe);
+			if (!cmd->data->halp)
+				return ;
+			cmd->data->pid = fork();
+			if (cmd->data->pid == 0 && cmd->builtin == false)
+				kiddi_process(cmd);
+			else
+			{
+				
+				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+				// waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+				if (cmd->data->exitcode > 255)
+					cmd->data->exitcode%=256;
+				// cmd->data->exitcode = tmp;
+				free(cmd->data->full_path);
+			}
 		}
 	}
+	close_them_all(cmd);
 }
 
+void	close_them_all(t_cmd *cmd)
+{
+	if (cmd->fd_in > 2)
+		close(cmd->fd_in);
+	if (cmd->fd_out > 2)
+		close(cmd->fd_out);
+	if (cmd->data->pipe[WRITE_END] > 2)
+		close(cmd->data->pipe[WRITE_END]);
+	if (cmd->data->temp_pipe > 2)
+		close(cmd->data->temp_pipe);
+	cmd->data->temp_pipe = cmd->data->pipe[READ_END];
+	if(cmd->data->cmd_count == ft_lstsize(cmd->data->cmd_list) + 1)
+		close(cmd->data->temp_pipe);
+}
