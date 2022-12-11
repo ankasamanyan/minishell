@@ -15,6 +15,7 @@ bool	export(t_cmd *cmdnode)
 	char	*value;
 	int		len_name;
 	t_list	*samename;
+	t_exp	*expnode;
 
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
@@ -23,7 +24,12 @@ bool	export(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
+		expnode = make_expnode(cmdnode->cmd_arr[i]);
+		printf("make expnode: name:'%s'\n", expnode->name);
+		printf("make expnode: value:'%s'\n", expnode->value);
+
 		len_name = ft_strchr(cmdnode->cmd_arr[i], '=') - cmdnode->cmd_arr[i];
+		printf("lenname:%i\n", len_name);
 		name = ft_substr(cmdnode->cmd_arr[i], 0, len_name);
 		if (has_invalidformat(name))
 		{
@@ -63,6 +69,35 @@ bool	export(t_cmd *cmdnode)
 	set_order(cmdnode->data->exp_list);
 	build_env(cmdnode->data, cmdnode->data->exp_list);
 	return (false);
+}
+
+/*
+if cases:
+-	If no '=' found
+-	If equal is the last char in string
+*/
+t_exp	*make_expnode(char *string)
+{
+	t_exp	*expnode;
+	char	*equal_pos;
+
+	expnode = malloc(1 * sizeof(t_exp));
+	equal_pos = ft_strchr(string, '=');
+	if (!equal_pos)
+	{
+		expnode->name = ft_strdup(string);
+		expnode->value = NULL;
+		return (expnode);
+	}
+	if (equal_pos - string == (long)ft_strlen(string) - 1)
+	{
+		expnode->name = ft_substr(string, 0, ft_strlen(string) - 1);
+		expnode->value =ft_strdup("");
+		return (expnode);
+	}
+	expnode->name = ft_substr(string, 0, equal_pos - string);
+	expnode->value = ft_substr(string, equal_pos - string, ft_strlen(string));
+	return (expnode);
 }
 
 /*

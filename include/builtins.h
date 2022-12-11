@@ -27,6 +27,7 @@ void	build_env(t_data *data, t_list *exp_list);
 
 //export1.c
 bool	export(t_cmd *cmdnode);
+t_exp	*make_expnode(char *string);
 bool	has_invalidformat(char *string);
 t_list	*get_samename(t_list *list, char *name);
 void	add_expnode(t_list *exp_list, char *string, char ***env);
