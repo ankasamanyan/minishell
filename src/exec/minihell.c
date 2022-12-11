@@ -1,51 +1,50 @@
 #include "../../include/minishell.h"
 
-void	find_cmd_path(t_cmd *cmd)
+void	path_access(t_cmd *cmd, char **smoll_pathsies)
 {
-	char	**smoll_pathsies;
 	char	*lil_path;
 	int		i;
 
 	i = 0;
-	cmd->data->halp = false; //cmd nott found
+	while (smoll_pathsies[i])
+	{
+		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
+				"/", cmd->cmd_arr[0]);
+		if (access(lil_path, X_OK) == 0)
+		{
+			cmd->data->full_path = lil_path;
+			cmd->data->halp = true;
+		}
+		else
+		{
+			cmd->data->exitcode = 126;
+			if (access(lil_path, F_OK))
+				cmd->data->exitcode++;
+			free(lil_path);
+		}
+	}
+}
+
+void	find_cmd_path(t_cmd *cmd)
+{
+	char	**smoll_pathsies;
+
+	cmd->data->halp = false;
 	if (cmd->cmd_arr)
 	{
 		smoll_pathsies = ft_split(cmd->data->big_path, ':');
 		cmd->data->full_path = NULL;
-		while (smoll_pathsies[i])
-		{
-			lil_path = ft_triple_strjoin(smoll_pathsies[i++],
-					"/", cmd->cmd_arr[0]);
-			if (access(lil_path, X_OK) == 0) //if the file has exec rights
-			{
-				cmd->data->full_path = lil_path; //init the path to that file
-				cmd->data->halp = true; //cmd found
-			}
-			else
-			{
-				cmd->data->exitcode = 126;
-				if (access(lil_path, F_OK)) //if return is 0 (which meeans that cmd doesn't exist)
-					cmd->data->exitcode++; //cmd->data->exitcode = 127; if it doesn't exist
-				free(lil_path);
-			}
-		}
-
+		path_access(cmd, smoll_pathsies);
 		if (access(cmd->cmd_arr[0], X_OK) == 0)
 		{
 			cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
-			cmd->data->halp = true; //cmd found
+			cmd->data->halp = true;
 		}
 		else
 			access(cmd->cmd_arr[0], F_OK);
-			// perror(cmd->cmd_arr[0]);
 		ft_free_array(smoll_pathsies);
 		if (!cmd->data->halp)
-		{
-			// perror("blabla");
-			write(2, "Minishell: ", 11);
-			write(2, cmd->cmd_arr[0], ft_strlen(cmd->cmd_arr[0]));
-			write(2, ": command not found\n", 21);
-		}
+			err_cmd_not_found(cmd->cmd_arr[0]);
 	}
 }
 
@@ -65,7 +64,7 @@ void	kiddi_process(t_cmd *cmd)
 
 void	search_path_env(t_cmd *cmd)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (cmd->data->env[i])
@@ -79,9 +78,7 @@ void	search_path_env(t_cmd *cmd)
 void	exec(void *cmd_list)
 {
 	t_cmd	*cmd;
-	//int		tmp;
 
-	//tmp = 0;
 	cmd = (t_cmd *)cmd_list;
 	pipe(cmd->data->pipe);
 	cmd->data->cmd_count++;
@@ -94,28 +91,28 @@ void	exec(void *cmd_list)
 	if (cmd->builtin)
 		if_builtins(cmd);
 	else
+		pipex(cmd);
+	close_them_all(cmd);
+}
+
+void	pipex(t_cmd *cmd)
+{
+	find_cmd_path(cmd); //find executable of cmd
+	if (cmd->cmd_arr)
 	{
-		find_cmd_path(cmd); //find executable of cmd
-		if (cmd->cmd_arr)
+		if (!cmd->data->halp)
+			return ;
+		cmd->data->pid = fork();
+		if (cmd->data->pid == 0 && cmd->builtin == false)
+			kiddi_process(cmd);
+		else
 		{
-			if (!cmd->data->halp)
-				return ;
-			cmd->data->pid = fork();
-			if (cmd->data->pid == 0 && cmd->builtin == false)
-				kiddi_process(cmd);
-			else
-			{
-				
-				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-				// waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-				if (cmd->data->exitcode > 255)
-					cmd->data->exitcode%=256;
-				// cmd->data->exitcode = tmp;
-				free(cmd->data->full_path);
-			}
+			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			if (cmd->data->exitcode > 255)
+				cmd->data->exitcode%=256;
+			free(cmd->data->full_path);
 		}
 	}
-	close_them_all(cmd);
 }
 
 void	close_them_all(t_cmd *cmd)
