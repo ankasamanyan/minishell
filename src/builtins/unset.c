@@ -2,53 +2,63 @@
 
 bool	unset(t_cmd *cmdnode)
 {
-	int		i;
+	int			i;
+	t_list		*target;
 
 	if (!cmdnode->cmd_arr[1])
 		return (false);
 	if (cmdnode->cmd_arr[1][0] == '-')
 		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
-	i = 0;
+	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
-		if (!ft_strncmp(cmdnode->cmd_arr[i], ) - cmdnode->cmd_arr[i]);
-		if (!has_invalidformat(name))
-			add_expnode(cmdnode->data->exp_list, cmdnode->cmd_arr[i],
-				&cmdnode->data->env);
-		else
-			msg_err_quote("export", cmdnode->cmd_arr[i], E_NOTVALID);
-		free(name);
+		target = get_samename(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
+		if (target)
+		{
+			del_fromexplist(target, cmdnode->data->exp_list);
+			set_order(cmdnode->data->exp_list);
+			build_env(cmdnode->data, cmdnode->data->exp_list);
+			break ;
+		}
 		i++;
 	}
-	set_order(cmdnode->data->exp_list);
 	return (false);
 }
 
 /*
-Checks if the passed string matches an export variable name.
-If so, deletes that node and restores the list continuity.
-Returns true
+Deletes del_node from exp_list and restores the list continuity.
 */
-bool	has_namematch(char *name, t_list *exp_list)
+void	del_fromexplist(t_list *del_node, t_list *exp_list)
+{
+	t_exp		*expnode;
+
+	expnode = del_node->content;
+	free(expnode->name);
+	if (expnode->value)
+		free(expnode->value);
+	free(expnode);
+	if (del_node == exp_list)
+		exp_list = del_node->next;
+	else if (del_node == ft_lstlast(exp_list))
+		get_precedingnode(del_node, exp_list)->next = NULL;
+	else
+		get_precedingnode(del_node, exp_list)->next = del_node->next;
+	free(del_node);
+}
+
+/*
+Returns NULL if
+- Passed node is first node
+- Passed node is not present
+Ideally, this should not happen because the calling function
+tests for these cases.
+*/
+t_list	*get_precedingnode(t_list *node, t_list *list)
 {
 	t_list	*temp;
-	t_exp	*expnode;
 
-	temp = exp_list;
-	while (temp)
-	{
-		expnode = temp->content;
-		if (!ft_strncmp(expnode->name, name, ft_strlen(name) + 1))
-		{
-			free(expnode->name);
-			if (expnode->value)
-				free(expnode->value);
-			free(expnode);
-			if (temp = exp_list)
-			{
-				exp_list = temp->next;
-				free(temp);
-		}
+	temp = list;
+	while (temp->next && temp->next != node)
 		temp = temp->next;
-	}
+	return (temp);
 }

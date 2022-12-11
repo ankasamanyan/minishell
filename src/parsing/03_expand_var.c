@@ -86,7 +86,7 @@ Splits the input string into 3 parts:
 	Starts at first char after the $ up to but not including the
 	first 0 or quotationmark.
 	Unless the char immediately after the $ is a ?. Then string_b becomes the
-	last exitcode, which is stored in the main struct as a char.
+	last exitcode, which is stored in the main struct.
 -	string_c: Starts at and includes the 0 or quotationmark that delimited string_b
 	and goes to the end of the string (which will ofc be the same char in
 	case of 0).
