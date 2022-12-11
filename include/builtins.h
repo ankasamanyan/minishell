@@ -41,8 +41,6 @@ void	reset_rank(t_list *list);
 t_list	*get_firstunranked(t_list *list);
 bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
 
-<<<<<<< HEAD
-=======
 //export3.c
 void	print_export(t_list *list);
 
@@ -50,6 +48,5 @@ void	print_export(t_list *list);
 bool	unset(t_cmd *cmdnode);
 void	del_fromexplist(t_list *del_node, t_list *exp_list);
 t_list	*get_precedingnode(t_list *node, t_list *list);
->>>>>>> parsing_03
 
 #endif
