@@ -28,7 +28,8 @@ void	build_env(t_data *data, t_list *exp_list);
 
 //exit.c
 void	bltn_exit(t_cmd *cmdnode);
-int		get_exitval(t_data *data, t_cmd *cmdnode);
+int		get_exitval(t_data *data, char **cmds);
+bool	is_onlydigits(char *string);
 
 //export1.c
 bool	export(t_cmd *cmdnode);

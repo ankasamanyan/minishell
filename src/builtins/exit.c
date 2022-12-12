@@ -23,19 +23,29 @@ int	get_exitval(t_data *data, char **cmds)
 	exitval = -1;
 	if (!cmds[i])
 		return (data->exitcode);
-	while (cmds[1][i])
+	if (!is_onlydigits(cmds[1]))
 	{
-		if (!ft_isdigit(cmds[1][i]))
-		{
-			msg_error("exit", cmds[1], E_NUMARG);
-				exitval = 255;
-			break ;
-		}
-	i++;
+		msg_error("exit", cmds[1], E_NUMARG);
+		exitval = 255;
 	}
 	if (exitval != 255 && cmds[2])
 	{
 		msg_error("exit", E_MANYARG, NULL);
 		exitval = 1;
 	}
+	return (exitval);
+}
+
+bool	is_onlydigits(char *string)
+{
+	int		i;
+
+	i = 0;
+	while (string[i])
+	{
+		if (!ft_isdigit(string[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }
