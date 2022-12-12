@@ -28,7 +28,7 @@ Can send NULL if string 2 or 3 not needed, will skip accordingly.
 */
 void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(err_msg0, 2);
 	if (err_msg1)
 	{
@@ -51,7 +51,7 @@ But the point of this function is that string 2 will be quoted.
 */
 void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2)
 {
-	ft_putstr_fd("minishell: ", 2);
+	ft_putstr_fd("Minishell: ", 2);
 	ft_putstr_fd(err_msg0, 2);
 	if (err_msg1)
 	{

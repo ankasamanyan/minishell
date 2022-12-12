@@ -11,6 +11,8 @@
 	Dangers:
 	- leak with exit
 	- a problem with cd. when PWD is unset and segfault with multiple variables
+	- starting minishell and running as first cmd "unset PATH" causes segault. not
+	if running at later commands.
 */
 void	increase_shell_lvl(t_data *data,char **env)
 {
