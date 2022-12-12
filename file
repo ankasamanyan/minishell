@@ -1,0 +1,7 @@
+total 160
+-rw-r--r--  1 akasaman  2021_wolfsburg   1837 Dec 10 17:23 Makefile
+-rw-r--r--  1 akasaman  2021_wolfsburg    152 Dec  4 20:33 README.md
+drwxr-xr-x  7 akasaman  2021_wolfsburg    238 Dec 12 14:35 include
+-rwxr-xr-x  1 akasaman  2021_wolfsburg  73552 Dec 12 15:34 minishell
+drwxr-xr-x  7 akasaman  2021_wolfsburg    238 Dec 12 15:34 obj
+drwxr-xr-x  9 akasaman  2021_wolfsburg    306 Dec 12 14:35 src
