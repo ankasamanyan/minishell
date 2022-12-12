@@ -40,3 +40,17 @@ void	print_2d_array(char	**arr, int fd)
 		}
 	}
 }
+
+void	err_msg(char *stringy)
+{
+		write(2, "Minishell: ", 11);
+		write(2, stringy, ft_strlen(stringy));
+		perror(" ");
+}
+
+void	err_cmd_not_found(char *stringy)
+{
+		write(2, "Minishell: ", 11);
+		write(2, stringy, ft_strlen(stringy));
+		write(2, ": command not found\n", 21);
+}

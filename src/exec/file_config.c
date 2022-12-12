@@ -2,20 +2,13 @@
 
 void	if_no_input(t_cmd *cmd)
 {
-	// printf(" . = . %p\n", cmd->data);
 	if (cmd->inputlist == NULL)
 	{
 		if (cmd->data->first && cmd->data->cmd_count == true)
 		{
-			// printf("HELLO\n");
 			if (cmd->fd_in > 2 * true - false)
 				close(cmd->fd_in);
 			cmd->fd_in = STDIN_FILENO;
-			// printf("%stemp pipe (if_no_input): %i\n%s", YELLOW, cmd->data->temp_pipe, RESET);
-			// printf("%s pipe[WRITE_END] (if_no_input): %i\n%s", YELLOW, cmd->data->pipe[WRITE_END], RESET);
-			// printf("%s pipe[READ_END] (if_no_input): %i\n%s", YELLOW, cmd->data->pipe[READ_END], RESET);
-			// printf("%sfd in(if_no_input) : %i\n%s", PURPLE, cmd->fd_in, RESET);
-			// printf("%sfd out(if_no_input) : %i\n%s", GREEN, cmd->fd_out, RESET);
 			cmd->data->first = !!!true;
 		}
 		else 
@@ -30,11 +23,8 @@ void	if_no_input(t_cmd *cmd)
 void	input_files(void *infile)
 {
 	t_pair		*input;
-	char		*stringy;
-	int			pipy[2];
 
 	input = (t_pair *)infile;
-	// input->cmd->data->file_err = false;
 	if (input->cmd->data->temp_pipe > 2)
 		close(input->cmd->data->temp_pipe);
 	if (input->doublebracket == false)
@@ -42,17 +32,13 @@ void	input_files(void *infile)
 		if (access(input->string, F_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			write(2, "Minishell: ", 11);
-			write(2, input->string, ft_strlen(input->string));
-			perror(" ");
+			err_msg(input->string);
 			return ;
 		}
 		else if (access(input->string, R_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			write(2, "Minishell: ", 11);
-			write(2, input->string, ft_strlen(input->string));
-			perror(" ");
+			err_msg(input->string);
 			return ;
 		}
 		else
@@ -63,38 +49,38 @@ void	input_files(void *infile)
 			if (input->cmd->fd_in < 0)
 			{
 				input->cmd->data->file_err = true;
-				write(2, "Minishell: ", 11);
-				write(2, input->string, ft_strlen(input->string));
-				perror(" ");
+				err_msg(input->string);
 				return ;
-			}
-			if (!(input->cmd->cmd_arr))
-			{
-				//you don't have to close alllllll the fdsss
-				//leave ze pipe!!!!!!!!!!!
-				return ;
-			}
-			// helper function that finds out if there is no cmd 
-			// and closeall the pipes	
+			}	
 		}
+		if_here_doc(input);
 	}
+
+}
+
+void	if_here_doc(t_pair *input)
+{
+	char		*stringy;
+	int			pipy[2];
+
 	if (input->doublebracket == true)
 	{
 		if(pipe(pipy) != 0)
-			perror("Minishell:");	//set some flag and exot this function
+		{
+			perror("Minishell:");
+			exit(-1);
+		}
 		while (42)
 		{
 			stringy = readline("> ");
-			// if (stringy)
-			// {
 			stringy = append_char(stringy, '\n');
 			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
-				&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n') && stringy)
+				&& (stringy[ft_strlen(input->string) + 1] == '\0')
+				&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
 				break ;
 			else
 				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
 			free(stringy);
-			// }
 		}
 		free(stringy);
 		close(pipy[WRITE_END]);
@@ -133,13 +119,6 @@ void	output_files(void *outfile)
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out)STOP
 		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777)STOP
-		// printf("%stemp pipe (if_no_output): %i\n%s", YELLOW, output->cmd->data->temp_pipe, RESET);
-		// printf("%s pipe[WRITE_END] (if_no_output): %i\n%s", YELLOW, output->cmd->data->pipe[WRITE_END], RESET);
-		// printf("%s pipe[READ_END] (if_no_output): %i\n%s", YELLOW, output->cmd->data->pipe[READ_END], RESET);		
-		// printf("%sfd in(output_files) : %i\n%s", PURPLE, output->cmd->fd_in, RESET);
-		// printf("%sfd out(output_files) : %i\n%s", GREEN, output->cmd->fd_out, RESET);
-		// if (access(output->string, W_OK) != 0)		// if file doesnt have write rights cmd is not executed but next one is
-		// printf("\nout_fd: %s%i%s\n", YELLOW, output->cmd->fd_out, RESET);
 	}
 	else if (output->doublebracket == true)
 	{
@@ -149,11 +128,8 @@ void	output_files(void *outfile)
 	}
 	if (output->cmd->fd_out < 0)
 	{
-		// perror("Minishell: ")STOP
 		output->cmd->data->file_err = true;
-		write(2, "Minishell: ", 11);
-		write(2, output->string, ft_strlen(output->string));
-		perror(" ");
+		err_msg(output->string);
 		return ;
 	}
 }

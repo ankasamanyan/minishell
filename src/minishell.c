@@ -90,7 +90,7 @@ bool	specialcase(t_data *data, char *input)
 	if (!input)
 	{
 		write(1, "exit\n", 5);
-		bltn_exit(data);
+		bltn_exit(data->cmd_list->content);
 		exit(0);
 	}
 	if (!input[0])
