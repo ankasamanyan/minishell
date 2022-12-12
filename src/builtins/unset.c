@@ -30,7 +30,7 @@ Deletes del_node from exp_list and restores the list continuity.
 */
 void	del_fromexplist(t_list *del_node, t_list *exp_list)
 {
-	t_exp		*expnode;
+	t_exp	*expnode;
 
 	expnode = del_node->content;
 	free(expnode->name);

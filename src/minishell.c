@@ -13,6 +13,8 @@
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 	- starting minishell and running as first cmd "unset PATH" causes segault. not
 	if running at later commands.
+	- cat ctrl+ c duplicates prompt. Net chorosho
+
 */
 
 int	main(int argc, char *argv[], char *env[])
