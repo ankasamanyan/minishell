@@ -14,6 +14,7 @@ typedef struct s_export
 bool	cd(t_cmd *cmdnode);
 char	*get_homedir(char **env);
 char	*build_absolutepath(char *rel_path);
+void	update_pwd(t_data *data, char *newpath);
 
 //pwd.c
 bool	pwd(t_cmd *cmdnode);
