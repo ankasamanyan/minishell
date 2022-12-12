@@ -12,7 +12,7 @@ bool	unset(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
-		target = get_samename(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
+		target = get_namenode(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
 		if (target)
 		{
 			del_fromexplist(target, cmdnode->data->exp_list);

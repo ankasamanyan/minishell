@@ -76,8 +76,8 @@ void	update_pwd(t_data *data, char *newpath)
 	t_list	*pwd;
 	t_list	*oldpwd;
 
-	oldpwd = get_samename(data->exp_list, "OLDPWD");
-	pwd = get_samename(data->exp_list, "PWD");
+	oldpwd = get_namenode(data->exp_list, "OLDPWD");
+	pwd = get_namenode(data->exp_list, "PWD");
 	if (!pwd)
 		return ;
 	exp_pwd = pwd->content;

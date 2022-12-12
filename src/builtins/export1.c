@@ -19,7 +19,7 @@ bool	export(t_cmd *cmdnode)
 	while (cmdnode->cmd_arr[i])
 	{
 		handle_expnode(cmdnode->data->exp_list,
-			make_expnode(cmdnode->cmd_arr[i]), cmdnode->cmd_arr[i]);
+			build_expnode(cmdnode->cmd_arr[i]), cmdnode->cmd_arr[i]);
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
@@ -32,7 +32,7 @@ if cases:
 -	If no '=' found
 -	If equal is the last char in string
 */
-t_exp	*make_expnode(char *string)
+t_exp	*build_expnode(char *string)
 {
 	t_exp	*expnode;
 	char	*equal_pos;
@@ -62,7 +62,7 @@ void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring)
 {
 	t_list		*node_samename;
 
-	node_samename = get_samename(exp_list, expnode->name);
+	node_samename = get_namenode(exp_list, expnode->name);
 	if (has_invalidformat(expnode->name))
 		msg_err_quote("export", cmdstring, E_NOTVALID);
 	else if (node_samename && expnode->value)
@@ -109,7 +109,7 @@ bool	has_invalidformat(char *string)
 Returns the first node whose content-field "name" matches the passed
 string.
 */
-t_list	*get_samename(t_list *list, char *name)
+t_list	*get_namenode(t_list *list, char *name)
 {
 	t_list	*temp;
 	t_exp	*expnode;
