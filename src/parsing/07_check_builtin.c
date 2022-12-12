@@ -3,12 +3,17 @@
 /*
 Checks for presence of a builtin and sets the builtin bool
 accordingly.
+First, checks whether the first command node contains a call
+to the builtin "exit" and if so, calls it.
 */
 void	check_builtin(t_par *p)
 {
 	t_list		*temp;
 	t_cmd		*cmdnode;
 
+	cmdnode = p->cmdlist->content;
+	if (!ft_strncmp("exit", cmdnode->cmd_arr[0], 5))
+		bltn_exit(cmdnode);
 	temp = p->cmdlist;
 	while (temp)
 	{

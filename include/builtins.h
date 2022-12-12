@@ -2,6 +2,7 @@
 # define BUILTINS_H
 
 # define E_NOTVALID "not a valid identifier"
+# define E_NUMARG "numeric argument required"
 
 typedef struct s_export
 {
@@ -26,7 +27,7 @@ void	env_builtin(t_cmd *cmdnode);
 void	build_env(t_data *data, t_list *exp_list);
 
 //exit.c
-void	bltn_exit(t_data *data);
+void	bltn_exit(t_cmd *cmdnode);
 
 //export1.c
 bool	export(t_cmd *cmdnode);

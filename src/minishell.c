@@ -14,6 +14,9 @@
 	- starting minishell and running as first cmd "unset PATH" causes segault. not
 	if running at later commands.
 	- cat ctrl+ c duplicates prompt. Net chorosho
+	- Exit codes for builtins? Esp exit
+	- Weird shit kiscer shell is checking for during exit bltn
+	- clean up main
 
 */
 
