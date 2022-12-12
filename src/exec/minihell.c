@@ -17,8 +17,9 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 		}
 		else
 		{
+			// fprintf(stderr, "net prav\n");
 			cmd->data->exitcode = 126;
-			if (access(lil_path, F_OK))
+			if (access(lil_path, F_OK) != 0)
 				cmd->data->exitcode++;
 			free(lil_path);
 		}
@@ -98,6 +99,7 @@ void	exec(void *cmd_list)
 void	pipex(t_cmd *cmd)
 {
 	find_cmd_path(cmd); //find executable of cmd
+	// fprintf(stderr, "exit code is %d\n", cmd->data->exitcode);
 	if (cmd->cmd_arr)
 	{
 		if (!cmd->data->halp)
@@ -107,7 +109,10 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			if(!cmd->data->exitcode)
+				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			else
+				waitpid(cmd->data->pid, NULL, 0);
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode%=256;
 			free(cmd->data->full_path);

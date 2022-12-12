@@ -77,7 +77,7 @@ int	main(int argc, char *argv[], char *env[])
 		// 	j++;
 		// }
 			
-		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
+		printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		shutdown(&data);
 	}
