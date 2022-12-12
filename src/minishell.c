@@ -13,24 +13,12 @@
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 	- starting minishell and running as first cmd "unset PATH" causes segault. not
 	if running at later commands.
-*/
-void	increase_shell_lvl(t_data *data,char **env)
-{
-	int		i;
-	char	*temp;
-	//incorporate this into envclone
+	- cat ctrl+ c duplicates prompt. Net chorosho
+	- Exit codes for builtins? Esp exit
+	- Weird shit kiscer shell is checking for during exit bltn
+	- clean up main
 
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "SHLVL=", 6))
-		i++;
-	if (!env[i])
-		return ;
-	temp = ft_itoa(ft_atoi(env[i] + 6) + 1);
-	data->shell_lvl = ft_strjoin("SHLVL=", temp);
-	free(temp);
-	env[i] = data->shell_lvl;
-	// printf("%s\n", data->shell_lvl);
-}
+*/
 
 int	main(int argc, char *argv[], char *env[])
 {
@@ -39,17 +27,12 @@ int	main(int argc, char *argv[], char *env[])
 	t_data		data;
 
 	(void)argv;
-	//moved this stuff out of init_datastruct because this should only happen
-	//upon start of minishell, not on each loop.
-	//will later rename init_datastruct to reset_datastruct for the loop
-	//and this stuff will get put into a new function init_datastruct.
-	increase_shell_lvl(&data, env);
-	data.exitcode = 0;
-	data.env = replace_env(env);
-	build_exportlistfromenv(&data);
+
+	init_datastruct(&data, env);
 	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
+	//i think this is not necessary
 	if (!env)
 		errorexit_onlymsg("env");
 	i = 0;
@@ -57,6 +40,7 @@ int	main(int argc, char *argv[], char *env[])
 		i++;
 	if (!env[i])
 		errorexit_onlymsg("env (PATH)");
+	//end of not necessary
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-3.2$\033[0m ");
@@ -78,36 +62,43 @@ int	main(int argc, char *argv[], char *env[])
 		// 		data.exitcode%=256;
 		// 	j++;
 		// }
-			
-		printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
+
+		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		shutdown(&data);
 	}
-	//doesnt make sense here ofc, has to be called by exit functions
-	//but may not be called by the shutdown in the while loop
-	//gonna change names to reflect the different shutdown timepoints
-	del_explist(data.exp_list);
-	free2d_char(data.env);
 }
 
+void	init_datastruct(t_data *data, char **env)
+{
+	data->env = NULL;
+	init_exportlistandenv(data, env);
+	data->exitcode = 0;
+}
+
+
 /*
-Function to catch edge cases such as empty input or NULL input.
-Maybe expand to deal with some builtins?
+- 	case: !input
+	only ctrl + d (= EOF) was entered. Should call same builtin as "exit" but
+	should also print "exit" to STDOUT.
+
+-	case_ !input[0]
+	Empty line, i.e. immediately pressed enter.
 */
 bool	specialcase(t_data *data, char *input)
 {
 	if (!input)
 	{
 		write(1, "exit\n", 5);
-		free(data->shell_lvl);
+		bltn_exit(data->cmd_list->content);
 		exit(0);
 	}
 	if (!input[0])
 	{
 		free(input);
-		return (1);
+		return (true);
 	}
-	return (0);
+	return (false);
 }
 
 void	reset_datastruct(t_data *data)
@@ -116,26 +107,4 @@ void	reset_datastruct(t_data *data)
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;
-}
-
-/*
-Using strdup to make a malloc'd copy of env so all variables are
-structured the same (will be adding malloc'd ones later with export
-and then would have a mix of dyn / stat alloc in the env clone).
-*/
-char	**replace_env(char **env)
-{
-	int		i;
-	char	**env_clone;
-
-	if (!env)
-		return (NULL);
-	i = 0;
-	env_clone = NULL;
-	while (env[i])
-	{
-		env_clone = append_string(env_clone, ft_strdup(env[i]));
-		i++;
-	}
-	return (env_clone);
 }

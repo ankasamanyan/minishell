@@ -7,7 +7,7 @@
 -	init rank to -1 to show that it has not been evaluated.
 	Used for alphabetizing (export with no args prints in alphabetical order)
 */
-void	build_exportlistfromenv(t_data *data)
+void	init_exportlistandenv(t_data *data, char **env)
 {
 	int		i;
 	t_exp	*expnode;
@@ -15,17 +15,20 @@ void	build_exportlistfromenv(t_data *data)
 
 	i = 0;
 	data->exp_list = NULL;
-	while (data->env[i])
+	if (!env)
+		return ;
+	while (env[i])
 	{
 		expnode = malloc(1 * sizeof(t_exp));
-		len_name = ft_strchr(data->env[i], '=') - data->env[i];
-		expnode->name = ft_substr(data->env[i], 0, len_name);
-		expnode->value = ft_substr(data->env[i], len_name + 1,
-				ft_strlen(data->env[i]));
+		len_name = ft_strchr(env[i], '=') - env[i];
+		expnode->name = ft_substr(env[i], 0, len_name);
+		expnode->value = ft_substr(env[i], len_name + 1, ft_strlen(env[i]));
 		expnode->rank = -1;
 		ft_lstadd_back(&data->exp_list, ft_lstnew(expnode));
 		i++;
 	}
+	increase_shlvl(data);
+	build_env(data, data->exp_list);
 	set_order(data->exp_list);
 }
 

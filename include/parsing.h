@@ -114,7 +114,6 @@ bool	is_whitespace(char c);
 bool	is_operatorchar(char c);
 bool	is_metachar(char c);
 bool	is_quotationmark(char c);
-bool	is_builtinwithflag(t_par *p);
 
 //08_helper_print.c
 void	print_tokenlist(t_list *list);

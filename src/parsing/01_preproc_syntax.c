@@ -15,8 +15,10 @@ bool	preproc_syntaxerror(t_par *p)
 	temp = p->input;
 	p->input = ft_strtrim(p->input, " \t\n\f\r\v");
 	free(temp);
+	if (!ft_strncmp("exit", p->input, 5))
+		bltn_exit(p->data->cmd_list->content);
 	if (!p->input[0])
-		return(true);
+		return (true);
 	lastchar = p->input[ft_strlen(p->input) - 1];
 	if (p->input[0] == '|')
 		return (msg_senut('|'), true);

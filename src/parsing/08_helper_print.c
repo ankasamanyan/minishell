@@ -40,6 +40,9 @@ void	print_cmdlist(t_list *list)
 	}
 }
 
+/*
+Had a problematic read in the 3rd printf when it was a ft_printf.
+*/
 void	print_cmd_arr(t_list *node)
 {
 	int		i;
@@ -55,7 +58,7 @@ void	print_cmd_arr(t_list *node)
 	printf("___cmd_arr___\n");
 	while (array[i])
 	{
-		printf("cmd_arr[%i]:%s\n", i, array[i]); //problemread
+		printf("cmd_arr[%i]:%s\n", i, array[i]);
 		i++;
 	}
 }

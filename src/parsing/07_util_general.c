@@ -44,7 +44,12 @@ Appends a string to a string array.
 If the string array doesn't exist yet,
 makes a new string array with the string as only content.
 Frees the passed string array.
-See dangers of this function outlined in append_char.
+Danger! The intended use case is narrow. You might end up freeing stuff
+you intended to keep.
+It should mostly only be used for one and the same array.
+Ok:				array_a = append_string(array_a, string);
+Probably bad:	array_b = append_string(array_a, string);
+It won't leak, but array_a is lost.
 */
 char	**append_string(char **array, char *string)
 {
