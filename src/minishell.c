@@ -62,11 +62,6 @@ int	main(int argc, char *argv[], char *env[])
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		shutdown(&data);
 	}
-	//doesnt make sense here ofc, has to be called by exit functions
-	//but may not be called by the shutdown in the while loop
-	//gonna change names to reflect the different shutdown timepoints
-	del_explist(data.exp_list);
-	free2d_char(data.env);
 }
 
 void	init_datastruct(t_data *data, char **env)
@@ -87,11 +82,10 @@ void	init_datastruct(t_data *data, char **env)
 */
 bool	specialcase(t_data *data, char *input)
 {
-	(void)data;
 	if (!input)
 	{
 		write(1, "exit\n", 5);
-		//call exit builtin here instead of this
+		bltn_exit(data);
 		exit(0);
 	}
 	if (!input[0])

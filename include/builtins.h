@@ -16,9 +16,6 @@ char	*get_homedir(char **env);
 char	*build_absolutepath(char *rel_path);
 void	update_pwd(t_data *data, char *newpath);
 
-//pwd.c
-bool	pwd(t_cmd *cmdnode);
-
 //echo.c
 bool	echo(t_cmd *cmdnode);
 void	echo_builtin(t_cmd *cmd);
@@ -27,6 +24,9 @@ void	echo_builtin(t_cmd *cmd);
 bool	env(t_cmd *cmdnode);
 void	env_builtin(t_cmd *cmdnode);
 void	build_env(t_data *data, t_list *exp_list);
+
+//exit.c
+void	bltn_exit(t_data *data);
 
 //export1.c
 bool	export(t_cmd *cmdnode);
@@ -45,6 +45,9 @@ bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
 //export3.c
 void	print_export(t_list *list);
 void	increase_shlvl(t_data *data);
+
+//pwd.c
+bool	pwd(t_cmd *cmdnode);
 
 //unset.c
 bool	unset(t_cmd *cmdnode);
