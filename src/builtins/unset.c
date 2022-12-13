@@ -50,8 +50,7 @@ void	del_fromexplist(t_list *del_node, t_list *exp_list)
 Returns NULL if
 - Passed node is first node
 - Passed node is not present
-Ideally, this should not happen because the calling function
-tests for these cases.
+The calling function should handle these cases separately.
 */
 t_list	*get_precedingnode(t_list *node, t_list *list)
 {
