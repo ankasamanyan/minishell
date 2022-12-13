@@ -48,12 +48,9 @@ int	main(int argc, char *argv[], char *env[])
 		if (specialcase(&data, input))
 			continue ;
 		reset_datastruct(&data);
-		if (parsing(input, &data))
-		{
-			shutdown(&data);
-			continue ;
-		}
-		ft_lstiter(data.cmd_list, &exec);
+		if (parsing(&data, input) == 0)
+			ft_lstiter(data.cmd_list, &exec);
+		shutdown_parsing(&data);
 		// int j = 0;
 		// while (j <= ft_lstsize(data.cmd_list))
 		// {
@@ -65,15 +62,17 @@ int	main(int argc, char *argv[], char *env[])
 
 		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
-		shutdown(&data);
 	}
 }
 
 void	init_datastruct(t_data *data, char **env)
 {
+	data->cmd_list = NULL;
+	data->exp_list = NULL;
 	data->env = NULL;
 	init_exportlistandenv(data, env);
 	data->exitcode = 0;
+	data->parsing_struct.input = NULL;
 }
 
 
@@ -90,8 +89,8 @@ bool	specialcase(t_data *data, char *input)
 	if (!input)
 	{
 		write(1, "exit\n", 5);
-		bltn_exit(data->cmd_list->content);
-		exit(0);
+		shutdown_main(data);
+		exit(data->exitcode);
 	}
 	if (!input[0])
 	{
@@ -107,4 +106,12 @@ void	reset_datastruct(t_data *data)
 	data->first_cmd = 0;
 	data->first = true;
 	data->cmd_count = 0;
+}
+
+void	shutdown_main(t_data *data)
+{
+	del_explist(data->exp_list);
+	free2d_char(data->env);
+	if (data->parsing_struct.input)
+		free(data->parsing_struct.input);
 }

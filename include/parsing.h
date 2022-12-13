@@ -59,7 +59,7 @@ typedef struct token
 }	t_tok;
 
 //00_parsing.c
-int		parsing(char *input, t_data *data);
+int		parsing(t_data *data, char *input);
 void	init_parsingstruct(t_par *p, t_data *data, char *input);
 
 //01_preproc_syntax.c
@@ -129,7 +129,7 @@ void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
 void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2);
 
 //10_shutdown1.c
-void	shutdown(t_data *data);
+void	shutdown_parsing(t_data *data);
 void	del_tokenlist(t_list *list);
 void	del_cmdlist(t_list *list);
 void	del_pairlist(t_list *list);

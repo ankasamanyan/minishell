@@ -2,28 +2,20 @@
 
 void	bltn_exit(t_cmd *cmdnode)
 {
-	int		i;
 	int		exitval;
 
-	i = 0;
-	exitval = cmdnode->data->exitcode;
 	if (cmdnode->cmd_arr[1])
 		exitval = get_exitval(cmdnode->data, cmdnode->cmd_arr);
-	del_explist(cmdnode->data->exp_list);
-	free2d_char(cmdnode->data->env);
-	if (cmdnode->data->parsing_struct.input)
-		free(cmdnode->data->parsing_struct.input);
+	shutdown_main(cmdnode->data);
 	exit(exitval);
 }
 
 int	get_exitval(t_data *data, char **cmds)
 {
-	int		i;
 	int		exitval;
 
-	i = 0;
 	exitval = -1;
-	if (!cmds[i])
+	if (!cmds[1])
 		return (data->exitcode);
 	if (!is_onlydigits(cmds[1]))
 	{
