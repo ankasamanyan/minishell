@@ -32,7 +32,6 @@ int	parsing(t_data *data, char *input)
 		return (EXIT_FAILURE);
 	parser(p);
 	check_builtin(p);
-	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
 
