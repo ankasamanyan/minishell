@@ -109,12 +109,12 @@ bool	has_invalidformat(char *string)
 Returns the first node whose content-field "name" matches the passed
 string.
 */
-t_list	*get_namenode(t_list *list, char *name)
+t_list	*get_namenode(t_list *explist, char *name)
 {
 	t_list	*temp;
 	t_exp	*expnode;
 
-	temp = list;
+	temp = explist;
 	while (temp)
 	{
 		expnode = temp->content;

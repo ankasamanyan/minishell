@@ -36,7 +36,7 @@ bool	export(t_cmd *cmdnode);
 t_exp	*build_expnode(char *string);
 void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring);
 bool	has_invalidformat(char *string);
-t_list	*get_namenode(t_list *list, char *name);
+t_list	*get_namenode(t_list *explist, char *name);
 
 //export2.c
 void	init_exportlistandenv(t_data *data, char **env);

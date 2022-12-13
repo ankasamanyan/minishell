@@ -130,19 +130,15 @@ char	*replace_dollar(t_par *p, char *lexeme)
 
 void	findandexpand(t_par *p)
 {
-	int		i;
+	t_list	*node;
 	char	*temp;
 
-	i = 0;
 	temp = p->str_b;
-	while (p->data->env[i]
-		&& ft_strncmp(p->data->env[i], p->str_b, ft_strlen(p->str_b) + 1))
-		i++;
-	if (!p->data->env[i])
+	node = get_namenode(p->data->exp_list, p->str_b);
+	if (!node || !((t_exp *)node->content)->value)
 		p->str_b = ft_calloc(sizeof(char), 1);
 	else
-		p->str_b = ft_substr(p->data->env[i], ft_strlen(p->str_b) + 1,
-				ft_strlen(p->data->env[i]));
+		p->str_b = ((t_exp *)node->content)->value;
 	free(temp);
 }
 

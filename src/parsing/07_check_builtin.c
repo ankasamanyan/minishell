@@ -12,7 +12,9 @@ void	check_builtin(t_par *p)
 	t_cmd		*cmdnode;
 
 	cmdnode = p->cmdlist->content;
-	if (!ft_strncmp("exit", cmdnode->cmd_arr[0], 5))
+	if (cmdnode->cmd_arr
+		&& cmdnode->cmd_arr[0]
+		&&!ft_strncmp("exit", cmdnode->cmd_arr[0], 5))
 		bltn_exit(cmdnode);
 	temp = p->cmdlist;
 	while (temp)

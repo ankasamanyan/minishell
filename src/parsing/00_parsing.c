@@ -17,7 +17,7 @@ if (((t_cmd *)data->cmd_list->content)->cmd_arr)
 			unset(data->cmd_list->content);
 	}
 */
-int	parsing(char *input, t_data *data)
+int	parsing(t_data *data, char *input)
 {
 	t_par	*p;
 
@@ -32,6 +32,7 @@ int	parsing(char *input, t_data *data)
 		return (EXIT_FAILURE);
 	parser(p);
 	check_builtin(p);
+	print_cmdlist(data->cmd_list);
 	return (EXIT_SUCCESS);
 }
 
