@@ -8,12 +8,14 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	i = 0;
 	while (smoll_pathsies[i])
 	{
+		cmd->data->exitcode = 0;
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
 		{
 			cmd->data->full_path = lil_path;
 			cmd->data->halp = true;
+			// free(lil_path);
 		}
 		else
 		{
@@ -109,11 +111,11 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-			if(!cmd->data->exitcode)
+			if(cmd->data->exitcode)
 				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 			else
 				waitpid(cmd->data->pid, NULL, 0);
-			if (cmd->data->exitcode > 255)
+			// if (cmd->data->exitcode > 255)
 				cmd->data->exitcode%=256;
 			free(cmd->data->full_path);
 		}
