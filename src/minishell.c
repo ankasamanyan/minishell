@@ -74,8 +74,8 @@ int	main(int argc, char *argv[], char *env[])
 		// while (j <= ft_lstsize(data.cmd_list))
 		// {
 		// 	waitpid(-1, &data.exitcode, 0);
-		// 	if (data.exitcode > 255)
-		// 		data.exitcode%=256;
+			// if (data.exitcode > 255)
+				data.exitcode%=256;
 		// 	j++;
 		// }
 			
