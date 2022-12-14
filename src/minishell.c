@@ -12,7 +12,6 @@
 
 int	main(int argc, char *argv[], char *env[])
 {
-	int			i;
 	char		*input;
 	t_data		data;
 
@@ -22,15 +21,6 @@ int	main(int argc, char *argv[], char *env[])
 	set_signals();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
-	//i think this is not necessary
-	if (!env)
-		errorexit_onlymsg("env");
-	i = 0;
-	while (env[i] && ft_strncmp(env[i], "PATH=", 5) != 0)
-		i++;
-	if (!env[i])
-		errorexit_onlymsg("env (PATH)");
-	//end of not necessary
 	while (1)
 	{
 		input = readline("\033[0;36mMinishell-3.2$\033[0m ");
@@ -40,19 +30,7 @@ int	main(int argc, char *argv[], char *env[])
 		reset_datastruct(&data);
 		if (parsing(&data, input) == 0)
 			ft_lstiter(data.cmd_list, &exec);
-				// data.exitcode%=256;
-		
 		shutdown_parsing(&data);
-		// int j = 0;
-		// while (j <= ft_lstsize(data.cmd_list))
-		// {
-		// 	waitpid(-1, &data.exitcode, 0);
-			// if (data.exitcode > 255)
-		// 	j++;
-		// }
-
-		// printf("%sactual code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
-		// printf("%sexit code thingy: %i%s\n", YELLOW, data.exitcode, RESET);
 	}
 }
 

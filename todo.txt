@@ -1,13 +1,10 @@
-- Check exit codes on mac
-- Clean up main
+- Check exit codes
 - clean up env
 Dangers (problenms I found others had in their evals):
 	- leak with exit (well not problem for us so far, but lets think about it together)
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 		- same as above, i think its handled, but pls take a look if u can break it
 		- also: if we unset pwd, our minishell will still successfully execute "pwd" because it doesnt need the env variable
-	- starting minishell and running as first cmd "unset PATH" causes segault.
-		- doesnt happen anymore, but now executes comands after unsetting
 - cat ctrl+ c duplicates prompt. Net chorosho
 - leak after running minishell - cat -ctrl+c - ctrl+d
 	Direct leak of 13 byte(s) in 1 object(s) allocated from:

@@ -1,7 +1,7 @@
 NAME = minishell
 
 CC = gcc
-CFLAGS = -g -fsanitize=address
+CFLAGS = -g #-fsanitize=address
 EFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -lreadline
 RL_FLAG =  -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -lreadline
@@ -55,7 +55,8 @@ all: $(NAME)
 $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS) $(RL_FLAG)
 	@bash src/pixel.sh
-	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)"
+	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)\n"
+# @./minishell
 
 $(LIBFT):
 	@make --no-print-directory -C src/libft

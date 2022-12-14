@@ -61,8 +61,8 @@ void	kiddi_process(t_cmd *cmd)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-		printf("full path: %s\n", cmd->data->full_path);
-		print_2d_array(cmd->data->env, 1);
+		// printf("full path: %s\n", cmd->data->full_path);
+		// print_2d_array(cmd->data->env, 1);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -78,13 +78,14 @@ void	search_path_env(t_cmd *cmd)
 	{
 		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
 		{
-			cmd->data->big_path = (cmd->data->env[i] + 5);
+			cmd->data->big_path = ft_strdup(cmd->data->env[i] + 5);
 			break;
 		}
 		i++;
 	}
 	if(!cmd->data->env[i])
 	{
+		free(cmd->data->big_path);
 		cmd->data->big_path = ft_strdup("");
 	}
 }
@@ -124,11 +125,12 @@ void	pipex(t_cmd *cmd)
 		{
 			// if(cmd->data->exitcode)
 				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+				// free(cmd->data->full_path);
 			// else
 			// 	waitpid(cmd->data->pid, NULL, 0);
 			// if (cmd->data->exitcode > 255)
 		printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
-				cmd->data->exitcode%=256;
+				// cmd->data->exitcode%=256;
 		printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
 			free(cmd->data->full_path);
 		}
