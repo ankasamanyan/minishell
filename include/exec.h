@@ -30,7 +30,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies);
 /* I have no clue actually */
 void	onexit(t_data *data);
 /* builtin thingy */
-void	if_builtins(t_cmd *cmd);
+void	builtins_exec(t_cmd *cmd);
 /* error message */
 void	err_msg(char *stringy);
 void	err_cmd_not_found(char *stringy);

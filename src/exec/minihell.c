@@ -9,7 +9,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	while (smoll_pathsies[i])
 	{
 
-		cmd->data->exitcode = 0;
+		// cmd->data->exitcode = 0;
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
@@ -26,6 +26,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 			// 	cmd->data->exitcode++;
 			free(lil_path);
 		}
+
 	}
 }
 
@@ -60,6 +61,8 @@ void	kiddi_process(t_cmd *cmd)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
+		printf("full path: %s\n", cmd->data->full_path);
+		print_2d_array(cmd->data->env, 1);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
@@ -74,8 +77,15 @@ void	search_path_env(t_cmd *cmd)
 	while (cmd->data->env[i])
 	{
 		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
+		{
 			cmd->data->big_path = (cmd->data->env[i] + 5);
+			break;
+		}
 		i++;
+	}
+	if(!cmd->data->env[i])
+	{
+		cmd->data->big_path = ft_strdup("");
 	}
 }
 
@@ -93,7 +103,7 @@ void	exec(void *cmd_list)
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
 	search_path_env(cmd); //find PATH in env
 	if (cmd->builtin)
-		if_builtins(cmd);
+		builtins_exec(cmd);
 	else
 		pipex(cmd);
 	close_them_all(cmd);
@@ -117,7 +127,9 @@ void	pipex(t_cmd *cmd)
 			// else
 			// 	waitpid(cmd->data->pid, NULL, 0);
 			// if (cmd->data->exitcode > 255)
-				// cmd->data->exitcode%=256;
+		printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
+				cmd->data->exitcode%=256;
+		printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
 			free(cmd->data->full_path);
 		}
 	}

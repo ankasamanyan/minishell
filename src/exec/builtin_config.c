@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-void	if_builtins(t_cmd *cmd)
+void	builtins_exec(t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->cmd_arr[0], "export", ft_strlen("export")) == 0)
 		export(cmd);
