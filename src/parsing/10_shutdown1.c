@@ -1,11 +1,12 @@
 #include "../../include/minishell.h"
 
-void	shutdown(t_data *data)
+void	shutdown_parsing(t_data *data)
 {
 	del_tokenlist(data->parsing_struct.tokenlist);
 	del_cmdlist(data->cmd_list);
-	free(data->parsing_struct.input);
-	//free(data->shell_lvl);
+	if (data->parsing_struct.input)
+		free(data->parsing_struct.input);
+	data->parsing_struct.input = NULL;
 }
 
 void	free2d_char(char **array)

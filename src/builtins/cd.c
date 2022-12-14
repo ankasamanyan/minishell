@@ -35,8 +35,8 @@ bool	cd(t_cmd *cmdnode)
 	failure = chdir(path);
 	if (failure)
 		msg_error("cd", path, E_NOFILDIR);
-	/* else
-		export() */
+	else
+		update_pwd(cmdnode->data, path);
 	if (alloc)
 		free(path);
 	return (failure);
@@ -67,4 +67,29 @@ char	*build_absolutepath(char *rel_path)
 	free(cwd);
 	free(temp);
 	return (abs_path);
+}
+
+void	update_pwd(t_data *data, char *newpath)
+{
+	t_exp	*exp_pwd;
+	t_exp	*exp_oldpwd;
+	t_list	*pwd;
+	t_list	*oldpwd;
+
+	oldpwd = get_namenode(data->exp_list, "OLDPWD");
+	pwd = get_namenode(data->exp_list, "PWD");
+	if (!pwd)
+		return ;
+	exp_pwd = pwd->content;
+	if (oldpwd)
+	{
+		exp_oldpwd = oldpwd->content;
+		if (exp_oldpwd->value)
+			free(exp_oldpwd->value);
+		exp_oldpwd->value = ft_strdup(exp_pwd->value);
+	}
+	if (exp_pwd->value)
+		free(exp_pwd->value);
+	exp_pwd->value = ft_strdup(newpath);
+	build_env(data, data->exp_list);
 }

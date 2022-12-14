@@ -12,6 +12,6 @@ void	if_builtins(t_cmd *cmd)
 		cd(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "echo", ft_strlen("echo")) == 0)
 		echo_builtin(cmd);
-	// else if (ft_strncmp(cmd->cmd_arr[0], "unset", ft_strlen("unset")) == 0)
-	// 	unset(cmd);
+	else if (ft_strncmp(cmd->cmd_arr[0], "unset", ft_strlen("unset")) == 0)
+	unset(cmd);
 }

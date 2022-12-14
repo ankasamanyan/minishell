@@ -8,7 +8,8 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	i = 0;
 	while (smoll_pathsies[i])
 	{
-		// cmd->data->exitcode = 0;
+
+		cmd->data->exitcode = 0;
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)

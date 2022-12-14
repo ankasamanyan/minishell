@@ -9,10 +9,17 @@ Due to the small number of possible operators in the subject,
 the identification and handling of operators is pretty much
 hard coded. This is a pragmatic approach for the subject, but
 not useful for the creation of a more complex shell.
+print_cmdlist(data->cmd_list);
+if (((t_cmd *)data->cmd_list->content)->cmd_arr)
+	{
+		if (!ft_strncmp("unset",
+				((t_cmd *)data->cmd_list->content)->cmd_arr[0], 6))
+			unset(data->cmd_list->content);
+	}
 */
-int	parsing(char *input, t_data *data)
+int	parsing(t_data *data, char *input)
 {
-	t_par		*p;
+	t_par	*p;
 
 	p = &data->parsing_struct;
 	init_parsingstruct(p, data, input);
@@ -25,14 +32,7 @@ int	parsing(char *input, t_data *data)
 		return (EXIT_FAILURE);
 	parser(p);
 	check_builtin(p);
-	// print_cmdlist(data->cmd_list);
-	if (((t_cmd *)data->cmd_list->content)->cmd_arr)
-	{
-		if (!ft_strncmp("unset", ((t_cmd *)data->cmd_list->content)->cmd_arr[0], 6))
-			unset(data->cmd_list->content);
-	}
 	return (EXIT_SUCCESS);
-	// cat ctrl+ c duplicates prompt. Net chorosho
 }
 
 void	init_parsingstruct(t_par *p, t_data *data, char *input)
