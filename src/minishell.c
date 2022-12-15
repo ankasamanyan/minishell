@@ -26,7 +26,7 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 
 	init_datastruct(&data, env);
-	set_signals();
+	set_signals(interactive);
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	//i think this is not necessary
@@ -71,6 +71,7 @@ void	init_datastruct(t_data *data, char **env)
 	data->env = NULL;
 	init_exportlistandenv(data, env);
 	data->exitcode = 0;
+	data->parsing_struct.input = NULL;
 }
 
 

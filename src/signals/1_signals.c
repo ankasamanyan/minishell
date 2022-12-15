@@ -36,10 +36,43 @@ specified in new_action.
 	sigaction(SIGQUIT, &new_action, NULL);
 } */
 
-void	set_signals(void)
+void	set_signals(t_sigtype sig_type)
 {
-	signal(SIGINT, sig_handler);
+	if (sig_type == interactive)
+	{
+		signal(SIGINT, sig_newline);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	if (sig_type == child)
+	{
+
+	}
+	if (sig_type == child)
+	{
+
+	}
+	if (sig_type == ignore)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
+}
+
+void	signals_interactive(void)
+{
+	signal(SIGINT, sig_newline);
 	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signals_ignore(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	signals_exitoninterrupt(void)
+{
+
 }
 
 /*
@@ -52,7 +85,7 @@ correct this way and doesn't have to void sig.
 -	need to put \n to make the prompt reappear on the next line
 -	redisplay makes the prompt reappear
 */
-void	sig_handler(int sig)
+void	sig_newline(int sig)
 {
 	if (sig == SIGINT)
 	{
