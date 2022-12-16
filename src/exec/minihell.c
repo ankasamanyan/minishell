@@ -95,13 +95,18 @@ void	exec(void *cmd_list)
 	t_cmd	*cmd;
 
 	cmd = (t_cmd *)cmd_list;
-	pipe(cmd->data->pipe);
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
+	cmd->data->exitcode = 0;
+	pipe(cmd->data->pipe);
+	printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
 	if_no_input(cmd);
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
+	printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
+	if (cmd->data->exitcode != 0)
+		return ;
 	search_path_env(cmd); //find PATH in env
 	if (cmd->builtin)
 		builtins_exec(cmd);

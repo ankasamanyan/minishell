@@ -73,31 +73,67 @@ void	input_files(void *infile)
 		here_doc(input);
 }
 
+void kiddi_signals(int signal)
+{
+	(void)signal;
+	exit(1);
+}
+
+void setup_kiddi_signals(void)
+{
+	signal(SIGINT, kiddi_signals);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void setup_parent_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	here_doc(t_pair *input)
 {
 	char		*stringy;
 	int			pipy[2];
+	int			pid;
 
 	if(pipe(pipy) != 0)
 		perror("Minishell:");	//set some flag and exot this function
-	while (42)
+	// setup heredoc child signals
+
+	setup_kiddi_signals();
+	pid = fork();
+	if (pid == 0)
 	{
-		stringy = readline("> ");
-		// if (stringy)
-		// {
-		stringy = append_char(stringy, '\n');
-		if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
-			&& (stringy[ft_strlen(input->string) + 1] == '\0') && (stringy[ft_strlen(input->string)] == '\n') && stringy)
-			break ;
-		else
-			write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
+		while (42)
+		{
+			stringy = readline("> ");
+			if (!stringy)
+				exit(0);
+			stringy = append_char(stringy, '\n');
+			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
+				&& (stringy[ft_strlen(input->string) + 1] == '\0')
+				&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
+				break ;
+			else
+				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
+			free(stringy);
+		}
 		free(stringy);
-		// }
+		close(pipy[WRITE_END]);
+		close(pipy[READ_END]);
+		exit(0);
 	}
-	free(stringy);
-	close(pipy[WRITE_END]);
+	setup_parent_signals();
 	if (input->cmd->fd_in > 2)
 		close(input->cmd->fd_in);
+	printf("%sFrom here_doc thingy: %i%s\n",YELLOW,input->cmd->data->exitcode, RESET);
+	waitpid(pid, &input->cmd->data->exitcode, 0);
+	if (input->cmd->data->exitcode > 255)
+		input->cmd->data->exitcode /= 256;
+	printf("%sFrom here_doc thingy: %i%s\n",RED,input->cmd->data->exitcode, RESET);
+	set_signals(interactive);
+	close(pipy[WRITE_END]);
 	input->cmd->fd_in = pipy[READ_END];
 }
 
