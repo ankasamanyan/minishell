@@ -19,7 +19,7 @@ void	close_them_all(t_cmd *cmd);
 /* input fd configuration */
 void	if_no_input(t_cmd *cmd);
 void	input_files(void *input);
-void	if_here_doc(t_pair *input);
+void	here_doc(t_pair *input);
 /* output fd configuration */
 void	if_no_output(t_cmd *cmd);
 void	output_files(void *output);
