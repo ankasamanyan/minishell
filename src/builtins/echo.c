@@ -31,18 +31,25 @@ bool	echo(t_cmd *cmdnode)
 void	echo_builtin(t_cmd *cmd)
 {
 	int		i;
-
-	if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) == 0)
-		i = 2;
-	else
-		i = 1;
-	while (cmd->cmd_arr[i])
+	if (cmd->cmd_arr[0])
 	{
-		write(cmd->fd_out, cmd->cmd_arr[i], ft_strlen(cmd->cmd_arr[i]));
-		i++;
-		if (cmd->cmd_arr[i])
-			write(cmd->fd_out, " ", 1);
+		if(cmd->cmd_arr[1])
+		{
+			if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) == 0)
+				i = 2;
+			else
+				i = 1;
+			while (cmd->cmd_arr[i])
+			{
+				write(cmd->fd_out, cmd->cmd_arr[i], ft_strlen(cmd->cmd_arr[i]));
+				i++;
+				if (cmd->cmd_arr[i])
+					write(cmd->fd_out, " ", 1);
+			}
+			if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) != 0)
+				write(cmd->fd_out, "\n", 1);
+		}
+		else
+			write(cmd->fd_out, "\n", 1);
 	}
-	if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) != 0)
-		write(cmd->fd_out, "\n", 1);
 }

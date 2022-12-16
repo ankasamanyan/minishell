@@ -16,7 +16,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 		{
 			cmd->data->full_path = lil_path;
 			cmd->data->halp = true;
-			// free(lil_path);
+			return ;
 		}
 		else
 		{
@@ -74,12 +74,14 @@ void	search_path_env(t_cmd *cmd)
 	int	i;
 
 	i = 0;
+	if(cmd->data->big_path)
+		free(cmd->data->big_path);
 	while (cmd->data->env[i])
 	{
 		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
 		{
 			cmd->data->big_path = ft_strdup(cmd->data->env[i] + 5);
-			break;
+			break ;
 		}
 		i++;
 	}
@@ -99,12 +101,12 @@ void	exec(void *cmd_list)
 	cmd->data->file_err = false;
 	cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
-	printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
+	// printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
 	if_no_input(cmd);
 	ft_lstiter(cmd->inputlist, &input_files); //input checks
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files); //output checks
-	printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
+	// printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
 	if (cmd->data->exitcode != 0)
 		return ;
 	search_path_env(cmd); //find PATH in env
@@ -129,15 +131,17 @@ void	pipex(t_cmd *cmd)
 		else
 		{
 			// if(cmd->data->exitcode)
-				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 				// free(cmd->data->full_path);
 			// else
 			// 	waitpid(cmd->data->pid, NULL, 0);
 			// if (cmd->data->exitcode > 255)
-		printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
+			printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
 				// cmd->data->exitcode%=256;
-		printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
+			printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
+			printf("been here done that\n");
 			free(cmd->data->full_path);
+			cmd->data->full_path = NULL;
 		}
 	}
 }

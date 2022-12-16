@@ -42,6 +42,7 @@ void	init_datastruct(t_data *data, char **env)
 	init_exportlistandenv(data, env);
 	data->exitcode = 0;
 	data->parsing_struct.input = NULL;
+	data->big_path = NULL;
 }
 
 

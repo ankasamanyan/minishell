@@ -72,7 +72,7 @@ void	signals_ignore(void)
 
 void	signals_exitoninterrupt(void)
 {
-
+	// if ctrl c set exitcd to 130
 }
 
 /*

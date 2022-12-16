@@ -3,6 +3,9 @@
 Dangers (problenms I found others had in their evals):
 	- leak with exit (well not problem for us so far, but lets think about it together)
 	- a problem with cd. when PWD is unset and segfault with multiple variables
+
+    - OLDPWD is not updated after a cd call
+    🙃
 		- same as above, i think its handled, but pls take a look if u can break it
 		- also: if we unset pwd, our minishell will still successfully execute "pwd" because it doesnt need the env variable
 - cat ctrl+ c duplicates prompt. Net chorosho
@@ -19,39 +22,3 @@ Dangers (problenms I found others had in their evals):
     #8 0x563e881bcb16 in ft_lstiter (/mnt/e/42/Projects/minishell/minishell+0x5b16)
     #9 0x563e881b85f3 in main (/mnt/e/42/Projects/minishell/minishell+0x15f3)
     #10 0x7f5b7887e082 in __libc_start_main ../csu/libc-start.c:308
-- ls now still running after unset PATH. (env | grep PATH not returning anyhting)
-	Minishell-3.2$ env | grep PATH
-	PATH=/home/wolf/.vscode-server/bin/5235c6bb189b60b01b1f49062f4ffa42384f8c91/bin/remote-cli:/home/wolf/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Users/wolfm/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/wolfm/AppData/Local/Programs/Microsoft VS Code/bin:/snap/bin
-	Minishell-3.2$ unset PATH
-	Minishell-3.2$ env | grep PATH
-	Minishell-3.2$ ls
-	Makefile  README.md  file  include  minishell  obj  src  todo.txt
-- Segfault in exec if a completely empty command node is present
-	- This happens if input is only a var expansion and it fails (i.e. $HOMEe)
-	- Seems like a NULL guard thing
-		wolf@Gogonnash:/mnt/e/42/Projects/minishell$ ./minishell
-Minishell-3.2$ $HOME
-str b:HOME
-__________COMMAND NODE 0__________
-eto builtin: net
-___cmd_arr___
-___no input redir___
-___no output redir___
-Minishell: AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==16907==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x55dee30c264a bp 0x7ffef2bc6450 sp 0x7ffef2bc6450 T0)
-==16907==The signal is caused by a READ memory access.
-==16907==Hint: address points to the zero page.
-    #0 0x55dee30c2649 in ft_strlen (/mnt/e/42/Projects/minishell/minishell+0x6649)
-    #1 0x55dee30bdeba in err_cmd_not_found (/mnt/e/42/Projects/minishell/minishell+0x1eba)
-    #2 0x55dee30be0fc in find_cmd_path (/mnt/e/42/Projects/minishell/minishell+0x20fc)
-    #3 0x55dee30be351 in pipex (/mnt/e/42/Projects/minishell/minishell+0x2351)
-    #4 0x55dee30be325 in exec (/mnt/e/42/Projects/minishell/minishell+0x2325)
-    #5 0x55dee30c1b5c in ft_lstiter (/mnt/e/42/Projects/minishell/minishell+0x5b5c)
-    #6 0x55dee30bd5f3 in main (/mnt/e/42/Projects/minishell/minishell+0x15f3)
-    #7 0x7f2ca4486082 in __libc_start_main ../csu/libc-start.c:308
-    #8 0x55dee30bd38d in _start (/mnt/e/42/Projects/minishell/minishell+0x138d)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV (/mnt/e/42/Projects/minishell/minishell+0x6649) in ft_strlen
-==16907==ABORTING

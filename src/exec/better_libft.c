@@ -51,6 +51,7 @@ void	err_msg(char *stringy)
 void	err_cmd_not_found(char *stringy)
 {
 		write(2, "Minishell: ", 11);
-		write(2, stringy, ft_strlen(stringy));
+		if(stringy)
+			write(2, stringy, ft_strlen(stringy));
 		write(2, ": command not found\n", 21);
 }
