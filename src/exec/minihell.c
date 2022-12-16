@@ -136,10 +136,9 @@ void	pipex(t_cmd *cmd)
 			// else
 			// 	waitpid(cmd->data->pid, NULL, 0);
 			// if (cmd->data->exitcode > 255)
-			printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
+			// printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
 				// cmd->data->exitcode%=256;
-			printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
-			printf("been here done that\n");
+			// printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
 			free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
 		}

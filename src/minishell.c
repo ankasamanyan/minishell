@@ -43,6 +43,8 @@ void	init_datastruct(t_data *data, char **env)
 	data->exitcode = 0;
 	data->parsing_struct.input = NULL;
 	data->big_path = NULL;
+	data->pipe[READ_END] = -1;
+	data->pipe[WRITE_END] = -1;
 }
 
 

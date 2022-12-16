@@ -33,17 +33,13 @@ void	input_files(void *infile)
 		if (access(input->string, F_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			write(2, "Minishell: ", 11);
-			write(2, input->string, ft_strlen(input->string));
-			perror(" ");
+			err_msg(input->string);
 			return ;
 		}
 		else if (access(input->string, R_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			write(2, "Minishell: ", 11);
-			write(2, input->string, ft_strlen(input->string));
-			perror(" ");
+			err_msg(input->string);
 			return ;
 		}
 		else
@@ -54,38 +50,30 @@ void	input_files(void *infile)
 			if (input->cmd->fd_in < 0)
 			{
 				input->cmd->data->file_err = true;
-				write(2, "Minishell: ", 11);
-				write(2, input->string, ft_strlen(input->string));
-				perror(" ");
+				err_msg(input->string);
 				return ;
 			}
 			if (!(input->cmd->cmd_arr))
-			{
-				//you don't have to close alllllll the fdsss
-				//leave ze pipe!!!!!!!!!!!
 				return ;
-			}
-			// helper function that finds out if there is no cmd 
-			// and closeall the pipes	
 		}
 	}
 	if (input->doublebracket == true)
 		here_doc(input);
 }
 
-void kiddi_signals(int signal)
+void	kiddi_signals(int signal)
 {
 	(void)signal;
 	exit(1);
 }
 
-void setup_kiddi_signals(void)
+void	setup_kiddi_signals(void)
 {
 	signal(SIGINT, kiddi_signals);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void setup_parent_signals(void)
+void	setup_parent_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -99,8 +87,6 @@ void	here_doc(t_pair *input)
 
 	if(pipe(pipy) != 0)
 		perror("Minishell:");	//set some flag and exot this function
-	// setup heredoc child signals
-
 	setup_kiddi_signals();
 	pid = fork();
 	if (pid == 0)
