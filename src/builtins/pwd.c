@@ -15,7 +15,8 @@ bool	pwd(t_cmd *cmdnode)
 	path = getcwd(path, 0);
 	if (!path)
 		return (msg_error("pwd", E_NOFILDIR, NULL), true);
-	printf("%s\n", path);
+	write(cmdnode->fd_out, path, ft_strlen(path));
+	write(cmdnode->fd_out, "\n", 1);
 	free(path);
 	return (false);
 }
