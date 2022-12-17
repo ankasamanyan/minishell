@@ -95,3 +95,25 @@ void	sig_newline(int sig)
 		rl_redisplay();
 	}
 }
+
+
+
+
+// something Cedric needs
+// heredoc child
+// exec child
+
+
+
+
+
+// heredoc parent
+// exec parent
+
+
+
+
+
+
+
+
