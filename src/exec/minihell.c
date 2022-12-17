@@ -86,10 +86,7 @@ void	search_path_env(t_cmd *cmd)
 		i++;
 	}
 	if(!cmd->data->env[i])
-	{
-		free(cmd->data->big_path);
 		cmd->data->big_path = ft_strdup("");
-	}
 }
 
 void	exec(void *cmd_list)
