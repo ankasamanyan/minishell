@@ -125,6 +125,10 @@ void	pipex(t_cmd *cmd)
 	{
 		if (!cmd->data->halp)
 			return ;
+		if (ft_strncmp((cmd->cmd_arr[0]) + (ft_strlen(cmd->cmd_arr[0]) - 9), "minishell", 10) == 0)
+			setup_parent_signals();
+		else
+			exec_parent();
 		cmd->data->pid = fork();
 		if (cmd->data->pid == 0 && cmd->builtin == false)
 			kiddi_process(cmd);
@@ -132,6 +136,7 @@ void	pipex(t_cmd *cmd)
 		{
 			// if(cmd->data->exitcode)
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			smth_cedric_needs();
 				// free(cmd->data->full_path);
 			// else
 			// 	waitpid(cmd->data->pid, NULL, 0);

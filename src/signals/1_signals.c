@@ -98,18 +98,47 @@ void	sig_newline(int sig)
 
 
 
+void	smth_cedric_needs(void)
+{
+	signal(SIGINT, sig_newline);
+	signal(SIGQUIT, SIG_IGN); // der Vater (getting milk right now)//at least he is not ignoring the milk
+}
 
-// something Cedric needs
-// heredoc child
+
+void	kiddi_signals(int signal)
+{
+	(void)signal;
+	exit(1);
+}
+
+void	setup_kiddi_signals(void)
+{
+	signal(SIGINT, kiddi_signals);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	setup_parent_signals(void)
+{
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+
 // exec child
+void	signal_thingy(int smth)
+{
+	if (smth == SIGINT)
+		ft_putchar_fd('\n', STDERR_FILENO);
+	else if (smth == SIGQUIT)
+		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+}
 
-
-
-
-
-// heredoc parent
 // exec parent
-
+void	exec_parent(void)
+{
+	signal(SIGINT, signal_thingy);
+	signal(SIGQUIT, signal_thingy);
+}
 
 
 

@@ -61,24 +61,6 @@ void	input_files(void *infile)
 		here_doc(input);
 }
 
-void	kiddi_signals(int signal)
-{
-	(void)signal;
-	exit(1);
-}
-
-void	setup_kiddi_signals(void)
-{
-	signal(SIGINT, kiddi_signals);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	setup_parent_signals(void)
-{
-	signal(SIGINT, SIG_IGN);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 void	here_doc(t_pair *input)
 {
 	char		*stringy;
@@ -113,11 +95,9 @@ void	here_doc(t_pair *input)
 	setup_parent_signals();
 	if (input->cmd->fd_in > 2)
 		close(input->cmd->fd_in);
-	printf("%sFrom here_doc thingy: %i%s\n",YELLOW,input->cmd->data->exitcode, RESET);
 	waitpid(pid, &input->cmd->data->exitcode, 0);
 	if (input->cmd->data->exitcode > 255)
 		input->cmd->data->exitcode /= 256;
-	printf("%sFrom here_doc thingy: %i%s\n",RED,input->cmd->data->exitcode, RESET);
 	set_signals(interactive);
 	close(pipy[WRITE_END]);
 	input->cmd->fd_in = pipy[READ_END];
