@@ -13,5 +13,7 @@ void	builtins_exec(t_cmd *cmd)
 	else if (ft_strncmp(cmd->cmd_arr[0], "echo", ft_strlen("echo")) == 0)
 		echo_builtin(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "unset", ft_strlen("unset")) == 0)
-	unset(cmd);
+		unset(cmd);
+	else if (ft_strncmp(cmd->cmd_arr[0], "exit", ft_strlen("exit")) == 0 && ft_lstsize(cmd->data->cmd_list) == 1)
+		bltn_exit(cmd);
 }
