@@ -33,13 +33,13 @@ void	input_files(void *infile)
 		if (access(input->string, F_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			err_msg(input->string);
+			err_msg(input->string, input->cmd->data);
 			return ;
 		}
 		else if (access(input->string, R_OK) != 0)
 		{
 			input->cmd->data->file_err = true;
-			err_msg(input->string);
+			err_msg(input->string, input->cmd->data);
 			return ;
 		}
 		else
@@ -50,7 +50,7 @@ void	input_files(void *infile)
 			if (input->cmd->fd_in < 0)
 			{
 				input->cmd->data->file_err = true;
-				err_msg(input->string);
+				err_msg(input->string, input->cmd->data);
 				return ;
 			}
 			if (!(input->cmd->cmd_arr))
@@ -131,8 +131,8 @@ void	output_files(void *outfile)
 	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
-			close(output->cmd->fd_out)STOP
-		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777)STOP
+			close(output->cmd->fd_out)STAHP
+		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777)STAHP
 	}
 	else if (output->doublebracket == true)
 	{
@@ -143,7 +143,7 @@ void	output_files(void *outfile)
 	if (output->cmd->fd_out < 0)
 	{
 		output->cmd->data->file_err = true;
-		err_msg(output->string);
+		err_msg(output->string, output->cmd->data);
 		return ;
 	}
 }

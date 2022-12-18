@@ -8,7 +8,6 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	i = 0;
 	while (smoll_pathsies[i])
 	{
-		cmd->data->exitcode = 0;
 		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
 				"/", cmd->cmd_arr[0]);
 		if (access(lil_path, X_OK) == 0)
@@ -18,12 +17,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 			return ;
 		}
 		else
-		{
-			cmd->data->exitcode = 126;
-			if (access(lil_path, F_OK))
-				cmd->data->exitcode++;
 			free(lil_path);
-		}
 	}
 }
 
@@ -32,8 +26,8 @@ void	find_cmd_path(t_cmd *cmd)
 	char	**smoll_pathsies;
 	int		aaaaa;
 
-	cmd->data->halp = false;
 	aaaaa = 1;
+	cmd->data->halp = false;
 	if (cmd->cmd_arr)
 	{
 		smoll_pathsies = ft_split(cmd->data->big_path, ':');
@@ -48,11 +42,10 @@ void	find_cmd_path(t_cmd *cmd)
 		{
 			if (access(cmd->cmd_arr[0], F_OK) == 0)
 				aaaaa = 2;
-
 		}
 		ft_free_array(smoll_pathsies);
 		if (!cmd->data->halp)
-			err_cmd_not_found(cmd->cmd_arr[0], aaaaa);
+			err_cmd_not_found(cmd->cmd_arr[0], aaaaa, cmd->data);
 	}
 }
 
