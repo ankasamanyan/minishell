@@ -44,6 +44,8 @@ void	set_order(t_list *list)
 	t_list	*curr_ranked;
 	t_list	*compare;
 
+	if (!list)
+		return ;
 	reset_rank(list);
 	i = 0;
 	while (i < ft_lstsize(list) - 1)

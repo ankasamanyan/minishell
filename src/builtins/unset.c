@@ -15,10 +15,9 @@ bool	unset(t_cmd *cmdnode)
 		target = get_namenode(cmdnode->data->exp_list, cmdnode->cmd_arr[i]);
 		if (target)
 		{
-			del_fromexplist(target, cmdnode->data->exp_list);
+			del_fromexplist(target, &cmdnode->data->exp_list);
 			set_order(cmdnode->data->exp_list);
 			build_env(cmdnode->data, cmdnode->data->exp_list);
-			break ;
 		}
 		i++;
 	}
@@ -27,8 +26,10 @@ bool	unset(t_cmd *cmdnode)
 
 /*
 Deletes del_node from exp_list and restores the list continuity.
+
+env | cut -d '=' -f1 | tr '\n' ' '
 */
-void	del_fromexplist(t_list *del_node, t_list *exp_list)
+void	del_fromexplist(t_list *del_node, t_list **exp_list)
 {
 	t_exp	*expnode;
 
@@ -37,12 +38,12 @@ void	del_fromexplist(t_list *del_node, t_list *exp_list)
 	if (expnode->value)
 		free(expnode->value);
 	free(expnode);
-	if (del_node == exp_list)
-		exp_list = del_node->next;
-	else if (del_node == ft_lstlast(exp_list))
-		get_precedingnode(del_node, exp_list)->next = NULL;
+	if (del_node == *exp_list)
+		*exp_list = del_node->next;
+	else if (del_node == ft_lstlast(*exp_list))
+		get_precedingnode(del_node, *exp_list)->next = NULL;
 	else
-		get_precedingnode(del_node, exp_list)->next = del_node->next;
+		get_precedingnode(del_node, *exp_list)->next = del_node->next;
 	free(del_node);
 }
 
