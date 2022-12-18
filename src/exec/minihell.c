@@ -83,10 +83,7 @@ void	search_path_env(t_cmd *cmd)
 		i++;
 	}
 	if(!cmd->data->env[i])
-	{
-		free(cmd->data->big_path);
 		cmd->data->big_path = ft_strdup("");
-	}
 }
 
 void	exec(void *cmd_list)
@@ -122,6 +119,10 @@ void	pipex(t_cmd *cmd)
 	{
 		if (!cmd->data->halp)
 			return ;
+		if (ft_strncmp((cmd->cmd_arr[0]) + (ft_strlen(cmd->cmd_arr[0]) - 9), "minishell", 10) == 0)
+			setup_parent_signals();
+		else
+			exec_parent();
 		cmd->data->pid = fork();
 		if (cmd->data->pid == 0 && cmd->builtin == false)
 			kiddi_process(cmd);
@@ -131,10 +132,7 @@ void	pipex(t_cmd *cmd)
 				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 			else
 				waitpid(cmd->data->pid, NULL, 0);
-			// if (cmd->data->exitcode > 255)
-			// printf("%sactual code thingy: %i%s\n", YELLOW, cmd->data->exitcode, RESET);
-				// cmd->data->exitcode%=256;
-			// printf("%sactual code thingy: %i%s\n", GREEN, cmd->data->exitcode, RESET);
+			smth_cedric_needs();
 			free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
 		}

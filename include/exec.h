@@ -34,10 +34,7 @@ void	builtins_exec(t_cmd *cmd);
 /* error message */
 void	err_msg(char *stringy);
 void	err_cmd_not_found(char *stringy);
-/* here_doc signals */
-void	kiddi_signals(int signal);
-void	setup_kiddi_signals(void);
-void	setup_parent_signals(void);
+
 
 
 #endif

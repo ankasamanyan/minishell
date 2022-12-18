@@ -18,7 +18,7 @@ int	main(int argc, char *argv[], char *env[])
 	(void)argv;
 
 	init_datastruct(&data, env);
-	set_signals(interactive);
+	smth_cedric_needs();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
 	while (1)
