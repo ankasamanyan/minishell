@@ -31,11 +31,17 @@ bool	echo(t_cmd *cmdnode)
 void	echo_builtin(t_cmd *cmd)
 {
 	int		i;
+
+	// write(cmd->fd_out, "AAAAAAAAAAAAAAAAA\n", 1);
+	// write(1, ft_itoa(cmd->fd_out), ft_strlen(ft_itoa(cmd->fd_out)));
+	// print_2d_array(cmd->cmd_arr, 2);
+	// printf("stop of 2d array\n");
+	// printf("");
 	if (cmd->cmd_arr[0])
 	{
 		if(cmd->cmd_arr[1])
 		{
-			if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) == 0)
+			if (ft_strncmp(cmd->cmd_arr[1], "-n", 3) == 0)
 				i = 2;
 			else
 				i = 1;
@@ -46,7 +52,7 @@ void	echo_builtin(t_cmd *cmd)
 				if (cmd->cmd_arr[i])
 					write(cmd->fd_out, " ", 1);
 			}
-			if (ft_strncmp(cmd->cmd_arr[1], "-n", ft_strlen("-n")) != 0)
+			if (ft_strncmp(cmd->cmd_arr[1], "-n", 3) != 0)
 				write(cmd->fd_out, "\n", 1);
 		}
 		else

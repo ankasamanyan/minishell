@@ -92,15 +92,13 @@ void	exec(void *cmd_list)
 	cmd->data->file_err = false;
 	cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
-	// printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
 	if_no_input(cmd);
-	ft_lstiter(cmd->inputlist, &input_files); //input checks
+	ft_lstiter(cmd->inputlist, &input_files);
 	if_no_output(cmd);
-	ft_lstiter(cmd->outputlist, &output_files); //output checks
-	// printf("exit code thingyyyyyyyyyy: %i\n", cmd->data->exitcode);
-	if (cmd->data->exitcode != 0)
+	ft_lstiter(cmd->outputlist, &output_files);
+	if (cmd->data->file_err)
 		return ;
-	search_path_env(cmd); //find PATH in env
+	search_path_env(cmd);
 	if (cmd->builtin)
 		builtins_exec(cmd);
 	else
@@ -110,8 +108,7 @@ void	exec(void *cmd_list)
 
 void	pipex(t_cmd *cmd)
 {
-	find_cmd_path(cmd); //find executable of cmd
-	// fprintf(stderr, "exit code is %d\n", cmd->data->exitcode);
+	find_cmd_path(cmd);
 	if (cmd->cmd_arr)
 	{
 		if (!cmd->data->halp)
@@ -125,10 +122,13 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-			if(cmd->data->exitcode)
+			// if (cmd->data->exitcode)
 				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			else
-				waitpid(cmd->data->pid, NULL, 0);
+			// else 
+			// 	waitpid(cmd->data->pid, NULL, 0);
+			if (cmd->data->exitcode > 255)
+				cmd->data->exitcode /= 256;
+			// printf("%safter waitpid %i%s\n", YELLOW, cmd->data->exitcode, RESET);
 			smth_cedric_needs();
 			free(cmd->data->full_path);
 			cmd->data->full_path = NULL;

@@ -23,7 +23,7 @@ bool	cd(t_cmd *cmdnode)
 
 	alloc = false;
 	if (cmdnode->cmd_arr[1] && cmdnode->cmd_arr[2])
-		return (msg_error("cd", E_MANYARG, NULL), true);
+		return (msg_error("cd", E_MANYARG, NULL), true);		//to do error code 1
 	path = cmdnode->cmd_arr[1];
 	if (!path)
 		path = get_homedir(cmdnode->data->env);
@@ -34,7 +34,7 @@ bool	cd(t_cmd *cmdnode)
 	}
 	failure = chdir(path);
 	if (failure)
-		msg_error("cd", path, E_NOFILDIR);
+		msg_error("cd", path, E_NOFILDIR); // to do set error code to 1
 	else
 		update_pwd(cmdnode->data, path);
 	if (alloc)

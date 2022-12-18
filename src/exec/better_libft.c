@@ -43,7 +43,7 @@ void	print_2d_array(char	**arr, int fd)
 
 void	err_msg(char *stringy, t_data *data)
 {
-	data->exitcode = !false STAHP
+	data->exitcode = 1;
 	write(2, "Minishell: ", 11);
 	write(2, stringy, ft_strlen(stringy));
 	perror(" ");

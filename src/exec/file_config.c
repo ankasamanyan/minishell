@@ -22,10 +22,8 @@ void	if_no_input(t_cmd *cmd)
 
 void	input_files(void *infile)
 {
-	t_pair		*input;
+	t_pair *const input = infile;
 	
-	input = (t_pair *)infile;
-	// input->cmd->data->file_err = false;
 	if (input->cmd->data->temp_pipe > 2)
 		close(input->cmd->data->temp_pipe);
 	if (input->doublebracket == false)
@@ -68,7 +66,7 @@ void	here_doc(t_pair *input)
 	int			pid;
 
 	if(pipe(pipy) != 0)
-		perror("Minishell:");	//set some flag and exot this function
+		perror("Minishell:");
 	setup_kiddi_signals();
 	pid = fork();
 	if (pid == 0)
@@ -84,7 +82,7 @@ void	here_doc(t_pair *input)
 				&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
 				break ;
 			else
-				write(pipy[WRITE_END], stringy, ft_strlen(stringy)); // ???
+				write(pipy[WRITE_END], stringy, ft_strlen(stringy));
 			free(stringy);
 		}
 		free(stringy);
@@ -96,8 +94,8 @@ void	here_doc(t_pair *input)
 	if (input->cmd->fd_in > 2)
 		close(input->cmd->fd_in);
 	waitpid(pid, &input->cmd->data->exitcode, 0);
-	if (input->cmd->data->exitcode > 255)
-		input->cmd->data->exitcode /= 256;
+	// if (input->cmd->data->exitcode > 255)
+	// 	input->cmd->data->exitcode /= 256;
 	set_signals(interactive);
 	close(pipy[WRITE_END]);
 	input->cmd->fd_in = pipy[READ_END];
@@ -131,8 +129,8 @@ void	output_files(void *outfile)
 	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
-			close(output->cmd->fd_out)STAHP
-		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777)STAHP
+			close(output->cmd->fd_out);
+		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	}
 	else if (output->doublebracket == true)
 	{

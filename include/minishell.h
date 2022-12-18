@@ -53,7 +53,6 @@ fi
 # define READ_END	0
 # define WRITE_END	1
 
-# define STAHP ;
 
 typedef struct s_data	t_data;
 

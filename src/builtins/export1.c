@@ -14,7 +14,7 @@ bool	export(t_cmd *cmdnode)
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode->data->exp_list), false);
 	if (cmdnode->cmd_arr[1][0] == '-')
-		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
+		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);	//to do set error code
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
