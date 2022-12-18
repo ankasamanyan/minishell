@@ -16,7 +16,7 @@ int	main(int argc, char *argv[], char *env[])
 	t_data		data;
 
 	(void)argv;
-
+	// rl_outstream = stderr;
 	init_datastruct(&data, env);
 	smth_cedric_needs();
 	if (argc > 1)

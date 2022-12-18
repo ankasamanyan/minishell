@@ -126,13 +126,9 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-			// if (cmd->data->exitcode)
-				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			// else 
-			// 	waitpid(cmd->data->pid, NULL, 0);
+			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
-			// printf("%safter waitpid %i%s\n", YELLOW, cmd->data->exitcode, RESET);
 			smth_cedric_needs();
 			free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
