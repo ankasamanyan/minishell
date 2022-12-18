@@ -72,7 +72,6 @@ void	search_path_env(t_cmd *cmd)
 		free(cmd->data->big_path);
 	if (cmd->data->env)
 	{
-
 		while (cmd->data->env[i])
 		{
 			if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
@@ -94,7 +93,8 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
-	cmd->data->exitcode = 0;
+	if (ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
+		cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
 	if_no_input(cmd);
 	ft_lstiter(cmd->inputlist, &input_files);
