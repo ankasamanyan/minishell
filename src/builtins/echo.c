@@ -28,23 +28,45 @@ bool	echo(t_cmd *cmdnode)
 	return (false);
 }
 
+// void	echo_check(t_cmd *cmd)
+// {
+	
+// }
+
 void	echo_builtin(t_cmd *cmd)
 {
 	int		i;
+	bool	da;
 
-	// write(cmd->fd_out, "AAAAAAAAAAAAAAAAA\n", 1);
-	// write(1, ft_itoa(cmd->fd_out), ft_strlen(ft_itoa(cmd->fd_out)));
-	// print_2d_array(cmd->cmd_arr, 2);
-	// printf("stop of 2d array\n");
-	// printf("");
+	da = false;
 	if (cmd->cmd_arr[0])
 	{
 		if(cmd->cmd_arr[1])
 		{
-			if (ft_strncmp(cmd->cmd_arr[1], "-n", 3) == 0)
-				i = 2;
+			int j = 1;
+			if (ft_strncmp(cmd->cmd_arr[1], "-n", 2) == 0)
+			{
+				while (cmd->cmd_arr[1][j])
+				{
+					if (cmd->cmd_arr[1][j] == 'n')
+					{
+						i = 2;
+						da = true;
+					}
+					else
+					{
+						i = 1;
+						da = false;
+						break;
+					}
+					j++;
+				}
+			}
 			else
+			{
 				i = 1;
+				da = false;
+			}
 			while (cmd->cmd_arr[i])
 			{
 				write(cmd->fd_out, cmd->cmd_arr[i], ft_strlen(cmd->cmd_arr[i]));
@@ -52,7 +74,7 @@ void	echo_builtin(t_cmd *cmd)
 				if (cmd->cmd_arr[i])
 					write(cmd->fd_out, " ", 1);
 			}
-			if (ft_strncmp(cmd->cmd_arr[1], "-n", 3) != 0)
+			if (!da)
 				write(cmd->fd_out, "\n", 1);
 		}
 		else
