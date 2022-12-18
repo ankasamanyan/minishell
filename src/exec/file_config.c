@@ -94,8 +94,8 @@ void	here_doc(t_pair *input)
 	if (input->cmd->fd_in > 2)
 		close(input->cmd->fd_in);
 	waitpid(pid, &input->cmd->data->exitcode, 0);
-	// if (input->cmd->data->exitcode > 255)
-	// 	input->cmd->data->exitcode /= 256;
+	if (input->cmd->data->exitcode > 255)
+		input->cmd->data->exitcode /= 256;
 	set_signals(interactive);
 	close(pipy[WRITE_END]);
 	input->cmd->fd_in = pipy[READ_END];
