@@ -33,7 +33,7 @@ void	onexit(t_data *data);
 void	builtins_exec(t_cmd *cmd);
 /* error message */
 void	err_msg(char *stringy);
-void	err_cmd_not_found(char *stringy);
+void	err_cmd_not_found(char *stringy, int nbr);
 
 
 

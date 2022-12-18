@@ -1,24 +1,10 @@
 - Check exit codes
 - clean up env
 Dangers (problenms I found others had in their evals):
-	- leak with exit (well not problem for us so far, but lets think about it together)
+	//- leak with exit (well not problem for us so far, but lets think about it together)
 	- a problem with cd. when PWD is unset and segfault with multiple variables
 
     - OLDPWD is not updated after a cd call
     🙃
-		- same as above, i think its handled, but pls take a look if u can break it
-		- also: if we unset pwd, our minishell will still successfully execute "pwd" because it doesnt need the env variable
-- cat ctrl+ c duplicates prompt. Net chorosho
-- leak after running minishell - cat -ctrl+c - ctrl+d
-	Direct leak of 13 byte(s) in 1 object(s) allocated from:
-    #0 0x7f5b78ba9808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
-    #1 0x563e881bcc26 in ft_calloc (/mnt/e/42/Projects/minishell/minishell+0x5c26)
-    #2 0x563e881bd4f3 in ft_strjoin (/mnt/e/42/Projects/minishell/minishell+0x64f3)
-    #3 0x563e881b8ce2 in ft_triple_strjoin (/mnt/e/42/Projects/minishell/minishell+0x1ce2)
-    #4 0x563e881b8f4f in path_access (/mnt/e/42/Projects/minishell/minishell+0x1f4f)
-    #5 0x563e881b9067 in find_cmd_path (/mnt/e/42/Projects/minishell/minishell+0x2067)
-    #6 0x563e881b9351 in pipex (/mnt/e/42/Projects/minishell/minishell+0x2351)
-    #7 0x563e881b9325 in exec (/mnt/e/42/Projects/minishell/minishell+0x2325)
-    #8 0x563e881bcb16 in ft_lstiter (/mnt/e/42/Projects/minishell/minishell+0x5b16)
-    #9 0x563e881b85f3 in main (/mnt/e/42/Projects/minishell/minishell+0x15f3)
-    #10 0x7f5b7887e082 in __libc_start_main ../csu/libc-start.c:308
+  
+  -fix GODDAMN export

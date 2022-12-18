@@ -13,6 +13,7 @@ void	print_export(t_list *list)
 		while (((t_exp *)temp->content)->rank != i)
 			temp = temp->next;
 		expnode = temp->content;
+		//WOLF PLS HALP WE NEED TO FIX THIS OMG W EAER E DIYNG
 		printf("declare -x %s", expnode->name);
 		if (expnode->value)
 			printf("=\"%s\"", expnode->value);

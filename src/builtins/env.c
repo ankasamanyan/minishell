@@ -2,7 +2,6 @@
 
 bool	env(t_cmd *cmdnode)
 {
-	//int		i;
 	t_data	*data;
 
 	if (cmdnode->cmd_arr[1])
@@ -10,27 +9,17 @@ bool	env(t_cmd *cmdnode)
 	data = cmdnode->data;
 	if (!data->env)
 		return (msg_error("env", "not found", NULL), true);
-	//i = 0;
-	// while (data->env[i])
-	// {
-	// 	printf("%s\n", data->env[i]);
-	// 	i++;
-	// }
 	return (false);
 }
-
+//it works
 void	env_builtin(t_cmd *cmdnode)
 {
 	int		i;
 	t_data	*data;
 
-	// write(2, ft_itoa(cmdnode->fd_out), ft_strlen(ft_itoa(cmdnode->fd_out)));
-	// write(2, "\n", 1);
 	data = cmdnode->data;
 	if (cmdnode->cmd_arr[1])
-	{
-		return ; //ERROR MESSAGEEEEEEEEEEEE
-	}
+		return ;
 	if (!data->env)
 		return ;
 	i = 0;
@@ -38,10 +27,8 @@ void	env_builtin(t_cmd *cmdnode)
 	{
 		write(cmdnode->fd_out, data->env[i], ft_strlen(data->env[i]));
 		write(cmdnode->fd_out, "\n", 1);
-		// printf("%s\n", data->env[i]);
 		i++;
 	}
-	//return (false);
 }
 
 /*

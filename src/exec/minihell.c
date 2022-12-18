@@ -20,7 +20,7 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 		else
 		{
 			cmd->data->exitcode = 126;
-			if (access(lil_path, F_OK) != 0)
+			if (access(lil_path, F_OK))
 				cmd->data->exitcode++;
 			free(lil_path);
 		}
@@ -30,8 +30,10 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 void	find_cmd_path(t_cmd *cmd)
 {
 	char	**smoll_pathsies;
+	int		aaaaa;
 
 	cmd->data->halp = false;
+	aaaaa = 1;
 	if (cmd->cmd_arr)
 	{
 		smoll_pathsies = ft_split(cmd->data->big_path, ':');
@@ -43,10 +45,14 @@ void	find_cmd_path(t_cmd *cmd)
 			cmd->data->halp = true;
 		}
 		else
-			access(cmd->cmd_arr[0], F_OK);
+		{
+			if (access(cmd->cmd_arr[0], F_OK) == 0)
+				aaaaa = 2;
+
+		}
 		ft_free_array(smoll_pathsies);
 		if (!cmd->data->halp)
-			err_cmd_not_found(cmd->cmd_arr[0]);
+			err_cmd_not_found(cmd->cmd_arr[0], aaaaa);
 	}
 }
 
@@ -58,8 +64,6 @@ void	kiddi_process(t_cmd *cmd)
 		dup2(cmd->fd_in, STDIN_FILENO);
 	if (cmd->fd_out > 2)
 		dup2(cmd->fd_out, STDOUT_FILENO);
-		// printf("full path: %s\n", cmd->data->full_path);
-		// print_2d_array(cmd->data->env, 1);
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);

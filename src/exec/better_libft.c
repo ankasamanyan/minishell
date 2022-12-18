@@ -48,10 +48,14 @@ void	err_msg(char *stringy)
 		perror(" ");
 }
 
-void	err_cmd_not_found(char *stringy)
+void	err_cmd_not_found(char *stringy, int nbr)
 {
 		write(2, "Minishell: ", 11);
 		if(stringy)
 			write(2, stringy, ft_strlen(stringy));
-		write(2, ": command not found\n", 21);
+		if (nbr == 1)
+			write(2, ": command not found\n", 21);
+		else if (nbr == 2)
+			perror(" ");
 }
+
