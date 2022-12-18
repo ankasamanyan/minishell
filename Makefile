@@ -56,7 +56,7 @@ $(NAME): $(OBJ) $(LIBFT)
 	@$(CC) $(CFLAGS) $(EFLAGS) $(OBJ) -o $(NAME) $(LIBFT) $(LIBFLAGS) $(RL_FLAG)
 	@bash src/pixel.sh
 	@echo "$(PINK)✨Minishell successfully compiled!✨$(RESET)\n"
-# @./minishell
+#@./minishell
 
 $(LIBFT):
 	@make --no-print-directory -C src/libft
