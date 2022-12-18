@@ -70,16 +70,20 @@ void	search_path_env(t_cmd *cmd)
 	i = 0;
 	if(cmd->data->big_path)
 		free(cmd->data->big_path);
-	while (cmd->data->env[i])
+	if (cmd->data->env)
 	{
-		if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
+
+		while (cmd->data->env[i])
 		{
-			cmd->data->big_path = ft_strdup(cmd->data->env[i] + 5);
-			break ;
+			if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
+			{
+				cmd->data->big_path = ft_strdup(cmd->data->env[i] + 5);
+				break ;
+			}
+			i++;
 		}
-		i++;
 	}
-	if(!cmd->data->env[i])
+	if(!cmd->data->env)
 		cmd->data->big_path = ft_strdup("");
 }
 
