@@ -54,7 +54,7 @@ bool	pwd(t_cmd *cmdnode);
 
 //unset.c
 bool	unset(t_cmd *cmdnode);
-void	del_fromexplist(t_list *del_node, t_list *exp_list);
+void	del_fromexplist(t_list *del_node, t_list **exp_list);
 t_list	*get_precedingnode(t_list *node, t_list *list);
 
 #endif
