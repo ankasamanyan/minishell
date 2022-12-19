@@ -35,7 +35,7 @@ int	cd(t_cmd *cmdnode)
 	}
 	failure = -chdir(path);
 	if (failure)
-		msg_error("cd", path, E_NOFILDIR);
+		msg_error("cd", cmdnode->cmd_arr[1], E_NOFILDIR);
 	else
 		update_pwd(cmdnode->data);
 	if (alloc)

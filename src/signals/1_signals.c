@@ -96,14 +96,11 @@ void	sig_newline(int sig)
 	}
 }
 
-
-
 void	smth_cedric_needs(void)
 {
 	signal(SIGINT, sig_newline);
 	signal(SIGQUIT, SIG_IGN); // der Vater (getting milk right now)//at least he is not ignoring the milk
 }
-
 
 void	kiddi_signals(int signal)
 {
