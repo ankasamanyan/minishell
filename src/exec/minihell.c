@@ -6,18 +6,21 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	int		i;
 
 	i = 0;
-	while (smoll_pathsies[i])
+	if (smoll_pathsies)
 	{
-		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
-				"/", cmd->cmd_arr[0]);
-		if (access(lil_path, X_OK) == 0)
+		while (smoll_pathsies[i])
 		{
-			cmd->data->full_path = lil_path;
-			cmd->data->halp = true;
-			return ;
+			lil_path = ft_triple_strjoin(smoll_pathsies[i++],
+					"/", cmd->cmd_arr[0]);
+			if (access(lil_path, X_OK) == 0)
+			{
+				cmd->data->full_path = lil_path;
+				cmd->data->halp = true;
+				return ;
+			}
+			else
+				free(lil_path);
 		}
-		else
-			free(lil_path);
 	}
 }
 
