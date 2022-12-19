@@ -10,20 +10,21 @@
 	because now we have to introduce a bool that checks whether path was allocated
 	or not. Could do it more elegantly with !cwd if it could remain inlined.
 -	Remaining case is inputpath does start with '/': just keep it as is.
--	Calls chdir and stores result in failure.
+-	Calls chdir and stores result in failure *-1 because chdir returns
+	either -1 or 0, but we want to return either 1 or 0.
 -	If we called build_path and thus there was an alloc: free path.
 -	If chdir didn't succeed and returned non zero: Print error msg.
 -	Return whatever failure is.
 */
-bool	cd(t_cmd *cmdnode)
+int	cd(t_cmd *cmdnode)
 {
 	char	*path;
 	bool	alloc;
-	bool	failure;
+	int		failure;
 
 	alloc = false;
 	if (cmdnode->cmd_arr[1] && cmdnode->cmd_arr[2])
-		return (msg_error("cd", E_MANYARG, NULL), true);		//to do error code 1
+		return (msg_error("cd", E_MANYARG, NULL), 1);
 	path = cmdnode->cmd_arr[1];
 	if (!path)
 		path = get_homedir(cmdnode->data->env);
@@ -32,11 +33,11 @@ bool	cd(t_cmd *cmdnode)
 		path = build_absolutepath(path);
 		alloc = true;
 	}
-	failure = chdir(path);
+	failure = -chdir(path);
 	if (failure)
-		msg_error("cd", path, E_NOFILDIR); // to do set error code to 1
+		msg_error("cd", cmdnode->cmd_arr[1], E_NOFILDIR);
 	else
-		update_pwd(cmdnode->data, path);
+		update_pwd(cmdnode->data);
 	if (alloc)
 		free(path);
 	return (failure);
@@ -69,7 +70,7 @@ char	*build_absolutepath(char *rel_path)
 	return (abs_path);
 }
 
-void	update_pwd(t_data *data, char *newpath)
+void	update_pwd(t_data *data)
 {
 	t_exp	*exp_pwd;
 	t_exp	*exp_oldpwd;
@@ -90,6 +91,7 @@ void	update_pwd(t_data *data, char *newpath)
 	}
 	if (exp_pwd->value)
 		free(exp_pwd->value);
-	exp_pwd->value = ft_strdup(newpath);
+	exp_pwd->value = NULL;
+	exp_pwd->value = getcwd(exp_pwd->value, 0);
 	build_env(data, data->exp_list);
 }

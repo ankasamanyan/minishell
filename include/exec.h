@@ -7,7 +7,8 @@ typedef struct s_data	t_data;
 typedef struct s_pair	t_pair;
 typedef struct s_cmd	t_cmd;
 
-/* my additional Libft functions, because Wolf decided to use his Libft as submodule */
+/* my additional Libft functions,
+because Wolf decided to use his Libft as submodule */
 void	ft_free_array(char **array);
 void	print_2d_array(char	**arr, int fd);
 char	*ft_triple_strjoin(char *first, char *second, char *third);
@@ -34,7 +35,5 @@ void	builtins_exec(t_cmd *cmd);
 /* error message */
 void	err_msg(char *stringy, t_data *data);
 void	err_cmd_not_found(char *stringy, int nbr, t_data *data);
-
-
 
 #endif

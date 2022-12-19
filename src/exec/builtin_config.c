@@ -3,17 +3,18 @@
 void	builtins_exec(t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->cmd_arr[0], "export", ft_strlen("export")) == 0)
-		export(cmd);
+		cmd->data->exitcode = export(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "env", ft_strlen("env")) == 0)
-		env_builtin(cmd);
+		cmd->data->exitcode = env(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "pwd", ft_strlen("pwd")) == 0)
-		pwd(cmd);
+		cmd->data->exitcode = pwd(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "cd", ft_strlen("cd")) == 0)
-		cd(cmd);
+		cmd->data->exitcode = cd(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "echo", ft_strlen("echo")) == 0)
-		echo_builtin(cmd);
+		cmd->data->exitcode = echo(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "unset", ft_strlen("unset")) == 0)
-		unset(cmd);
-	else if (ft_strncmp(cmd->cmd_arr[0], "exit", ft_strlen("exit")) == 0 && ft_lstsize(cmd->data->cmd_list) == 1)
+		cmd->data->exitcode = unset(cmd);
+	else if (ft_strncmp(cmd->cmd_arr[0], "exit", ft_strlen("exit")) == 0
+		&& ft_lstsize(cmd->data->cmd_list) == 1)
 		bltn_exit(cmd);
 }
