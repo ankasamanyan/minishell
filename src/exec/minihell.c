@@ -93,7 +93,7 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
-	if (ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
+	if ((cmd->cmd_arr != NULL) && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
 		cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
 	if_no_input(cmd);
@@ -128,11 +128,8 @@ void	pipex(t_cmd *cmd)
 		{
 			// if (cmd->data->exitcode)
 				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			// else 
-			// 	waitpid(cmd->data->pid, NULL, 0);
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
-			// printf("%safter waitpid %i%s\n", YELLOW, cmd->data->exitcode, RESET);
 			smth_cedric_needs();
 			free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
