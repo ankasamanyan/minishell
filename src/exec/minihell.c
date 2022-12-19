@@ -96,7 +96,7 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
-	if (ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
+	if ((cmd->cmd_arr != NULL) && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
 		cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
 	if_no_input(cmd);
