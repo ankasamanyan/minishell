@@ -105,7 +105,6 @@ void	exec(void *cmd_list)
 	ft_lstiter(cmd->outputlist, &output_files);
 	if (cmd->data->file_err)
 		return ;
-	search_path_env(cmd);
 	if (cmd->builtin)
 		builtins_exec(cmd);
 	else
@@ -115,6 +114,7 @@ void	exec(void *cmd_list)
 
 void	pipex(t_cmd *cmd)
 {
+	search_path_env(cmd);
 	find_cmd_path(cmd);
 	if (cmd->cmd_arr)
 	{

@@ -123,9 +123,8 @@ void	if_no_output(t_cmd *cmd)
 
 void	output_files(void *outfile)
 {
-	t_pair	*output;
+	t_pair *const output = outfile;
 
-	output = (t_pair *)outfile;
 	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
