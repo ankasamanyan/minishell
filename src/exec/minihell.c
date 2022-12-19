@@ -133,7 +133,8 @@ void	pipex(t_cmd *cmd)
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
 			smth_cedric_needs();
-			free(cmd->data->full_path);
+			if (cmd->data->full_path)
+				free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
 		}
 	}
