@@ -45,57 +45,52 @@ bool	is_onlytargetchar(char *string, char targetchar)
 	return (true);
 }
 
-// void	echo_check(t_cmd *cmd)
+// int	echo_builtin(t_cmd *cmd)
 // {
+// 	int		i;
+// 	bool	da;
 
+// 	da = false;
+// 	if (cmd->cmd_arr[0])
+// 	{
+// 		if(cmd->cmd_arr[1])
+// 		{
+// 			int j = 1;
+// 			if (ft_strncmp(cmd->cmd_arr[1], "-n", 2) == 0)
+// 			{
+// 				while (cmd->cmd_arr[1][j])
+// 				{
+// 					if (cmd->cmd_arr[1][j] == 'n')
+// 					{
+// 						i = 2;
+// 						da = true;
+// 					}
+// 					else
+// 					{
+// 						i = 1;
+// 						da = false;
+// 						break;
+// 					}
+// 					j++;
+// 				}
+// 			}
+// 			else
+// 			{
+// 				i = 1;
+// 				da = false;
+// 			}
+// 			while (cmd->cmd_arr[i])
+// 			{
+// 				write(cmd->fd_out, cmd->cmd_arr[i], ft_strlen(cmd->cmd_arr[i]));
+// 				i++;
+// 				if (cmd->cmd_arr[i])
+// 					write(cmd->fd_out, " ", 1);
+// 			}
+// 			if (!da)
+// 				write(cmd->fd_out, "\n", 1);
+// 		}
+// 		else
+// 			write(cmd->fd_out, "\n", 1);
+// 	}
+// 	return (0);
 // }
-
-int	echo_builtin(t_cmd *cmd)
-{
-	int		i;
-	bool	da;
-
-	da = false;
-	if (cmd->cmd_arr[0])
-	{
-		if(cmd->cmd_arr[1])
-		{
-			int j = 1;
-			if (ft_strncmp(cmd->cmd_arr[1], "-n", 2) == 0)
-			{
-				while (cmd->cmd_arr[1][j])
-				{
-					if (cmd->cmd_arr[1][j] == 'n')
-					{
-						i = 2;
-						da = true;
-					}
-					else
-					{
-						i = 1;
-						da = false;
-						break;
-					}
-					j++;
-				}
-			}
-			else
-			{
-				i = 1;
-				da = false;
-			}
-			while (cmd->cmd_arr[i])
-			{
-				write(cmd->fd_out, cmd->cmd_arr[i], ft_strlen(cmd->cmd_arr[i]));
-				i++;
-				if (cmd->cmd_arr[i])
-					write(cmd->fd_out, " ", 1);
-			}
-			if (!da)
-				write(cmd->fd_out, "\n", 1);
-		}
-		else
-			write(cmd->fd_out, "\n", 1);
-	}
-	return (0);
-}
