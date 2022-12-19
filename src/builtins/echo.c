@@ -10,10 +10,7 @@ int	echo(t_cmd *cmdnode)
 	bool	print_newline;
 
 	if (!cmdnode->cmd_arr[1])
-	{
-		ft_putchar_fd('\n', cmdnode->fd_out);
-		return (0);
-	}
+		return (ft_putchar_fd('\n', cmdnode->fd_out), 0);
 	i = 1;
 	print_newline = true;
 	if (!ft_strncmp("-n", cmdnode->cmd_arr[1], 2)
@@ -31,7 +28,7 @@ int	echo(t_cmd *cmdnode)
 	}
 	if (print_newline)
 		ft_putchar_fd('\n', cmdnode->fd_out);
-	return (false);
+	return (0);
 }
 
 bool	is_onlytargetchar(char *string, char targetchar)
