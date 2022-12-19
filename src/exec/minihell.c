@@ -127,7 +127,7 @@ void	pipex(t_cmd *cmd)
 		else
 		{
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			if (cmd->data->exitcode > 255);
+			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
 			smth_cedric_needs();
 			free(cmd->data->full_path);
