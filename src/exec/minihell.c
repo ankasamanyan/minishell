@@ -129,12 +129,7 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-<<<<<<< HEAD
-			// if (cmd->data->exitcode)
-				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-=======
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
->>>>>>> main
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
 			smth_cedric_needs();
