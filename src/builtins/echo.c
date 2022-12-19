@@ -4,36 +4,56 @@
 Gave echo a return in order for it to have same structure as other builtins.
 Might make things easier for exec part.
 */
-bool	echo(t_cmd *cmdnode)
+int	echo(t_cmd *cmdnode)
 {
-	(void)cmdnode;
-	// int		i;
-	// bool	print_newline;
+	int		i;
+	bool	print_newline;
 
-	// i = 1;
-	// print_newline = true;
-	// // write(1, "\n", 1);
-	// if (!ft_strncmp("-f", cmdnode->cmd_arr[1], 3))
-	// {
-	// 	i++;
-	// 	print_newline = false;
-	// }
-	// while (cmdnode->cmd_arr[i])
-	// {
-	// 	// printf(" %s", cmdnode->cmd_arr[i]);
-	// 	i++;
-	// }
-	// if (print_newline)
-	// 	// write(1, "\n", 1);
+	if (!cmdnode->cmd_arr[1])
+	{
+		ft_putchar_fd('\n', cmdnode->fd_out);
+		return (0);
+	}
+	i = 1;
+	print_newline = true;
+	if (!ft_strncmp("-n", cmdnode->cmd_arr[1], 2)
+		&& is_onlytargetchar(cmdnode->cmd_arr[1] + 2, 'n'))
+	{
+		i++;
+		print_newline = false;
+	}
+	while (cmdnode->cmd_arr[i])
+	{
+		ft_putstr_fd(cmdnode->cmd_arr[i], cmdnode->fd_out);
+		if (cmdnode->cmd_arr[i + 1])
+			ft_putchar_fd(' ', cmdnode->fd_out);
+		i++;
+	}
+	if (print_newline)
+		ft_putchar_fd('\n', cmdnode->fd_out);
 	return (false);
+}
+
+bool	is_onlytargetchar(char *string, char targetchar)
+{
+	int		i;
+
+	i = 0;
+	while (string[i])
+	{
+		if (string[i] != targetchar)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 // void	echo_check(t_cmd *cmd)
 // {
-	
+
 // }
 
-void	echo_builtin(t_cmd *cmd)
+int	echo_builtin(t_cmd *cmd)
 {
 	int		i;
 	bool	da;
@@ -80,4 +100,5 @@ void	echo_builtin(t_cmd *cmd)
 		else
 			write(cmd->fd_out, "\n", 1);
 	}
+	return (0);
 }

@@ -5,7 +5,7 @@ Made a case for getcwd failing to give back a path. I honestly have no
 idea what could cause such an event, but I don't know what I don't know
 so here we are.
 */
-bool	pwd(t_cmd *cmdnode)
+int	pwd(t_cmd *cmdnode)
 {
 	char	*path;
 

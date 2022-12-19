@@ -7,12 +7,12 @@
 -	Project doesn't allow flags so first char'-' generates a different error msg
 	in 2nd cmd array position (the flag position).
 */
-bool	export(t_cmd *cmdnode)
+int	export(t_cmd *cmdnode)
 {
 	int		i;
 
 	if (!cmdnode->cmd_arr[1])
-		return (print_export(cmdnode->data->exp_list), false);
+		return (print_export(cmdnode), false);
 	if (cmdnode->cmd_arr[1][0] == '-')
 		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);	//to do set error code
 	i = 1;

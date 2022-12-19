@@ -1,23 +1,27 @@
 #include "../../include/minishell.h"
 
-void	print_export(t_list *list)
+void	print_export(t_cmd *cmdnode)
 {
 	int			i;
 	t_list		*temp;
 	t_exp		*expnode;
 
 	i = 0;
-	while (i < ft_lstsize(list))
+	while (i < ft_lstsize(cmdnode->data->exp_list))
 	{
-		temp = list;
+		temp = cmdnode->data->exp_list;
 		while (((t_exp *)temp->content)->rank != i)
 			temp = temp->next;
 		expnode = temp->content;
-		//WOLF PLS HALP WE NEED TO FIX THIS OMG W EAER E DIYNG
-		printf("declare -x %s", expnode->name);
+		ft_putstr_fd("declare -x ", cmdnode->fd_out);
+		ft_putstr_fd(expnode->name, cmdnode->fd_out);
 		if (expnode->value)
-			printf("=\"%s\"", expnode->value);
-		printf("\n");
+		{
+			ft_putstr_fd("=\"", cmdnode->fd_out);
+			ft_putstr_fd(expnode->value, cmdnode->fd_out);
+			ft_putstr_fd("\"", cmdnode->fd_out);
+		}
+		ft_putstr_fd("\n", cmdnode->fd_out);
 		i++;
 	}
 }
