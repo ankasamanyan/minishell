@@ -12,9 +12,9 @@ int	export(t_cmd *cmdnode)
 	int		i;
 
 	if (!cmdnode->cmd_arr[1])
-		return (print_export(cmdnode), false);
+		return (print_export(cmdnode), 0);
 	if (cmdnode->cmd_arr[1][0] == '-')
-		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);	//to do set error code
+		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), 1);
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
@@ -24,7 +24,7 @@ int	export(t_cmd *cmdnode)
 	}
 	set_order(cmdnode->data->exp_list);
 	build_env(cmdnode->data, cmdnode->data->exp_list);
-	return (false);
+	return (0);
 }
 
 /*
