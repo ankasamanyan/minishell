@@ -21,7 +21,7 @@ int	main(int argc, char *argv[], char *env[])
 	smth_cedric_needs();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
-	while (1)
+	while (THE_EMPEROR_PROTECTS)
 	{
 		input = readline("\033[0;36mMinishell-3.2$\033[0m ");
 		add_history(input);
@@ -46,7 +46,6 @@ void	init_datastruct(t_data *data, char **env)
 	data->pipe[READ_END] = -1;
 	data->pipe[WRITE_END] = -1;
 }
-
 
 /*
 - 	case: !input

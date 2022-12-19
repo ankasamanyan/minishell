@@ -13,8 +13,8 @@ int	echo(t_cmd *cmdnode)
 		return (ft_putchar_fd('\n', cmdnode->fd_out), 0);
 	i = 1;
 	print_newline = true;
-	if (!ft_strncmp("-n", cmdnode->cmd_arr[1], 2)
-		&& is_onlytargetchar(cmdnode->cmd_arr[1] + 2, 'n'))
+	while (!ft_strncmp("-n", cmdnode->cmd_arr[i], 2)
+		&& is_onlytargetchar(cmdnode->cmd_arr[i] + 2, 'n'))
 	{
 		i++;
 		print_newline = false;

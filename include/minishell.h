@@ -52,7 +52,7 @@ fi
 
 # define READ_END	0
 # define WRITE_END	1
-
+# define THE_EMPEROR_PROTECTS 1
 
 typedef struct s_data	t_data;
 
