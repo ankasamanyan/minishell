@@ -2,5 +2,4 @@
 *.a
 minishell
 *.txt
-!todo.txt
 obj
