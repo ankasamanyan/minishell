@@ -19,14 +19,11 @@ bool	preproc_syntaxerror(t_par *p)
 		return (true);
 	lastchar = p->input[ft_strlen(p->input) - 1];
 	if (p->input[0] == '|')
-		return (msg_senut('|'), true);
+		return (msg_senut('|', false), true);
 	if (is_operatorchar(lastchar))
-		return (msg_senut('\n'), true);
+		return (msg_senut('\n', false), true);
 	if (has_unclosedquote(p->input))
-	{
-		msg_error(E_UNCLOSEDQUOTE, NULL, NULL);
-		return (msg_senut(lastchar), true);
-	}
+		return (msg_senut('\n', true), true);
 	return (false);
 }
 

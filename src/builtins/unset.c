@@ -8,7 +8,7 @@ int	unset(t_cmd *cmdnode)
 	if (!cmdnode->cmd_arr[1])
 		return (false);
 	if (cmdnode->cmd_arr[1][0] == '-')
-		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
+		return (msg_err("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{

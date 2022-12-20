@@ -138,7 +138,7 @@ void	findandexpand(t_par *p)
 	if (!node || !((t_exp *)node->content)->value)
 		p->str_b = ft_calloc(sizeof(char), 1);
 	else
-		p->str_b = ((t_exp *)node->content)->value;
+		p->str_b = ft_strdup(((t_exp *)node->content)->value);
 	free(temp);
 }
 
@@ -154,5 +154,6 @@ char	*joinandfree(t_par *p, char *lexeme)
 	free(temp);
 	free(p->str_c);
 	free(lexeme);
+	printf("reulst:'%s'\n", result);
 	return (result);
 }

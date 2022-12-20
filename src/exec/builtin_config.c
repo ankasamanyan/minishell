@@ -9,11 +9,12 @@ void	builtins_exec(t_cmd *cmd)
 	else if (ft_strncmp(cmd->cmd_arr[0], "pwd", ft_strlen("pwd")) == 0)
 		cmd->data->exitcode = pwd(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "cd", ft_strlen("cd")) == 0)
-		cmd->data->exitcode = cmd->data->exitcode = cd(cmd);
+		cmd->data->exitcode = cd(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "echo", ft_strlen("echo")) == 0)
 		cmd->data->exitcode = echo(cmd);
 	else if (ft_strncmp(cmd->cmd_arr[0], "unset", ft_strlen("unset")) == 0)
 		cmd->data->exitcode = unset(cmd);
-	else if (ft_strncmp(cmd->cmd_arr[0], "exit", ft_strlen("exit")) == 0 && ft_lstsize(cmd->data->cmd_list) == 1)
+	else if (ft_strncmp(cmd->cmd_arr[0], "exit", ft_strlen("exit")) == 0
+		&& ft_lstsize(cmd->data->cmd_list) == 1)
 		bltn_exit(cmd);
 }

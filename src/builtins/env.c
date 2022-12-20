@@ -6,31 +6,10 @@ int	env(t_cmd *cmdnode)
 	int		i;
 
 	if (cmdnode->cmd_arr[1])
-		return (msg_error("env", E_MANYARG, NULL), 1);
+		return (msg_err("env", E_MANYARG, NULL), 1);
 	data = cmdnode->data;
 	if (!data->env)
-		return (msg_error("env", "not found", NULL), 1);
-	i = 0;
-	while (data->env[i])
-	{
-		write(cmdnode->fd_out, data->env[i], ft_strlen(data->env[i]));
-		write(cmdnode->fd_out, "\n", 1);
-		i++;
-	}
-	return (0);
-}
-
-//it works
-int	env_builtin(t_cmd *cmdnode)
-{
-	int		i;
-	t_data	*data;
-
-	data = cmdnode->data;
-	if (cmdnode->cmd_arr[1])
-		return (0);
-	if (!data->env)
-		return (0);
+		return (msg_err("env", "not found", NULL), 1);
 	i = 0;
 	while (data->env[i])
 	{

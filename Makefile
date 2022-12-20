@@ -26,17 +26,16 @@ SRC = 	src/minishell.c\
 		03_expand_var.c\
 		04_remove_quotes.c\
 		05_postproc_syntax.c\
-		06_parser1.c\
-		06_parser2.c\
+		06_parser.c\
 		07_check_builtin.c\
 		07_util_is.c\
 		07_util_general.c\
 		08_helper_print.c\
-		09_exits+broadcast.c\
+		09_msg.c\
 		10_shutdown1.c\
 		10_shutdown2.c)\
 		$(addprefix src/signals/,\
-		1_signals.c)\
+		signals.c)\
 		$(addprefix src/builtins/,\
 		cd.c\
 		echo.c\

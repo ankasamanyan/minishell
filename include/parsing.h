@@ -1,11 +1,9 @@
-
 #ifndef PARSING_H
 # define PARSING_H
 
 # define E_ARGC "Additional arguments discarded. Running as \"./minishell\"\n"
-# define E_UNCLOSEDQUOTE "unclosed quote"
+# define E_UNCLOSEDQUOTE ": unclosed quote"
 # define E_SENUT "Minishell: syntax error near unexpected token `"
-# define E_BLTNFLAG "Minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
 # define E_NOFILDIR "No such file or directory"
 # define E_INVALOPT "invalid option (options not allowed for this builtin \
@@ -90,13 +88,11 @@ bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
 bool	has_illegaloperatorsequence(t_par *p);
 
-//06_parser1.c
+//06_parser.c
 void	parser(t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
-
-//06_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
 
@@ -122,11 +118,10 @@ void	print_cmd_arr(t_list *node);
 void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
-//09_exits+broadcast.c
-void	errorexit_onlymsg(char *msg);
-void	msg_senut(char c);
-void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
-void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2);
+//09_msg.c
+void	msg_senut(char c, bool unclosed_quote);
+void	msg_err(char *err_msg0, char *err_msg1, char *err_msg2);
+void	msg_err_wquote(char *err_msg0, char *err_msg1, char *err_msg2);
 
 //10_shutdown1.c
 void	shutdown_parsing(t_data *data);

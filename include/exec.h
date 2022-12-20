@@ -36,6 +36,4 @@ void	builtins_exec(t_cmd *cmd);
 void	err_msg(char *stringy, t_data *data);
 void	err_cmd_not_found(char *stringy, int nbr, t_data *data);
 
-
-
 #endif

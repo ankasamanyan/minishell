@@ -24,7 +24,7 @@ int	cd(t_cmd *cmdnode)
 
 	alloc = false;
 	if (cmdnode->cmd_arr[1] && cmdnode->cmd_arr[2])
-		return (msg_error("cd", E_MANYARG, NULL), 1);
+		return (msg_err("cd", E_MANYARG, NULL), 1);
 	path = cmdnode->cmd_arr[1];
 	if (!path)
 		path = get_homedir(cmdnode->data->env);
@@ -35,7 +35,7 @@ int	cd(t_cmd *cmdnode)
 	}
 	failure = -chdir(path);
 	if (failure)
-		msg_error("cd", path, E_NOFILDIR);
+		msg_err("cd", cmdnode->cmd_arr[1], E_NOFILDIR);
 	else
 		update_pwd(cmdnode->data);
 	if (alloc)
