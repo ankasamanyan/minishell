@@ -11,7 +11,7 @@ void	if_no_input(t_cmd *cmd)
 			cmd->fd_in = STDIN_FILENO;
 			cmd->data->first = !!!true;
 		}
-		else 
+		else
 		{
 			if (cmd->fd_in > 2)
 				close(cmd->fd_in);
@@ -22,8 +22,8 @@ void	if_no_input(t_cmd *cmd)
 
 void	input_files(void *infile)
 {
-	t_pair *const input = infile;
-	
+	t_pair *const	input = infile;
+
 	if (input->cmd->data->temp_pipe > 2)
 		close(input->cmd->data->temp_pipe);
 	if (input->doublebracket == false)
@@ -79,7 +79,8 @@ void	here_doc(t_pair *input)
 			if (!stringy)
 				exit(0);
 			stringy = append_char(stringy, '\n');
-			if ((ft_strncmp(stringy, input->string, ft_strlen(input->string)) == 0)
+			if ((ft_strncmp(stringy, input->string,
+						ft_strlen(input->string)) == 0)
 				&& (stringy[ft_strlen(input->string) + 1] == '\0')
 				&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
 				break ;
@@ -94,13 +95,12 @@ void	here_doc(t_pair *input)
 	}
 	setup_parent_signals();
 	waitpid(pid, &input->cmd->data->exitcode, 0);
-	// if (input->cmd->data->exitcode > 255)
-	// 	input->cmd->data->exitcode /= 256;
+	if (input->cmd->data->exitcode > 255)
+		input->cmd->data->exitcode /= 256;
 	set_signals(interactive);
 	close(pipy[WRITE_END]);
 	input->cmd->fd_in = pipy[READ_END];
 }
-
 
 void	if_no_output(t_cmd *cmd)
 {
@@ -123,20 +123,21 @@ void	if_no_output(t_cmd *cmd)
 
 void	output_files(void *outfile)
 {
-	t_pair	*output;
+	t_pair *const	output = outfile;
 
-	output = (t_pair *)outfile;
 	if (output->doublebracket == false)
 	{
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out);
-		output->cmd->fd_out = open(output->string, O_WRONLY | O_TRUNC | O_CREAT, 0777);
+		output->cmd->fd_out = open(output->string,
+				O_WRONLY | O_TRUNC | O_CREAT, 0777);
 	}
 	else if (output->doublebracket == true)
 	{
 		if (output->cmd->fd_out > 2)
 			close(output->cmd->fd_out);
-		output->cmd->fd_out = open(output->string, O_WRONLY | O_APPEND | O_CREAT, 0777);
+		output->cmd->fd_out = open(output->string,
+				O_WRONLY | O_APPEND | O_CREAT, 0777);
 	}
 	if (output->cmd->fd_out < 0)
 	{

@@ -36,7 +36,7 @@ SRC = 	src/minishell.c\
 		10_shutdown1.c\
 		10_shutdown2.c)\
 		$(addprefix src/signals/,\
-		1_signals.c)\
+		signals.c)\
 		$(addprefix src/builtins/,\
 		cd.c\
 		echo.c\

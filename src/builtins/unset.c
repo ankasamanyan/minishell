@@ -1,6 +1,6 @@
 #include "../../include/minishell.h"
 
-bool	unset(t_cmd *cmdnode)
+int	unset(t_cmd *cmdnode)
 {
 	int			i;
 	t_list		*target;

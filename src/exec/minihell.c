@@ -6,18 +6,21 @@ void	path_access(t_cmd *cmd, char **smoll_pathsies)
 	int		i;
 
 	i = 0;
-	while (smoll_pathsies[i])
+	if (smoll_pathsies)
 	{
-		lil_path = ft_triple_strjoin(smoll_pathsies[i++],
-				"/", cmd->cmd_arr[0]);
-		if (access(lil_path, X_OK) == 0)
+		while (smoll_pathsies[i])
 		{
-			cmd->data->full_path = lil_path;
-			cmd->data->halp = true;
-			return ;
+			lil_path = ft_triple_strjoin(smoll_pathsies[i++],
+					"/", cmd->cmd_arr[0]);
+			if (access(lil_path, X_OK) == 0)
+			{
+				cmd->data->full_path = lil_path;
+				cmd->data->halp = true;
+				return ;
+			}
+			else
+				free(lil_path);
 		}
-		else
-			free(lil_path);
 	}
 }
 
@@ -60,7 +63,6 @@ void	kiddi_process(t_cmd *cmd)
 	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
 	perror("Minishell: Execve error");
 	exit(-1);
-
 }
 
 void	search_path_env(t_cmd *cmd)
@@ -68,7 +70,7 @@ void	search_path_env(t_cmd *cmd)
 	int	i;
 
 	i = 0;
-	if(cmd->data->big_path)
+	if (cmd->data->big_path)
 		free(cmd->data->big_path);
 	if (cmd->data->env)
 	{
@@ -82,7 +84,7 @@ void	search_path_env(t_cmd *cmd)
 			i++;
 		}
 	}
-	if(!cmd->data->env)
+	if (!cmd->data->env)
 		cmd->data->big_path = ft_strdup("");
 }
 
@@ -93,7 +95,7 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
-	if ((cmd->cmd_arr != NULL) && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
+	if (cmd->cmd_arr && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
 		cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
 	if_no_input(cmd);
@@ -102,7 +104,6 @@ void	exec(void *cmd_list)
 	ft_lstiter(cmd->outputlist, &output_files);
 	if (cmd->data->file_err)
 		return ;
-	search_path_env(cmd);
 	if (cmd->builtin)
 		builtins_exec(cmd);
 	else
@@ -112,12 +113,14 @@ void	exec(void *cmd_list)
 
 void	pipex(t_cmd *cmd)
 {
+	search_path_env(cmd);
 	find_cmd_path(cmd);
 	if (cmd->cmd_arr)
 	{
 		if (!cmd->data->halp)
 			return ;
-		if (ft_strncmp((cmd->cmd_arr[0]) + (ft_strlen(cmd->cmd_arr[0]) - 9), "minishell", 10) == 0)
+		if (ft_strncmp((cmd->cmd_arr[0])
+				+ (ft_strlen(cmd->cmd_arr[0]) - 9), "minishell", 10) == 0)
 			setup_parent_signals();
 		else
 			exec_parent();
@@ -126,12 +129,12 @@ void	pipex(t_cmd *cmd)
 			kiddi_process(cmd);
 		else
 		{
-			// if (cmd->data->exitcode)
-				waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
+			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
 			if (cmd->data->exitcode > 255)
 				cmd->data->exitcode /= 256;
 			smth_cedric_needs();
-			free(cmd->data->full_path);
+			if (cmd->data->full_path)
+				free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
 		}
 	}
@@ -148,6 +151,6 @@ void	close_them_all(t_cmd *cmd)
 	if (cmd->data->temp_pipe > 2)
 		close(cmd->data->temp_pipe);
 	cmd->data->temp_pipe = cmd->data->pipe[READ_END];
-	if(cmd->data->cmd_count == ft_lstsize(cmd->data->cmd_list) + 1)
+	if (cmd->data->cmd_count == ft_lstsize(cmd->data->cmd_list) + 1)
 		close(cmd->data->temp_pipe);
 }

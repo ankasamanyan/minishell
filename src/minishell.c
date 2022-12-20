@@ -16,12 +16,12 @@ int	main(int argc, char *argv[], char *env[])
 	t_data		data;
 
 	(void)argv;
-
+	// rl_outstream = stderr;
 	init_datastruct(&data, env);
 	smth_cedric_needs();
 	if (argc > 1)
 		write(2, E_ARGC, ft_strlen(E_ARGC));
-	while (1)
+	while (THE_EMPEROR_PROTECTS)
 	{
 		input = readline("\033[0;36mMinishell-3.2$\033[0m ");
 		add_history(input);
@@ -29,20 +29,7 @@ int	main(int argc, char *argv[], char *env[])
 			continue ;
 		reset_datastruct(&data);
 		if (parsing(&data, input) == 0)
-		{
 			ft_lstiter(data.cmd_list, &exec);
-			// int j = 0;
-			// while (j <= ft_lstsize(data.cmd_list))
-			// {
-			// 	waitpid(-1, &data.exitcode, 0);
-			// 	if (data.exitcode > 255)
-			// 		data.exitcode/=256;
-			// 	j++;
-			// }
-			// smth_cedric_needs();
-			// free(data.full_path);
-			// data.full_path = NULL;
-		}
 		shutdown_parsing(&data);
 	}
 }
@@ -59,7 +46,6 @@ void	init_datastruct(t_data *data, char **env)
 	data->pipe[READ_END] = -1;
 	data->pipe[WRITE_END] = -1;
 }
-
 
 /*
 - 	case: !input

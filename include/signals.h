@@ -18,9 +18,8 @@ void	smth_cedric_needs(void);
 void	kiddi_signals(int signal);
 void	setup_kiddi_signals(void);
 void	setup_parent_signals(void);
-/*  */
+/* Welllll */
 void	signal_thingy(int smth);
 void	exec_parent(void);
-
 
 #endif

@@ -63,7 +63,7 @@ void	set_order(t_list *list)
 			}
 			compare = compare->next;
 		}
-		i++;
+		++i;
 	}
 	curr_ranked = get_firstunranked(list);
 	((t_exp *)curr_ranked->content)->rank = i;
