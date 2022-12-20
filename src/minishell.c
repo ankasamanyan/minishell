@@ -49,10 +49,10 @@ void	init_datastruct(t_data *data, char **env)
 
 /*
 - 	case: !input
-	only ctrl + d (= EOF) was entered. Should call same builtin as "exit" but
-	should also print "exit" to STDOUT.
+	only ctrl + d (= EOF) was entered. Prints "exit" to STDOUT and
+	exits with current exitcode.
 
--	case_ !input[0]
+-	case: !input[0]
 	Empty line, i.e. immediately pressed enter.
 */
 bool	specialcase(t_data *data, char *input)

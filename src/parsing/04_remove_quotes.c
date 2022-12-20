@@ -1,5 +1,10 @@
 #include "../../include/minishell.h"
 
+/*
+If result is NULL after the while loop but lexeme wasn't an empty string,
+that means lexeme was a sequence of empty quotation marks.
+In this case: returns an empty string instead of NULL.
+*/
 void	remove_quotes(t_par *p)
 {
 	t_list	*temp;
@@ -21,7 +26,7 @@ void	remove_quotes(t_par *p)
 				result = append_char(result, token->lexeme[i]);
 			i++;
 		}
-		if (!result)
+		if (!result && token->lexeme[0] != 0)
 			result = ft_calloc(1, sizeof(char));
 		free(token->lexeme);
 		token->lexeme = result;

@@ -154,5 +154,6 @@ char	*joinandfree(t_par *p, char *lexeme)
 	free(temp);
 	free(p->str_c);
 	free(lexeme);
+	printf("reulst:'%s'\n", result);
 	return (result);
 }
