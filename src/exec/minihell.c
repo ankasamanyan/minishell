@@ -71,7 +71,10 @@ void	search_path_env(t_cmd *cmd)
 
 	i = 0;
 	if (cmd->data->big_path)
+	{
 		free(cmd->data->big_path);
+		cmd->data->big_path = NULL;
+	}
 	if (cmd->data->env)
 	{
 		while (cmd->data->env[i])
@@ -95,11 +98,7 @@ void	exec(void *cmd_list)
 	cmd = (t_cmd *)cmd_list;
 	cmd->data->cmd_count++;
 	cmd->data->file_err = false;
-<<<<<<< HEAD
 	if ((cmd->cmd_arr != NULL) && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
-=======
-	if (cmd->cmd_arr && ft_strncmp(cmd->cmd_arr[0], "exit", 5) != 0)
->>>>>>> 8aecf11daeffe7523f14f0511a706dcd8ce4050d
 		cmd->data->exitcode = 0;
 	pipe(cmd->data->pipe);
 	if_no_input(cmd);
