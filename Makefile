@@ -41,9 +41,9 @@ SRC = 	src/minishell.c\
 		echo.c\
 		env.c\
 		exit.c\
-		export1.c\
-		export2.c\
-		export3.c\
+		export_init.c\
+		export_ordering.c\
+		export.c\
 		pwd.c\
 		unset.c)
 OBJ	=	$(addprefix obj/, $(SRC:src/%.c=%.o))
