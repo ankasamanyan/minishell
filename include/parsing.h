@@ -4,7 +4,6 @@
 # define E_ARGC "Additional arguments discarded. Running as \"./minishell\"\n"
 # define E_UNCLOSEDQUOTE ": unclosed quote"
 # define E_SENUT "Minishell: syntax error near unexpected token `"
-# define E_BLTNFLAG "Minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
 # define E_NOFILDIR "No such file or directory"
 # define E_INVALOPT "invalid option (options not allowed for this builtin \
