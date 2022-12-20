@@ -117,6 +117,14 @@ void	setup_kiddi_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
+// void	cedyy(int signal)
+// {
+// 	(void)signal;
+// 	data.exitcode = 130;
+// }
+
+	// signal(SIGINT, cedyy);
+	// signal(SIGQUIT, cedyy);
 void	setup_parent_signals(void)
 {
 	signal(SIGINT, SIG_IGN);

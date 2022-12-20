@@ -13,7 +13,6 @@
 int	main(int argc, char *argv[], char *env[])
 {
 	char		*input;
-	t_data		data;
 
 	(void)argv;
 	// rl_outstream = stderr;

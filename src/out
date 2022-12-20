@@ -1,0 +1,200 @@
+minishell.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: WRONG_SCOPE_COMMENT  (line:  18, col:   5):	Comment is invalid in this scope
+builtins/cd.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+builtins/echo.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: SPACE_AFTER_KW       (line:  61, col:   9):	Missing space after keyword
+Error: SPC_BFR_PAR          (line:  61, col:  11):	Missing space before parenthesis (brace/bracket)
+Error: WRONG_SCOPE_VAR      (line:  63, col:   1):	Variable declared in incorrect scope
+Error: SPACE_REPLACE_TAB    (line:  63, col:  16):	Found space when expecting tab
+Error: DECL_ASSIGN_LINE     (line:  63, col:  19):	Declaration and assignation on a single line
+Error: SPACE_AFTER_KW       (line:  77, col:  25):	Missing space after keyword
+Error: BRACE_SHOULD_EOL     (line: 101, col:   1):	Expected newline after brace
+Error: TOO_MANY_LINES       (line: 101, col:   1):	Function has more than 25 lines
+builtins/env.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: BRACE_SHOULD_EOL     (line:  74, col:   1):	Expected newline after brace
+builtins/exit.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+builtins/export1.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+builtins/export2.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: TOO_MANY_LINES       (line:  70, col:   1):	Function has more than 25 lines
+builtins/export3.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+builtins/pwd.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+builtins/unset.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+exec/better_libft.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: TOO_MANY_TAB         (line:  54, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  55, col:   1):	Extra tabs for indent level
+Error: SPACE_AFTER_KW       (line:  55, col:   9):	Missing space after keyword
+Error: SPC_BFR_PAR          (line:  55, col:  11):	Missing space before parenthesis (brace/bracket)
+Error: TOO_MANY_TAB         (line:  56, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  57, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  58, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  60, col:   1):	Extra tabs for indent level
+Error: EMPTY_LINE_FUNCTION  (line:  61, col:   1):	Empty line in function
+Error: TOO_MANY_TAB         (line:  62, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  63, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  64, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  66, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line:  67, col:   1):	Extra tabs for indent level
+Error: EMPTY_LINE_EOF       (line:  69, col:   1):	Empty line at end of file
+exec/builtin_config.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: MULT_ASSIGN_LINE     (line:  12, col:  51):	Multiple assignations on a single line
+Error: LINE_TOO_LONG        (line:  17, col:  87):	line too long
+exec/file_config.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: SPC_BEFORE_NL        (line:  14, col:  13):	Space before newline
+Error: SPACE_REPLACE_TAB    (line:  25, col:  18):	Found space when expecting tab
+Error: SPACE_EMPTY_LINE     (line:  26, col:   1):	Space on empty line
+Error: TOO_MANY_LINES       (line:  60, col:   1):	Function has more than 25 lines
+Error: SPACE_AFTER_KW       (line:  68, col:   5):	Missing space after keyword
+Error: SPC_BFR_PAR          (line:  68, col:   7):	Missing space before parenthesis (brace/bracket)
+Error: LINE_TOO_LONG        (line:  80, col:  82):	line too long
+Error: TOO_MANY_LINES       (line: 102, col:   1):	Function has more than 25 lines
+Error: CONSECUTIVE_NEWLINES (line: 104, col:   1):	Consecutive newlines
+Error: SPACE_REPLACE_TAB    (line: 126, col:  18):	Found space when expecting tab
+Error: LINE_TOO_LONG        (line: 132, col:  82):	line too long
+Error: LINE_TOO_LONG        (line: 138, col:  82):	line too long
+exec/minihell.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: EMPTY_LINE_FUNCTION  (line:  66, col:   1):	Empty line in function
+Error: SPACE_AFTER_KW       (line:  74, col:   5):	Missing space after keyword
+Error: SPC_BFR_PAR          (line:  74, col:   7):	Missing space before parenthesis (brace/bracket)
+Error: SPACE_AFTER_KW       (line:  88, col:   5):	Missing space after keyword
+Error: SPC_BFR_PAR          (line:  88, col:   7):	Missing space before parenthesis (brace/bracket)
+Error: TOO_MANY_FUNCS       (line: 115, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 123, col:  89):	line too long
+Error: TOO_MANY_FUNCS       (line: 143, col:   1):	Too many functions in file
+Error: SPACE_AFTER_KW       (line: 154, col:   5):	Missing space after keyword
+Error: SPC_BFR_PAR          (line: 154, col:   7):	Missing space before parenthesis (brace/bracket)
+libft/include/ft_printf.h: OK!
+libft/include/get_next_line.h: OK!
+libft/include/libft.h: OK!
+libft/src/ft_gnl/get_next_line.c: OK!
+libft/src/ft_gnl/get_next_line_utils.c: OK!
+libft/src/ft_is/ft_isalnum.c: OK!
+libft/src/ft_is/ft_isalpha.c: OK!
+libft/src/ft_is/ft_isascii.c: OK!
+libft/src/ft_is/ft_isdigit.c: OK!
+libft/src/ft_is/ft_isprint.c: OK!
+libft/src/ft_list/ft_lstadd_back.c: OK!
+libft/src/ft_list/ft_lstadd_front.c: OK!
+libft/src/ft_list/ft_lstclear.c: OK!
+libft/src/ft_list/ft_lstdelone.c: OK!
+libft/src/ft_list/ft_lstiter.c: OK!
+libft/src/ft_list/ft_lstlast.c: OK!
+libft/src/ft_list/ft_lstmap.c: OK!
+libft/src/ft_list/ft_lstnew.c: OK!
+libft/src/ft_list/ft_lstsize.c: OK!
+libft/src/ft_mem/ft_bzero.c: OK!
+libft/src/ft_mem/ft_calloc.c: OK!
+libft/src/ft_mem/ft_memchr.c: OK!
+libft/src/ft_mem/ft_memcmp.c: OK!
+libft/src/ft_mem/ft_memcpy.c: OK!
+libft/src/ft_mem/ft_memmove.c: OK!
+libft/src/ft_mem/ft_memset.c: OK!
+libft/src/ft_printf/ft_checkformat.c: OK!
+libft/src/ft_printf/ft_printchar.c: OK!
+libft/src/ft_printf/ft_printdecimal.c: OK!
+libft/src/ft_printf/ft_printf.c: OK!
+libft/src/ft_printf/ft_printhex_lower.c: OK!
+libft/src/ft_printf/ft_printhex_upper.c: OK!
+libft/src/ft_printf/ft_printint.c: OK!
+libft/src/ft_printf/ft_printpointer.c: OK!
+libft/src/ft_printf/ft_printstring.c: OK!
+libft/src/ft_printf/ft_printunsignedint.c: OK!
+libft/src/ft_put/ft_putchar_fd.c: OK!
+libft/src/ft_put/ft_putendl_fd.c: OK!
+libft/src/ft_put/ft_putnbr_fd.c: OK!
+libft/src/ft_put/ft_putstr_fd.c: OK!
+libft/src/ft_string/ft_atoi.c: OK!
+libft/src/ft_string/ft_itoa.c: OK!
+libft/src/ft_string/ft_split.c: OK!
+libft/src/ft_string/ft_strchr.c: OK!
+libft/src/ft_string/ft_strdup.c: OK!
+libft/src/ft_string/ft_striteri.c: OK!
+libft/src/ft_string/ft_strjoin.c: OK!
+libft/src/ft_string/ft_strlcat.c: OK!
+libft/src/ft_string/ft_strlcpy.c: OK!
+libft/src/ft_string/ft_strlen.c: OK!
+libft/src/ft_string/ft_strmapi.c: OK!
+libft/src/ft_string/ft_strncmp.c: OK!
+libft/src/ft_string/ft_strnstr.c: OK!
+libft/src/ft_string/ft_strrchr.c: OK!
+libft/src/ft_string/ft_strtrim.c: OK!
+libft/src/ft_string/ft_substr.c: OK!
+libft/src/ft_string/ft_tolower.c: OK!
+libft/src/ft_string/ft_toupper.c: OK!
+libft/src/mulain/is_intsize.c: OK!
+libft/src/mulain/is_numberformat.c: OK!
+libft/src/mulain/printlist.c: OK!
+libft/src/mulain/strlen_mod.c: OK!
+parsing/00_parsing.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/01_preproc_syntax.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/02_lexer.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/03_expand_var.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/04_remove_quotes.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/05_postproc_syntax.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/06_parser1.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/06_parser2.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/07_check_builtin.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: WRONG_SCOPE_COMMENT  (line:  15, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  16, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  17, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  18, col:   5):	Comment is invalid in this scope
+parsing/07_util_general.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/07_util_is.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/08_helper_print.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/09_exits+broadcast.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/10_shutdown1.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+parsing/10_shutdown2.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+signals/1_signals.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+Error: EMPTY_LINE_FUNCTION  (line:  48, col:   1):	Empty line in function
+Error: EMPTY_LINE_FUNCTION  (line:  52, col:   1):	Empty line in function
+Error: WRONG_SCOPE_COMMENT  (line:  75, col:   5):	Comment is invalid in this scope
+Error: CONSECUTIVE_NEWLINES (line:  99, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 100, col:   1):	Consecutive newlines
+Error: TOO_MANY_FUNCS       (line: 101, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 104, col:  31):	line too long
+Error: WRONG_SCOPE_COMMENT  (line: 104, col:  31):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line: 104, col:  31):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line: 104, col: 106):	line too long
+Error: CONSECUTIVE_NEWLINES (line: 107, col:   1):	Consecutive newlines
+Error: TOO_MANY_FUNCS       (line: 108, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 114, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 128, col:   1):	Too many functions in file
+Error: CONSECUTIVE_NEWLINES (line: 134, col:   1):	Consecutive newlines
+Error: TOO_MANY_FUNCS       (line: 136, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 145, col:   1):	Too many functions in file
+Error: CONSECUTIVE_NEWLINES (line: 151, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 152, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 153, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 154, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 155, col:   1):	Consecutive newlines
+Error: CONSECUTIVE_NEWLINES (line: 156, col:   1):	Consecutive newlines
+Error: EMPTY_LINE_EOF       (line: 156, col:   1):	Empty line at end of file

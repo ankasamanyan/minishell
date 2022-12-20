@@ -56,6 +56,8 @@ fi
 
 typedef struct s_data	t_data;
 
+t_data		data;
+
 typedef struct s_cmd
 {
 	char				**cmd_arr;
