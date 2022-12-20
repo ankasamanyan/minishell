@@ -31,23 +31,24 @@ void	bltn_exit(t_cmd *cmdnode);
 int		get_exitval(t_data *data, char **cmds);
 bool	is_onlydigits(char *string);
 
+//export_init.c
+void	init_exportlistandenv(t_data *data, char **env);
+void	increase_shlvl(t_data *data);
+t_list	*get_namenode(t_list *explist, char *name);
+
 //export1.c
 int		export(t_cmd *cmdnode);
+void	print_export(t_cmd *cmdnode);
 t_exp	*build_expnode(char *string);
 void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring);
 bool	has_invalidformat(char *string);
-t_list	*get_namenode(t_list *explist, char *name);
 
-//export2.c
-void	init_exportlistandenv(t_data *data, char **env);
+//export_ordering.c
 void	set_order(t_list *list);
+void	compare_nodes(t_list *list, int i);
 void	reset_rank(t_list *list);
 t_list	*get_firstunranked(t_list *list);
 bool	is_unrankedandprecedes(t_exp *node1, t_exp *node2);
-
-//export3.c
-void	print_export(t_cmd *cmdnode);
-void	increase_shlvl(t_data *data);
 
 //pwd.c
 int		pwd(t_cmd *cmdnode);
