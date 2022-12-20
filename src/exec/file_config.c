@@ -65,6 +65,8 @@ void	here_doc(t_pair *input)
 	int			pipy[2];
 	int			pid;
 
+	if (input->cmd->fd_in > 2)
+		close(input->cmd->fd_in);
 	if(pipe(pipy) != 0)
 		perror("Minishell:");
 	setup_kiddi_signals();
@@ -91,8 +93,6 @@ void	here_doc(t_pair *input)
 		exit(0);
 	}
 	setup_parent_signals();
-	if (input->cmd->fd_in > 2)
-		close(input->cmd->fd_in);
 	waitpid(pid, &input->cmd->data->exitcode, 0);
 	// if (input->cmd->data->exitcode > 255)
 	// 	input->cmd->data->exitcode /= 256;
