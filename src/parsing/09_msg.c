@@ -21,7 +21,7 @@ void	msg_senut(char c, bool unclosed_quote)
 /*
 Format:
 printf("minishell: %s: %s: %s", err_msg0, err_msg1, err_msg2)
-Can send NULL if string 2 or 3 not needed, will skip accordingly.
+Send NULL if string 2 or 3 not needed, will skip accordingly.
 */
 void	msg_err(char *err_msg0, char *err_msg1, char *err_msg2)
 {
@@ -43,7 +43,7 @@ void	msg_err(char *err_msg0, char *err_msg1, char *err_msg2)
 /*
 Format:
 printf("minishell: %s: `%s': %s", err_msg0, err_msg1, err_msg2)
-Can send NULL if string 2 or 3 not needed, will skip accordingly.
+Send NULL if string 2 or 3 not needed, will skip accordingly.
 But the point of this function is that string 2 will be quoted.
 */
 void	msg_err_wquote(char *err_msg0, char *err_msg1, char *err_msg2)

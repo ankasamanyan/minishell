@@ -88,7 +88,7 @@ bool	postproc_syntaxerror(t_par *p);
 bool	has_invalidoperator(t_list *tokenlist);
 bool	has_illegaloperatorsequence(t_par *p);
 
-//06_parser1.c
+//06_parser.c
 void	parser(t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,

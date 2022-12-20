@@ -21,6 +21,8 @@ void	remove_quotes(t_par *p)
 				result = append_char(result, token->lexeme[i]);
 			i++;
 		}
+		if (!result)
+			result = ft_calloc(1, sizeof(char));
 		free(token->lexeme);
 		token->lexeme = result;
 		temp = temp->next;

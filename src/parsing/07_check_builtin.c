@@ -21,11 +21,6 @@ void	check_builtin(t_par *p)
 	}
 }
 
-/*
-The builtin "exit" will never actually get here in the current
-structure. It is still tested for to make this function adaptable
-for potential changes.
-*/
 bool	is_builtin(t_cmd *cmdnode)
 {
 	if (!cmdnode->cmd_arr || !cmdnode->cmd_arr[0])
