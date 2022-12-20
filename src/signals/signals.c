@@ -51,14 +51,14 @@ void	exec_parent(void)
 	signal(SIGQUIT, signal_thingy);
 }
 
-void	set_signals(t_sigtype sig_type)
+void	set_signals(t_sigmode sig_mode)
 {
-	if (sig_type == interactive)
+	if (sig_mode == interactive)
 	{
 		signal(SIGINT, sig_newline);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	if (sig_type == ignore)
+	if (sig_mode == ignore)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_IGN);
