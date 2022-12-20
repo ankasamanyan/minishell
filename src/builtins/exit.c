@@ -12,12 +12,12 @@ int	get_exitval(t_data *data, char **cmds)
 		return (data->exitcode);
 	if (!is_onlydigits(cmds[1]))
 	{
-		msg_error("exit", cmds[1], E_NUMARG);
+		msg_err("exit", cmds[1], E_NUMARG);
 		return (255);
 	}
 	if (cmds[2])
 	{
-		msg_error("exit", E_MANYARG, NULL);
+		msg_err("exit", E_MANYARG, NULL);
 		return (1);
 	}
 	return (ft_atoi(cmds[1]) % 256);

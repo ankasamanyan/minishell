@@ -35,7 +35,7 @@ bool	has_invalidoperator(t_list *tokenlist)
 				&& ft_strncmp(token->lexeme, "<<", 3)
 				&& ft_strncmp(token->lexeme, "|", 2))
 			{
-				msg_senut(token->lexeme[ft_strlen(token->lexeme) - 1]);
+				msg_senut(token->lexeme[ft_strlen(token->lexeme) - 1], false);
 				return (true);
 			}
 		}
@@ -84,7 +84,7 @@ bool	has_illegaloperatorsequence(t_par *p)
 				temp = temp->next;
 				continue ;
 			}
-			msg_senut(next_token->lexeme[ft_strlen(next_token->lexeme) - 1]);
+			msg_senut(next_token->lexeme[ft_strlen(next_token->lexeme) - 1], 0);
 			return (true);
 		}
 		temp = temp->next;

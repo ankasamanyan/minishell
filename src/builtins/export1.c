@@ -14,7 +14,7 @@ int	export(t_cmd *cmdnode)
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode), 0);
 	if (cmdnode->cmd_arr[1][0] == '-')
-		return (msg_error("export", cmdnode->cmd_arr[1], E_INVALOPT), 1);
+		return (msg_err("export", cmdnode->cmd_arr[1], E_INVALOPT), 1);
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
@@ -64,7 +64,7 @@ void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring)
 
 	node_samename = get_namenode(exp_list, expnode->name);
 	if (has_invalidformat(expnode->name))
-		msg_err_quote("export", cmdstring, E_NOTVALID);
+		msg_err_wquote("export", cmdstring, E_NOTVALID);
 	else if (node_samename && expnode->value)
 	{
 		if (((t_exp *)node_samename->content)->value)

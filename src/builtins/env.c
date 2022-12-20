@@ -6,10 +6,10 @@ int	env(t_cmd *cmdnode)
 	int		i;
 
 	if (cmdnode->cmd_arr[1])
-		return (msg_error("env", E_MANYARG, NULL), 1);
+		return (msg_err("env", E_MANYARG, NULL), 1);
 	data = cmdnode->data;
 	if (!data->env)
-		return (msg_error("env", "not found", NULL), 1);
+		return (msg_err("env", "not found", NULL), 1);
 	i = 0;
 	while (data->env[i])
 	{

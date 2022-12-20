@@ -2,7 +2,7 @@
 # define PARSING_H
 
 # define E_ARGC "Additional arguments discarded. Running as \"./minishell\"\n"
-# define E_UNCLOSEDQUOTE "unclosed quote"
+# define E_UNCLOSEDQUOTE ": unclosed quote"
 # define E_SENUT "Minishell: syntax error near unexpected token `"
 # define E_BLTNFLAG "Minishell: flags not accepted for builtin `"
 # define E_MANYARG "too many arguments"
@@ -122,9 +122,9 @@ void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
 //09_msg.c
-void	msg_senut(char c);
-void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
-void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2);
+void	msg_senut(char c, bool unclosed_quote);
+void	msg_err(char *err_msg0, char *err_msg1, char *err_msg2);
+void	msg_err_wquote(char *err_msg0, char *err_msg1, char *err_msg2);
 
 //10_shutdown1.c
 void	shutdown_parsing(t_data *data);

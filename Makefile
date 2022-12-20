@@ -32,7 +32,7 @@ SRC = 	src/minishell.c\
 		07_util_is.c\
 		07_util_general.c\
 		08_helper_print.c\
-		09_exits+broadcast.c\
+		09_msg.c\
 		10_shutdown1.c\
 		10_shutdown2.c)\
 		$(addprefix src/signals/,\

@@ -9,7 +9,7 @@ typedef enum sig_type
 	ignore = 8
 }	t_sigtype;
 
-//1_signals.c
+//signals.c
 void	set_signals(t_sigtype sig_type);
 void	sig_newline(int sig);
 /* normal parents */
