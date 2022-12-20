@@ -1,96 +1,5 @@
 #include "../../include/minishell.h"
 
-void	path_access(t_cmd *cmd, char **smoll_pathsies)
-{
-	char	*lil_path;
-	int		i;
-
-	i = 0;
-	if (smoll_pathsies)
-	{
-		while (smoll_pathsies[i])
-		{
-			lil_path = ft_triple_strjoin(smoll_pathsies[i++],
-					"/", cmd->cmd_arr[0]);
-			if (access(lil_path, X_OK) == 0)
-			{
-				cmd->data->full_path = lil_path;
-				cmd->data->halp = true;
-				return ;
-			}
-			else
-				free(lil_path);
-		}
-	}
-}
-
-void	find_cmd_path(t_cmd *cmd)
-{
-	char	**smoll_pathsies;
-	int		aaaaa;
-
-	aaaaa = 1;
-	cmd->data->halp = false;
-	if (cmd->cmd_arr)
-	{
-		smoll_pathsies = ft_split(cmd->data->big_path, ':');
-		cmd->data->full_path = NULL;
-		path_access(cmd, smoll_pathsies);
-		if (access(cmd->cmd_arr[0], X_OK) == 0)
-		{
-			cmd->data->full_path = ft_strdup(cmd->cmd_arr[0]);
-			cmd->data->halp = true;
-		}
-		else
-		{
-			if (access(cmd->cmd_arr[0], F_OK) == 0)
-				aaaaa = 2;
-		}
-		ft_free_array(smoll_pathsies);
-		if (!cmd->data->halp)
-			err_cmd_not_found(cmd->cmd_arr[0], aaaaa, cmd->data);
-	}
-}
-
-void	kiddi_process(t_cmd *cmd)
-{
-	if (cmd->data->file_err)
-		exit (0);
-	if (cmd->fd_in > 2)
-		dup2(cmd->fd_in, STDIN_FILENO);
-	if (cmd->fd_out > 2)
-		dup2(cmd->fd_out, STDOUT_FILENO);
-	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
-	perror("Minishell: Execve error");
-	exit(-1);
-}
-
-void	search_path_env(t_cmd *cmd)
-{
-	int	i;
-
-	i = 0;
-	if (cmd->data->big_path)
-	{
-		free(cmd->data->big_path);
-		cmd->data->big_path = NULL;
-	}
-	if (cmd->data->env)
-	{
-		while (cmd->data->env[i])
-		{
-			if (ft_strncmp(cmd->data->env[i], "PATH=", 5) == 0)
-			{
-				cmd->data->big_path = ft_strdup(cmd->data->env[i] + 5);
-				break ;
-			}
-			i++;
-		}
-	}
-	if (!cmd->data->env)
-		cmd->data->big_path = ft_strdup("");
-}
-
 void	exec(void *cmd_list)
 {
 	t_cmd	*cmd;
@@ -105,7 +14,6 @@ void	exec(void *cmd_list)
 	ft_lstiter(cmd->inputlist, &input_files);
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files);
-	// printf("in exec start pipe_in: %i  pipe out: %i\n", cmd->fd_in, cmd->fd_out);
 	if (cmd->data->file_err)
 		return ;
 	if (cmd->builtin)
@@ -113,6 +21,19 @@ void	exec(void *cmd_list)
 	else
 		pipex(cmd);
 	close_them_all(cmd);
+}
+
+void	kiddi_process(t_cmd *cmd)
+{
+	if (cmd->data->file_err)
+		exit (0);
+	if (cmd->fd_in > 2)
+		dup2(cmd->fd_in, STDIN_FILENO);
+	if (cmd->fd_out > 2)
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	execve(cmd->data->full_path, cmd->cmd_arr, cmd->data->env);
+	perror("Minishell: Execve error");
+	exit(-1);
 }
 
 void	pipex(t_cmd *cmd)

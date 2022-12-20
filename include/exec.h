@@ -18,6 +18,7 @@ void	pipex(t_cmd *cmd);
 void	kiddi_process(t_cmd *cmd);
 void	close_them_all(t_cmd *cmd);
 /* input fd configuration */
+int	    configsss(t_pair *input);
 void	if_no_input(t_cmd *cmd);
 void	input_files(void *input);
 void	here_doc(t_pair *input);

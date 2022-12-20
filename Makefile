@@ -15,10 +15,11 @@ RESET	:= \033[0m
 
 SRC = 	src/minishell.c\
 		$(addprefix src/exec/,\
-		file_config.c\
+		input_config.c\
 		better_libft.c\
 		minihell.c\
-		builtin_config.c)\
+		builtin_config.c\
+		output_config.c)\
 		$(addprefix src/parsing/,\
 		00_parsing.c\
 		01_preproc_syntax.c\
