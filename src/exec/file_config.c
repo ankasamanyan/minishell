@@ -76,24 +76,24 @@ void	here_doc_kiddy(t_pair *input, int *pipy)
 	char		*stringy;
 
 	while (42)
-		{
-			stringy = readline("> ");
-			if (!stringy)
-				exit(0);
-			stringy = append_char(stringy, '\n');
-			if ((ft_strncmp(stringy, input->string,
-						ft_strlen(input->string)) == 0)
-				&& (stringy[ft_strlen(input->string) + 1] == '\0')
-				&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
-				break ;
-			else
-				write(pipy[WRITE_END], stringy, ft_strlen(stringy));
-			free(stringy);
-		}
+	{
+		stringy = readline("> ");
+		if (!stringy)
+			exit(0);
+		stringy = append_char(stringy, '\n');
+		if ((ft_strncmp(stringy, input->string,
+					ft_strlen(input->string)) == 0)
+			&& (stringy[ft_strlen(input->string) + 1] == '\0')
+			&& (stringy[ft_strlen(input->string)] == '\n') && stringy)
+			break ;
+		else
+			write(pipy[WRITE_END], stringy, ft_strlen(stringy));
 		free(stringy);
-		close(pipy[WRITE_END]);
-		close(pipy[READ_END]);
-		exit(0);
+	}
+	free(stringy);
+	close(pipy[WRITE_END]);
+	close(pipy[READ_END]);
+	exit(0);
 }
 
 void	here_doc(t_pair *input)
