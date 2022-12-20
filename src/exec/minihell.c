@@ -25,6 +25,7 @@ void	exec(void *cmd_list)
 
 void	kiddi_process(t_cmd *cmd)
 {
+	signal(SIGINT, SIG_DFL);
 	if (cmd->data->file_err)
 		exit (0);
 	if (cmd->fd_in > 2)
@@ -55,8 +56,8 @@ void	pipex(t_cmd *cmd)
 		else
 		{
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			if (cmd->data->exitcode > 255)
-				cmd->data->exitcode /= 256;
+			if (cmd->data->exitcode != 0)
+				cmd->data->exitcode += 128;
 			smth_cedric_needs();
 			if (cmd->data->full_path)
 				free(cmd->data->full_path);

@@ -20,7 +20,6 @@ void	smth_cedric_needs(void)
 void	kiddi_signals(int signal)
 {
 	(void)signal;
-	exit(1);
 }
 
 void	setup_kiddi_signals(void)

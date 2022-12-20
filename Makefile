@@ -19,7 +19,8 @@ SRC = 	src/minishell.c\
 		better_libft.c\
 		minihell.c\
 		builtin_config.c\
-		output_config.c)\
+		output_config.c\
+		find_path.c)\
 		$(addprefix src/parsing/,\
 		00_parsing.c\
 		01_preproc_syntax.c\
