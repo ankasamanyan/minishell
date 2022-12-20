@@ -121,8 +121,7 @@ void	print_cmd_arr(t_list *node);
 void	print_inputlist(t_list *node);
 void	print_outputlist(t_list *node);
 
-//09_exits+broadcast.c
-void	errorexit_onlymsg(char *msg);
+//09_msg.c
 void	msg_senut(char c);
 void	msg_error(char *err_msg0, char *err_msg1, char *err_msg2);
 void	msg_err_quote(char *err_msg0, char *err_msg1, char *err_msg2);
