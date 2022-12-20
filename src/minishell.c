@@ -44,6 +44,7 @@ void	init_datastruct(t_data *data, char **env)
 	data->big_path = NULL;
 	data->pipe[READ_END] = -1;
 	data->pipe[WRITE_END] = -1;
+	data->first = true;
 }
 
 /*

@@ -105,6 +105,7 @@ void	exec(void *cmd_list)
 	ft_lstiter(cmd->inputlist, &input_files);
 	if_no_output(cmd);
 	ft_lstiter(cmd->outputlist, &output_files);
+	// printf("in exec start pipe_in: %i  pipe out: %i\n", cmd->fd_in, cmd->fd_out);
 	if (cmd->data->file_err)
 		return ;
 	if (cmd->builtin)
