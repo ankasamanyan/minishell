@@ -6,7 +6,7 @@
 /*   By: wmardin <wmardin@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 14:05:27 by wmardin           #+#    #+#             */
-/*   Updated: 2022/12/20 14:05:27 by wmardin          ###   ########.fr       */
+/*   Updated: 2022/12/20 19:42:33 by wmardin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,5 @@ char	*joinandfree(t_par *p, char *lexeme)
 	free(temp);
 	free(p->str_c);
 	free(lexeme);
-	printf("reulst:'%s'\n", result);
 	return (result);
 }
