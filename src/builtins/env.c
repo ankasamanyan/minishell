@@ -20,27 +20,6 @@ int	env(t_cmd *cmdnode)
 	return (0);
 }
 
-//it works
-int	env_builtin(t_cmd *cmdnode)
-{
-	int		i;
-	t_data	*data;
-
-	data = cmdnode->data;
-	if (cmdnode->cmd_arr[1])
-		return (0);
-	if (!data->env)
-		return (0);
-	i = 0;
-	while (data->env[i])
-	{
-		write(cmdnode->fd_out, data->env[i], ft_strlen(data->env[i]));
-		write(cmdnode->fd_out, "\n", 1);
-		i++;
-	}
-	return (0);
-}
-
 /*
 env is the list of export variables that are declared and defined.
 E.g. "export i=0" will result in i being added to env.

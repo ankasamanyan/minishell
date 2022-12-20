@@ -93,8 +93,6 @@ void	parser(t_par *p);
 int		get_tokentype(t_par *p, t_tok *token);
 t_cmd	*handle_token(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
 			char *lexeme);
-
-//06_parser2.c
 t_cmd	*add_commandnode(t_par *p);
 t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype);
 

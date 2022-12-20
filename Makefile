@@ -27,7 +27,6 @@ SRC = 	src/minishell.c\
 		04_remove_quotes.c\
 		05_postproc_syntax.c\
 		06_parser1.c\
-		06_parser2.c\
 		07_check_builtin.c\
 		07_util_is.c\
 		07_util_general.c\

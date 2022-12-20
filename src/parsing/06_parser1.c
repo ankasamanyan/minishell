@@ -1,8 +1,5 @@
 #include "../../include/minishell.h"
 
-/*
-The decision tree is spread across the 2 "handle" functions.
-*/
 void	parser(t_par *p)
 {
 	t_list			*temp;
@@ -55,20 +52,17 @@ operators
 -	pipe operator
 	-	initiates a new command node
 	-	doesn't itself lead to input / output redir. The absence of
-		input / output redir let's exec part know that a pipe
+		input / output redir lets exec part know that a pipe
 		connects the commands
 -	input redirection operator (doesn't matter whether '<' or '<<')
 -	output redirection operator (doesn't matter whether '>' or '>>')
 -	redirection string (doesn't really matter whether for input or output)
-commands
+command words
 In the current version, there is no difference between the subcases.
 They are identified automatically by their position in the char **cmd_array.
 -	continuation of a command string sequence
 	-	following a prior command string or
-	-	following the single string after an input redirection operator
-	-	but not following the single string after an output redir operator
-		I think this one is wrong! It's certainly not handled this way in the
-		current version any more.
+	-	following the single string after an io redirection operator
 -	start of a new command string sequence.
 	-	not following anything (start of input string)
 	-	following a pipe
@@ -91,39 +85,31 @@ int	get_tokentype(t_par *p, t_tok *token)
 	return (cmdstring);
 }
 
-/*
-t_cmd	*handle_cmdnode_old(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
-	char *lexeme)
+t_cmd	*add_commandnode(t_par *p)
 {
-	if (p->cmdlist == NULL)
-		cmdnode = add_commandnode(p);
-	if (curr_tokentype == newcmd)
-	{
-		if (p->prev_tokentype != init_tok)
-			cmdnode = add_commandnode(p);
-		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, lexeme);
-	}
-	if (curr_tokentype == cmdstring)
-		cmdnode->cmd_arr = append_string(cmdnode->cmd_arr, lexeme);
+	t_cmd	*cmdnode;
+
+	cmdnode = malloc(1 * sizeof(t_cmd));
+	cmdnode->cmd_arr = NULL;
+	cmdnode->inputlist = NULL;
+	cmdnode->outputlist = NULL;
+	cmdnode->fd_in = 0;
+	cmdnode->fd_out = 1;
+	cmdnode->data = p->data;
+	ft_lstadd_back(&p->cmdlist, ft_lstnew(cmdnode));
 	return (cmdnode);
 }
-*/
 
-/*
-void	handle_redirnode(t_par *p, t_cmd *cmdnode, t_toktype curr_tokentype,
-	char *lexeme)
+t_pair	*add_redirnode(t_cmd *cmdnode, char *operator, t_toktype tokentype)
 {
-	t_pair			*redir_pair;
+	t_pair	*redir_pair;
 
-	if (curr_tokentype & (input_redir_oper | output_redir_oper))
-		redir_pair = add_redirnode(cmdnode, lexeme, curr_tokentype);
-	if (curr_tokentype & (input_redir_str | output_redir_str))
-	{
-		if (p->prev_tokentype == input_redir_oper)
-			redir_pair = ft_lstlast(cmdnode->inputlist)->content;
-		if (p->prev_tokentype == output_redir_oper)
-			redir_pair = ft_lstlast(cmdnode->outputlist)->content;
-		redir_pair->string = lexeme;
-	}
+	redir_pair = malloc (1 * sizeof(t_pair));
+	redir_pair->doublebracket = ft_strlen(operator) == 2;
+	redir_pair->cmd = cmdnode;
+	if (tokentype == input_redir_oper)
+		ft_lstadd_back(&cmdnode->inputlist, ft_lstnew(redir_pair));
+	else
+		ft_lstadd_back(&cmdnode->outputlist, ft_lstnew(redir_pair));
+	return (redir_pair);
 }
-*/

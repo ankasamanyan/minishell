@@ -24,7 +24,6 @@ int		echo_builtin(t_cmd *cmd);
 
 //env.c
 int		env(t_cmd *cmdnode);
-int		env_builtin(t_cmd *cmdnode);
 void	build_env(t_data *data, t_list *exp_list);
 
 //exit.c
