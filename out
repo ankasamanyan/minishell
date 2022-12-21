@@ -1,2 +1,114 @@
-src/signals/signals.c: Error!
+include/builtins.h: Error!
 Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+include/exec.h: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+include/minishell.h: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+include/parsing.h: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+include/signals.h: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/minishell.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/cd.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/echo.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/env.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/exit.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/export.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/export_init.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/export_ordering.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/pwd.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/builtins/unset.c: Error!
+Error: INVALID_HEADER       (line:   1, col:   1):	Missing or invalid 42 header
+src/exec/better_libft.c: OK!
+src/exec/builtin_config.c: OK!
+src/exec/find_path.c: OK!
+src/exec/input_config.c: OK!
+src/exec/minihell.c: OK!
+src/exec/output_config.c: OK!
+src/libft/include/ft_printf.h: OK!
+src/libft/include/get_next_line.h: OK!
+src/libft/include/libft.h: OK!
+src/libft/src/ft_gnl/get_next_line.c: OK!
+src/libft/src/ft_gnl/get_next_line_utils.c: OK!
+src/libft/src/ft_is/ft_isalnum.c: OK!
+src/libft/src/ft_is/ft_isalpha.c: OK!
+src/libft/src/ft_is/ft_isascii.c: OK!
+src/libft/src/ft_is/ft_isdigit.c: OK!
+src/libft/src/ft_is/ft_isprint.c: OK!
+src/libft/src/ft_list/ft_lstadd_back.c: OK!
+src/libft/src/ft_list/ft_lstadd_front.c: OK!
+src/libft/src/ft_list/ft_lstclear.c: OK!
+src/libft/src/ft_list/ft_lstdelone.c: OK!
+src/libft/src/ft_list/ft_lstiter.c: OK!
+src/libft/src/ft_list/ft_lstlast.c: OK!
+src/libft/src/ft_list/ft_lstmap.c: OK!
+src/libft/src/ft_list/ft_lstnew.c: OK!
+src/libft/src/ft_list/ft_lstsize.c: OK!
+src/libft/src/ft_mem/ft_bzero.c: OK!
+src/libft/src/ft_mem/ft_calloc.c: OK!
+src/libft/src/ft_mem/ft_memchr.c: OK!
+src/libft/src/ft_mem/ft_memcmp.c: OK!
+src/libft/src/ft_mem/ft_memcpy.c: OK!
+src/libft/src/ft_mem/ft_memmove.c: OK!
+src/libft/src/ft_mem/ft_memset.c: OK!
+src/libft/src/ft_printf/ft_checkformat.c: OK!
+src/libft/src/ft_printf/ft_printchar.c: OK!
+src/libft/src/ft_printf/ft_printdecimal.c: OK!
+src/libft/src/ft_printf/ft_printf.c: OK!
+src/libft/src/ft_printf/ft_printhex_lower.c: OK!
+src/libft/src/ft_printf/ft_printhex_upper.c: OK!
+src/libft/src/ft_printf/ft_printint.c: OK!
+src/libft/src/ft_printf/ft_printpointer.c: OK!
+src/libft/src/ft_printf/ft_printstring.c: OK!
+src/libft/src/ft_printf/ft_printunsignedint.c: OK!
+src/libft/src/ft_put/ft_putchar_fd.c: OK!
+src/libft/src/ft_put/ft_putendl_fd.c: OK!
+src/libft/src/ft_put/ft_putnbr_fd.c: OK!
+src/libft/src/ft_put/ft_putstr_fd.c: OK!
+src/libft/src/ft_string/ft_atoi.c: OK!
+src/libft/src/ft_string/ft_itoa.c: OK!
+src/libft/src/ft_string/ft_split.c: OK!
+src/libft/src/ft_string/ft_strchr.c: OK!
+src/libft/src/ft_string/ft_strdup.c: OK!
+src/libft/src/ft_string/ft_striteri.c: OK!
+src/libft/src/ft_string/ft_strjoin.c: OK!
+src/libft/src/ft_string/ft_strlcat.c: OK!
+src/libft/src/ft_string/ft_strlcpy.c: OK!
+src/libft/src/ft_string/ft_strlen.c: OK!
+src/libft/src/ft_string/ft_strmapi.c: OK!
+src/libft/src/ft_string/ft_strncmp.c: OK!
+src/libft/src/ft_string/ft_strnstr.c: OK!
+src/libft/src/ft_string/ft_strrchr.c: OK!
+src/libft/src/ft_string/ft_strtrim.c: OK!
+src/libft/src/ft_string/ft_substr.c: OK!
+src/libft/src/ft_string/ft_tolower.c: OK!
+src/libft/src/ft_string/ft_toupper.c: OK!
+src/libft/src/mulain/is_intsize.c: OK!
+src/libft/src/mulain/is_numberformat.c: OK!
+src/libft/src/mulain/printlist.c: OK!
+src/libft/src/mulain/strlen_mod.c: OK!
+src/parsing/00_parsing.c: OK!
+src/parsing/01_preproc_syntax.c: OK!
+src/parsing/02_lexer.c: OK!
+src/parsing/03_expand_var.c: OK!
+src/parsing/04_remove_quotes.c: OK!
+src/parsing/05_postproc_syntax.c: OK!
+src/parsing/06_parser.c: OK!
+src/parsing/07_check_builtin.c: OK!
+src/parsing/07_util_general.c: OK!
+src/parsing/07_util_is.c: OK!
+src/parsing/08_helper_print.c: OK!
+src/parsing/09_msg.c: OK!
+src/parsing/10_shutdown1.c: OK!
+src/parsing/10_shutdown2.c: OK!
+src/signals/og_signals.c: OK!
+src/signals/signals.c: OK!

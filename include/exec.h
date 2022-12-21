@@ -8,7 +8,7 @@ typedef struct s_pair	t_pair;
 typedef struct s_cmd	t_cmd;
 
 /* my additional Libft functions, because
-    Wolf decided to use his Libft as submodule */
+	Wolf decided to use his Libft as submodule */
 void	ft_free_array(char **array);
 void	print_2d_array(char	**arr, int fd);
 char	*ft_triple_strjoin(char *first, char *second, char *third);
@@ -18,7 +18,7 @@ void	pipex(t_cmd *cmd);
 void	kiddi_process(t_cmd *cmd);
 void	close_them_all(t_cmd *cmd);
 /* input fd configuration */
-int	    configsss(t_pair *input);
+int		configsss(t_pair *input);
 void	if_no_input(t_cmd *cmd);
 void	input_files(void *input);
 void	here_doc(t_pair *input);
