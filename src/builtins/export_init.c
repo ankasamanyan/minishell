@@ -71,3 +71,29 @@ t_list	*get_namenode(t_list *explist, char *name)
 	}
 	return (NULL);
 }
+
+void	print_export(t_cmd *cmdnode)
+{
+	int			i;
+	t_list		*temp;
+	t_exp		*expnode;
+
+	i = 0;
+	while (i < ft_lstsize(cmdnode->data->exp_list))
+	{
+		temp = cmdnode->data->exp_list;
+		while (((t_exp *)temp->content)->rank != i)
+			temp = temp->next;
+		expnode = temp->content;
+		ft_putstr_fd("declare -x ", cmdnode->fd_out);
+		ft_putstr_fd(expnode->name, cmdnode->fd_out);
+		if (expnode->value)
+		{
+			ft_putstr_fd("=\"", cmdnode->fd_out);
+			ft_putstr_fd(expnode->value, cmdnode->fd_out);
+			ft_putstr_fd("\"", cmdnode->fd_out);
+		}
+		ft_putstr_fd("\n", cmdnode->fd_out);
+		i++;
+	}
+}

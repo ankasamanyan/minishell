@@ -6,7 +6,7 @@
 /*   By: wmardin <wmardin@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 14:05:45 by wmardin           #+#    #+#             */
-/*   Updated: 2022/12/20 14:05:45 by wmardin          ###   ########.fr       */
+/*   Updated: 2022/12/20 21:39:20 by wmardin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 /*
 Checks for presence of a builtin and sets the builtin bool
 accordingly.
-First, checks whether the first command node contains a call
-to the builtin "exit" and if so, calls it.
 */
 void	check_builtin(t_par *p)
 {
