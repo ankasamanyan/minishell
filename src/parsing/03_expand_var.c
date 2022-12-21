@@ -6,7 +6,7 @@
 /*   By: wmardin <wmardin@student.42wolfsburg.de>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/20 14:05:27 by wmardin           #+#    #+#             */
-/*   Updated: 2022/12/20 19:42:33 by wmardin          ###   ########.fr       */
+/*   Updated: 2022/12/21 18:09:03 by wmardin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	get_dollarposition(t_par *p, char *input)
 		check_quotation(p, input[i]);
 		if (p->single_quoted)
 			continue ;
-		if (input[i] == '$' && input[i + 1])
+		if (input[i] == '$' && input[i + 1] && input[i + 1] != '\"')
 		{
 			p->double_quoted = false;
 			return (i);
