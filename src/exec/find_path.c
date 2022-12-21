@@ -6,7 +6,7 @@
 /*   By: akasaman <akasaman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:24:50 by akasaman          #+#    #+#             */
-/*   Updated: 2022/12/21 16:24:51 by akasaman         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:45:11 by akasaman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ void	find_cmd_path(t_cmd *cmd)
 
 	aaaaa = 1;
 	cmd->data->halp = false;
-	if (cmd->cmd_arr)
+	if (cmd->cmd_arr && cmd->cmd_arr[0])
 	{
+		if (ft_strlen(cmd->cmd_arr[0]) == 0)
+			return (err_cmd_not_found(cmd->cmd_arr[0], aaaaa, cmd->data));
 		smoll_pathsies = ft_split(cmd->data->big_path, ':');
 		cmd->data->full_path = NULL;
 		path_access(cmd, smoll_pathsies);
@@ -54,10 +56,8 @@ void	find_cmd_path(t_cmd *cmd)
 			cmd->data->halp = true;
 		}
 		else
-		{
 			if (access(cmd->cmd_arr[0], F_OK) == 0)
 				aaaaa = 2;
-		}
 		ft_free_array(smoll_pathsies);
 		if (!cmd->data->halp)
 			err_cmd_not_found(cmd->cmd_arr[0], aaaaa, cmd->data);
