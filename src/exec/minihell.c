@@ -6,7 +6,7 @@
 /*   By: akasaman <akasaman@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/21 16:24:55 by akasaman          #+#    #+#             */
-/*   Updated: 2022/12/21 17:24:04 by akasaman         ###   ########.fr       */
+/*   Updated: 2022/12/21 17:53:40 by akasaman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	pipex(t_cmd *cmd)
 		else
 		{
 			waitpid(cmd->data->pid, &cmd->data->exitcode, 0);
-			if (cmd->data->exitcode != 0)
-				cmd->data->exitcode += 128;
 			smth_cedric_needs();
+			if (cmd->data->exitcode > 255)
+				cmd->data->exitcode /= 256;
 			if (cmd->data->full_path)
 				free(cmd->data->full_path);
 			cmd->data->full_path = NULL;
