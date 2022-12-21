@@ -1,15 +1,5 @@
 #include "../include/minishell.h"
 
-/*
--	Minishell needs no arguments, but it won't refuse to run if given some.
-	Just prints a message to inform that the arguments will not be used.
--	If env is not present or doesn't contain
-	the "PATH" array: aborts and sends perror msg.
--	readline returns NULL if EOF (ctrl + d) is the only content read.
-	This makes bash exit, so we also exit.
--	If readline returns stuff, the parsing begins.
-*/
-
 int	main(int argc, char *argv[], char *env[])
 {
 	char		*input;
