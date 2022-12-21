@@ -10,13 +10,13 @@ int	pwd(t_cmd *cmdnode)
 	char	*path;
 
 	if (cmdnode->cmd_arr[1])
-		return (msg_err("pwd", E_MANYARG, NULL), true);
+		return (msg_err("pwd", E_MANYARG, NULL), 1);
 	path = NULL;
 	path = getcwd(path, 0);
 	if (!path)
-		return (msg_err("pwd", E_NOFILDIR, NULL), true);
+		return (msg_err("pwd", E_NOFILDIR, NULL), 1);
 	write(cmdnode->fd_out, path, ft_strlen(path));
 	write(cmdnode->fd_out, "\n", 1);
 	free(path);
-	return (false);
+	return (0);
 }

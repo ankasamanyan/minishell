@@ -35,12 +35,13 @@ bool	is_onlydigits(char *string);
 void	init_exportlistandenv(t_data *data, char **env);
 void	increase_shlvl(t_data *data);
 t_list	*get_namenode(t_list *explist, char *name);
-
-//export1.c
-int		export(t_cmd *cmdnode);
 void	print_export(t_cmd *cmdnode);
+
+//export.c
+int		export(t_cmd *cmdnode);
 t_exp	*build_expnode(char *string);
-void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring);
+int		handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring);
+void	free_expnode(t_exp *expnode);
 bool	has_invalidformat(char *string);
 
 //export_ordering.c

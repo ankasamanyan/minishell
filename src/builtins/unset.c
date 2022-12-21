@@ -6,9 +6,9 @@ int	unset(t_cmd *cmdnode)
 	t_list		*target;
 
 	if (!cmdnode->cmd_arr[1])
-		return (false);
+		return (0);
 	if (cmdnode->cmd_arr[1][0] == '-')
-		return (msg_err("export", cmdnode->cmd_arr[1], E_INVALOPT), true);
+		return (msg_err("export", cmdnode->cmd_arr[1], E_INVALOPT), 1);
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
@@ -21,7 +21,7 @@ int	unset(t_cmd *cmdnode)
 		}
 		i++;
 	}
-	return (false);
+	return (0);
 }
 
 /*

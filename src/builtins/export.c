@@ -10,7 +10,9 @@
 int	export(t_cmd *cmdnode)
 {
 	int		i;
+	int		ret;
 
+	ret = 0;
 	if (!cmdnode->cmd_arr[1])
 		return (print_export(cmdnode), 0);
 	if (cmdnode->cmd_arr[1][0] == '-')
@@ -18,39 +20,14 @@ int	export(t_cmd *cmdnode)
 	i = 1;
 	while (cmdnode->cmd_arr[i])
 	{
-		handle_expnode(cmdnode->data->exp_list,
-			build_expnode(cmdnode->cmd_arr[i]), cmdnode->cmd_arr[i]);
+		if (handle_expnode(cmdnode->data->exp_list,
+				build_expnode(cmdnode->cmd_arr[i]), cmdnode->cmd_arr[i]))
+			ret = 1;
 		i++;
 	}
 	set_order(cmdnode->data->exp_list);
 	build_env(cmdnode->data, cmdnode->data->exp_list);
-	return (0);
-}
-
-void	print_export(t_cmd *cmdnode)
-{
-	int			i;
-	t_list		*temp;
-	t_exp		*expnode;
-
-	i = 0;
-	while (i < ft_lstsize(cmdnode->data->exp_list))
-	{
-		temp = cmdnode->data->exp_list;
-		while (((t_exp *)temp->content)->rank != i)
-			temp = temp->next;
-		expnode = temp->content;
-		ft_putstr_fd("declare -x ", cmdnode->fd_out);
-		ft_putstr_fd(expnode->name, cmdnode->fd_out);
-		if (expnode->value)
-		{
-			ft_putstr_fd("=\"", cmdnode->fd_out);
-			ft_putstr_fd(expnode->value, cmdnode->fd_out);
-			ft_putstr_fd("\"", cmdnode->fd_out);
-		}
-		ft_putstr_fd("\n", cmdnode->fd_out);
-		i++;
-	}
+	return (ret);
 }
 
 /*
@@ -84,14 +61,17 @@ t_exp	*build_expnode(char *string)
 	return (expnode);
 }
 
-void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring)
+int	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring)
 {
 	t_list		*node_samename;
 
 	node_samename = get_namenode(exp_list, expnode->name);
 	if (has_invalidformat(expnode->name))
-		msg_err_wquote("export", cmdstring, E_NOTVALID);
-	else if (node_samename && expnode->value)
+	{
+		free_expnode(expnode);
+		return (msg_err_wquote("export", cmdstring, E_NOTVALID), 1);
+	}
+	if (node_samename && expnode->value)
 	{
 		if (((t_exp *)node_samename->content)->value)
 			free(((t_exp *)node_samename->content)->value);
@@ -100,8 +80,14 @@ void	handle_expnode(t_list *exp_list, t_exp *expnode, char *cmdstring)
 	else if (!node_samename)
 	{
 		ft_lstadd_back(&exp_list, ft_lstnew(expnode));
-		return ;
+		return (0);
 	}
+	free_expnode(expnode);
+	return (0);
+}
+
+void	free_expnode(t_exp *expnode)
+{
 	free(expnode->name);
 	if (expnode->value)
 		free(expnode->value);
