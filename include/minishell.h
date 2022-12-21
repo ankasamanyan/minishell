@@ -105,7 +105,7 @@ typedef struct s_data
 //minishell.c
 void	init_datastruct(t_data *data, char **env);
 bool	specialcase(t_data *data, char *input);
-void	reset_datastruct(t_data *d);
+void	reset_datastruct(t_data *data);
 void	shutdown_main(t_data *data);
 
 #endif
