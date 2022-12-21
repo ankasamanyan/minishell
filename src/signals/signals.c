@@ -11,51 +11,10 @@ void	sig_newline(int sig)
 	}
 }
 
-void	smth_cedric_needs(void)
-{
-	signal(SIGINT, sig_newline);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	kiddi_signals(int signal)
-{
-	(void)signal;
-}
-
-void	setup_kiddi_signals(void)
-{
-	signal(SIGINT, kiddi_signals);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-// void	cedyy(int signal)
-// {
-// 	(void)signal;
-// 	data.exitcode = 130;
-// }
-
-	// signal(SIGINT, cedyy);
-	// signal(SIGQUIT, cedyy);
 void	setup_parent_signals(void)
 {
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
-}
-
-// exec child
-void	signal_thingy(int smth)
-{
-	if (smth == SIGINT)
-		ft_putchar_fd('\n', STDERR_FILENO);
-	else if (smth == SIGQUIT)
-		ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-}
-
-// exec parent
-void	exec_parent(void)
-{
-	signal(SIGINT, signal_thingy);
-	signal(SIGQUIT, signal_thingy);
 }
 
 void	set_signals(t_sigmode sig_mode)
@@ -83,7 +42,6 @@ void	signals_ignore(void)
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 }
-
 /*
 Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
 • In interactive mode:
@@ -119,12 +77,6 @@ specified in new_action.
 	new_action.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &new_action, NULL);
 } */
-
-
-// void	signals_exitoninterrupt(void)
-// {
-// 	// if ctrl c set exitcd to 130
-// }
 
 // /*
 // Usually, this function would handle more signals. But we only have to handle
