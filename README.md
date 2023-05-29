@@ -20,7 +20,7 @@ This project is a shell program that allows users to interact with their operati
 Dependencies:
 	The readline library is necessary please find out how to install readline library on your system!
 
-• Run the following code in your terminal to install the library [ For MacOS ]: 
+• Run the following code in your terminal to install the library `[ For MacOS ]`: 
 ```
 if ! [ -r $HOME/goinfre/.brew/Cellar/readline ]; then
 	rm -rf $HOME/goinfre/.brew
