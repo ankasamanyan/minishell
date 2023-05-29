@@ -2,11 +2,16 @@
 
 Minishell is a project that focuses on developing a shell program. It aims to deepen the understanding of Unix systems, processes, provids a basic command-line interface.
 
-## Project Overview
+- [Overview](#overview)
+- [Features](#features)
+- [Usage](#usage)
+- [Commands](#commands)
+
+## Overview
 
 This project is a shell program that allows users to interact with their operating system through a command-line interface. The shell should be capable of executing various commands, handling I/O redirection, supporting environment variables, and managing processes.
 
-## Key Features
+## Features
 
 - Command execution: The shell should execute commands entered by the user, including both built-in commands and external programs.
 - I/O redirection: Support for redirecting input and output streams using symbols such as `>`, `<`, and `>>`.
@@ -15,7 +20,7 @@ This project is a shell program that allows users to interact with their operati
 - Process management: Managing child processes, including process creation and termination.
 - Error handling: Appropriate error handling for various scenarios, providing informative error messages to the user.
 
-## Getting Started
+## Usage
 
 Dependencies:
 	The readline library is necessary please find out how to install readline library on your system!
@@ -54,7 +59,7 @@ make
 ./minishell
 ```
 
-## Usage
+## Commands
 
 Once you have Minishell up and running, you can start using it to execute shell commands. Here are some examples of how you can interact with the shell:
 
